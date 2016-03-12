@@ -51,7 +51,7 @@ class SharingsPlugin extends MicroAppPlugin
     const SHARINGS_OBJECT          = 'http://activitystrea.ms/head/activity-schema.html#product';
     const SHARINGS_RESPONSE_OBJECT = 'http://activityschema.org/object/poll-response';
 
-    var $oldSaveNew = true;
+    //var $oldSaveNew = true;
 
     /**
      * Database schema setup
