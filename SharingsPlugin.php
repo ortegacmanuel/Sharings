@@ -171,10 +171,11 @@ class SharingsPlugin extends MicroAppPlugin
         common_log(LOG_DEBUG, "XXX activity: " . var_export($activity, true));
         common_log(LOG_DEBUG, "XXX profile: " . var_export($profile, true));
         common_log(LOG_DEBUG, "XXX options: " . var_export($options, true));
-
+        error_log("entra en saveNoticeFromActivity");
         // Ok for now, we can grab stuff from the XML entry directly.
         // This won't work when reading from JSON source
         if ($activity->entry) {
+            error_log("entra en activiti entry");
             $sharingElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'sharings');
             $responseElements = $activity->entry->getElementsByTagNameNS(self::POLL_OBJECT, 'response');
             if ($sharingElements->length) {
