@@ -168,6 +168,7 @@ class SharingsPlugin extends MicroAppPlugin
     function saveNoticeFromActivity(Activity $activity, Profile $profile, array $options=array())
     {
         // @fixme
+        error_log("entra en saveNoticeFromActivity");        
         common_log(LOG_DEBUG, "XXX activity: " . var_export($activity, true));
         common_log(LOG_DEBUG, "XXX profile: " . var_export($profile, true));
         common_log(LOG_DEBUG, "XXX options: " . var_export($options, true));
@@ -230,7 +231,7 @@ class SharingsPlugin extends MicroAppPlugin
         switch ($notice->object_type) {
         case self::SHARINGS_OBJECT:
             return $this->activityObjectFromNoticeSharings($notice);
-        case self::POLL_RESPONSE_OBJECT:
+        case self::SHARINGS_RESPONSE_OBJECT:
             return $this->activityObjectFromNoticePollResponse($notice);
         default:
             // TRANS: Exception thrown when performing an unexpected action on a poll.
