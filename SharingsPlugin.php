@@ -175,21 +175,21 @@ class SharingsPlugin extends MicroAppPlugin
         // Ok for now, we can grab stuff from the XML entry directly.
         // This won't work when reading from JSON source
         if ($activity->entry) {
-            $pollElements = $activity->entry->getElementsByTagNameNS(self::POLL_OBJECT, 'poll');
+            $sharingElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'sharings');
             $responseElements = $activity->entry->getElementsByTagNameNS(self::POLL_OBJECT, 'response');
             if ($pollElements->length) {
                 $question = '';
                 $opts = array();
 
-                $data = $pollElements->item(0);
-                foreach ($data->getElementsByTagNameNS(self::POLL_OBJECT, 'question') as $node) {
-                    $question = $node->textContent;
+                $data = $sharingElements->item(0);
+                foreach ($data->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'displayName') as $node) {
+                    $displayName = $node->textContent;
                 }
-                foreach ($data->getElementsByTagNameNS(self::POLL_OBJECT, 'option') as $node) {
-                    $opts[] = $node->textContent;
+                foreach ($data->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'summary') as $node) {
+                    $summary = $node->textContent;
                 }
                 try {
-                    $notice = Poll::saveNew($profile, $question, $opts, $options);
+                    $notice = Sharings::saveNew($profile, $displayName, $summary, $options);
                     common_log(LOG_DEBUG, "Saved Poll from ActivityStream data ok: notice id " . $notice->id);
                     return $notice;
                 } catch (Exception $e) {
@@ -227,8 +227,8 @@ class SharingsPlugin extends MicroAppPlugin
         assert($this->isMyNotice($notice));
 
         switch ($notice->object_type) {
-        case self::POLL_OBJECT:
-            return $this->activityObjectFromNoticePoll($notice);
+        case self::SHARINGS_OBJECT:
+            return $this->activityObjectFromNoticeSharings($notice);
         case self::POLL_RESPONSE_OBJECT:
             return $this->activityObjectFromNoticePollResponse($notice);
         default:
@@ -261,22 +261,22 @@ class SharingsPlugin extends MicroAppPlugin
         return $object;
     }
 
-    function activityObjectFromNoticePoll(Notice $notice)
+    function activityObjectFromNoticeSharings(Notice $notice)
     {
         $object = new ActivityObject();
         $object->id      = $notice->uri;
-        $object->type    = self::POLL_OBJECT;
+        $object->type    = self::SHARING_OBJECT;
         $object->title   = $notice->content;
         $object->summary = $notice->content;
         $object->link    = $notice->getUrl();
 
-        $poll = Poll::getByNotice($notice);
-        if ($poll) {
+        $sharing = Sharings::getByNotice($notice);
+        if ($sharing) {
             // Stash data to be formatted later by
             // $this->activityObjectOutputAtom() or
             // $this->activityObjectOutputJson()...
-            $object->pollQuestion = $poll->question;
-            $object->pollOptions = $poll->getOptions();
+            $object->sharingsDisplayName = $sharing->displayName;
+            $object->sharingSummary = $sharing->summary();
         }
 
         return $object;
