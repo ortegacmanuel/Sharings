@@ -298,7 +298,7 @@ class SharingsPlugin extends MicroAppPlugin
      */
     function activityObjectOutputAtom(ActivityObject $obj, XMLOutputter $out)
     {
-        if (isset($obj->pollQuestion)) {
+        if (isset($obj->sharingsDisplayName)) {
             /**
              * <poll:poll xmlns:poll="http://apinamespace.org/activitystreams/object/poll">
              *   <poll:question>Who wants a poll question?</poll:question>
@@ -307,13 +307,11 @@ class SharingsPlugin extends MicroAppPlugin
              *   <poll:option>Option three</poll:option>
              * </poll:poll>
              */
-            $data = array('xmlns:poll' => self::POLL_OBJECT);
-            $out->elementStart('poll:poll', $data);
-            $out->element('poll:question', array(), $obj->pollQuestion);
-            foreach ($obj->pollOptions as $opt) {
-                $out->element('poll:option', array(), $opt);
-            }
-            $out->elementEnd('poll:poll');
+            $data = array('xmlns:sharings' => self::SHARINGS_OBJECT);
+            $out->elementStart('sharings:sharings', $data);
+            $out->element('sharings:displayName', array(), $obj->sharingsDisplayName);
+            $out->element('sharings:summary', array(), $obj->sharingSummary);
+            $out->elementEnd('sharings:sharings');
         }
         if (isset($obj->pollSelection)) {
             /**
@@ -345,7 +343,7 @@ class SharingsPlugin extends MicroAppPlugin
     public function activityObjectOutputJson(ActivityObject $obj, array &$out)
     {
         common_log(LOG_DEBUG, 'QQQ: ' . var_export($obj, true));
-        if (isset($obj->pollQuestion)) {
+        if (isset($obj->sharingsDisplayName)) {
             /**
              * "poll": {
              *   "question": "Who wants a poll question?",
@@ -356,12 +354,9 @@ class SharingsPlugin extends MicroAppPlugin
              *   ]
              * }
              */
-            $data = array('question' => $obj->pollQuestion,
-                          'options' => array());
-            foreach ($obj->pollOptions as $opt) {
-                $data['options'][] = $opt;
-            }
-            $out['poll'] = $data;
+            $data = array('displayName' => $obj->sharingsDisplayName,
+                          'summary' => $obj->sharingsSummary);
+            $out['sharings'] = $data;
         }
         if (isset($obj->pollSelection)) {
             /**
