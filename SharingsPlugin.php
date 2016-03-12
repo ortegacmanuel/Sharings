@@ -177,9 +177,9 @@ class SharingsPlugin extends MicroAppPlugin
         if ($activity->entry) {
             $sharingElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'sharings');
             $responseElements = $activity->entry->getElementsByTagNameNS(self::POLL_OBJECT, 'response');
-            if ($pollElements->length) {
-                $question = '';
-                $opts = array();
+            if ($sharingElements->length) {
+                $summary = '';
+                $displayName = '';
 
                 $data = $sharingElements->item(0);
                 foreach ($data->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'displayName') as $node) {
@@ -265,7 +265,7 @@ class SharingsPlugin extends MicroAppPlugin
     {
         $object = new ActivityObject();
         $object->id      = $notice->uri;
-        $object->type    = self::SHARING_OBJECT;
+        $object->type    = self::SHARINGS_OBJECT;
         $object->title   = $notice->content;
         $object->summary = $notice->content;
         $object->link    = $notice->getUrl();
