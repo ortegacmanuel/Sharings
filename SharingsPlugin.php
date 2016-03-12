@@ -228,8 +228,10 @@ class SharingsPlugin extends MicroAppPlugin
     {
         assert($this->isMyNotice($notice));
 
+        error_log("entra en activityObjectFromNotice");        
         switch ($notice->object_type) {
         case self::SHARINGS_OBJECT:
+            error_log($notice->object_type);        
             return $this->activityObjectFromNoticeSharings($notice);
         case self::SHARINGS_RESPONSE_OBJECT:
             return $this->activityObjectFromNoticePollResponse($notice);

@@ -204,7 +204,7 @@ class Sharings extends Managed_DataObject
         $link = '<a href="' . htmlspecialchars($s->uri) . '">' . htmlspecialchars($displayName) . '</a>';
         // TRANS: Rendered version of the notice content creating a poll.
         // TRANS: %s is a link to the poll with the question as link description.
-        $rendered = sprintf(_m('Servicio/Producto: %s'), $link);
+        $rendered = sprintf(_m('Objeto/Servicio: %s'), $link);
 
         $tags    = array('sharings');
         $replies = array();
