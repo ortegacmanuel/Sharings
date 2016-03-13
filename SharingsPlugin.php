@@ -211,7 +211,7 @@ class SharingsPlugin extends MicroAppPlugin
                     throw new Exception(_m('Invalid poll response: Poll is unknown.'));
                 }
                 try {
-                    $notice = Sharing_response::saveNew($profile, $poll, $options);
+                    $notice = Sharing_response::saveNew($profile, $sharing, $options);
                     common_log(LOG_DEBUG, "Saved Poll_response ok, notice id: " . $notice->id);
                     return $notice;
                 } catch (Exception $e) {
