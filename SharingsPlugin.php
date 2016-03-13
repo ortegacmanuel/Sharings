@@ -378,7 +378,7 @@ class SharingsPlugin extends MicroAppPlugin
 
     function entryForm($out)
     {
-        return new NewPollForm($out);
+        return new NewSharingsForm($out);
     }
 
     // @fixme is this from parent?
