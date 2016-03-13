@@ -43,7 +43,7 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class RespondPollAction extends Action
+class RespondSharingsAction extends Action
 {
     protected $user        = null;
     protected $error       = null;
@@ -90,18 +90,11 @@ class RespondPollAction extends Action
         }
 
         $id = $this->trimmed('id');
-        $this->poll = Poll::getKV('id', $id);
-        if (empty($this->poll)) {
+        $this->sharing = Sharing::getKV('id', $id);
+        if (empty($this->sharing)) {
             // TRANS: Client exception thrown trying to respond to a non-existing poll.
             throw new ClientException(_m('Invalid or missing poll.'), 404);
         }
-
-        $selection = intval($this->trimmed('pollselection'));
-        if ($selection < 1 || $selection > count($this->poll->getOptions())) {
-            // TRANS: Client exception thrown responding to a poll with an invalid answer.
-            throw new ClientException(_m('Invalid poll selection.'));
-        }
-        $this->selection = $selection;
 
         return true;
     }
@@ -118,7 +111,7 @@ class RespondPollAction extends Action
         parent::handle($argarray);
 
         if ($this->isPost()) {
-            $this->respondPoll();
+            $this->respondSharing();
         } else {
             $this->showPage();
         }
@@ -131,12 +124,12 @@ class RespondPollAction extends Action
      *
      * @return void
      */
-    function respondPoll()
+    function respondSharing()
     {
         try {
-            $notice = Poll_response::saveNew($this->user->getProfile(),
-                                             $this->poll,
-                                             $this->selection);
+            $notice = Sharing_response::saveNew($this->user->getProfile(),
+                                             $this->sharing
+                                             );
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
             $this->showPage();
@@ -155,7 +148,7 @@ class RespondPollAction extends Action
             $this->elementEnd('body');
             $this->endHTML();
         } else {
-            common_redirect($this->poll->getUrl(), 303);
+            common_redirect($this->sharing->getUrl(), 303);
         }
     }
 
@@ -170,7 +163,7 @@ class RespondPollAction extends Action
             $this->element('p', 'error', $this->error);
         }
 
-        $form = new PollResponseForm($this->poll, $this);
+        $form = new SharingsResponseForm($this->poll, $this);
 
         $form->show();
 
