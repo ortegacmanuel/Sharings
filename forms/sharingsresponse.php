@@ -46,7 +46,7 @@ if (!defined('STATUSNET')) {
  */
 class SharingsResponseForm extends Form
 {
-    protected $poll;
+    protected $sharing;
 
     /**
      * Construct a new poll form
@@ -89,7 +89,7 @@ class SharingsResponseForm extends Form
      */
     function action()
     {
-        return common_local_url('respondpoll', array('id' => $this->sharing->id));
+        return common_local_url('respondsharings', array('id' => $this->sharing->id));
     }
 
     /**

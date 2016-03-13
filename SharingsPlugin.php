@@ -65,7 +65,7 @@ class SharingsPlugin extends MicroAppPlugin
     {
         $schema = Schema::get();
         $schema->ensureTable('sharing', Sharing::schemaDef());
-        //$schema->ensureTable('poll_response', Poll_response::schemaDef());
+        $schema->ensureTable('sharing_response', Sharing_response::schemaDef());
         //$schema->ensureTable('user_poll_prefs', User_poll_prefs::schemaDef());
         return true;
     }
