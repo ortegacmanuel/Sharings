@@ -124,10 +124,6 @@ class Sharing_response extends Managed_DataObject
     static function saveNew($profile, $sharing, $options=null)
     {
 
-        if (empty($options)) {
-            $options = array();
-        }
-
         $sr = new Sharing_response();
         $sr->id          = UUID::gen();
         $sr->profile_id  = $profile->id;
@@ -146,7 +142,7 @@ class Sharing_response extends Managed_DataObject
                                         array('id' => $sr->id));
         }
 
-        common_log(LOG_DEBUG, "Saving poll response: $sr->id $sr->uri");
+        common_log(LOG_DEBUG, "Saving poll response: $pr->id $pr->uri");
         $sr->insert();
 
         // TRANS: Notice content voting for a poll.

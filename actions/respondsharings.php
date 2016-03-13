@@ -127,7 +127,7 @@ class RespondSharingsAction extends Action
     {
         try {
             $notice = Sharing_response::saveNew($this->user->getProfile(),
-                                             $this->sharing
+                                             $this->sharing, $options
                                              );
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
