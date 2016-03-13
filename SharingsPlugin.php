@@ -457,7 +457,8 @@ class SharingsPlugin extends MicroAppPlugin
         // If the stored notice is a SHARINGS_OBJECT
         $sharing = Sharing::getByNotice($stored);
         if ($sharing instanceof Sharing) {
-            if (!$scoped instanceof Profile || $sharing->getResponse($scoped) instanceof Sharing_response) {
+            if (!$scoped instanceof Profile || $sharing->getResponse($scoped) instanceof Sharing_response
+                || ($sharing->profile_id == common_current_user()->getProfile()->id)) {
                 // Either the user is not logged in or it has already responded; show the results.
                 $form = new SharingsResultForm($sharing, $out);
             } else {

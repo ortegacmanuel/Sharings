@@ -146,7 +146,7 @@ class Sharing_response extends Managed_DataObject
                                         array('id' => $sr->id));
         }
 
-        common_log(LOG_DEBUG, "Saving poll response: $pr->id $pr->uri");
+        common_log(LOG_DEBUG, "Saving poll response: $sr->id $sr->uri");
         $sr->insert();
 
         // TRANS: Notice content voting for a poll.

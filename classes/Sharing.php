@@ -138,8 +138,7 @@ class Sharing extends Managed_DataObject
     {
         $sr = new Sharing_response();
         $sr->sharing_id = $this->id;
-        $sr->selectAdd('count(profile_id) as votes');
-        $counts = $sr->find();
+        $counts = $sr->count();
 
         return $counts;
     }
