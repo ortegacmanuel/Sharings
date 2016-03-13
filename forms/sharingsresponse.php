@@ -116,6 +116,6 @@ class SharingsResponseForm extends Form
     function formActions()
     {
         // TRANS: Button text for submitting a poll response.
-        $this->out->submit('poll-response-submit', _m('BUTTON', 'Responder'), 'submit', 'submit');
+        $this->out->submit('poll-response-submit', _m('BUTTON', 'Me interesa'), 'submit', 'submit');
     }
 }

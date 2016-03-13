@@ -42,14 +42,13 @@ if (!defined('STATUSNET')) {
  *
  * @see      DB_DataObject
  */
-class Poll_response extends Managed_DataObject
+class Sharing_response extends Managed_DataObject
 {
-    public $__table = 'poll_response'; // table name
+    public $__table = 'sharing_response'; // table name
     public $id;          // char(36) primary key not null -> UUID
     public $uri;         // varchar(191)   not 255 because utf8mb4 takes more space
-    public $poll_id;     // char(36) -> poll.id UUID
+    public $sharing_id;     // char(36) -> poll.id UUID
     public $profile_id;  // int -> profile.id
-    public $selection;   // int -> choice #
     public $created;     // datetime
 
     /**
@@ -62,18 +61,17 @@ class Poll_response extends Managed_DataObject
             'fields' => array(
                 'id' => array('type' => 'char', 'length' => 36, 'not null' => true, 'description' => 'UUID of the response'),
                 'uri' => array('type' => 'varchar', 'length' => 191, 'not null' => true, 'description' => 'UUID to the response notice'),
-                'poll_id' => array('type' => 'char', 'length' => 36, 'not null' => true, 'description' => 'UUID of poll being responded to'),
+                'sharing_id' => array('type' => 'char', 'length' => 36, 'not null' => true, 'description' => 'UUID of poll being responded to'),
                 'profile_id' => array('type' => 'int'),
-                'selection' => array('type' => 'int'),
                 'created' => array('type' => 'datetime', 'not null' => true),
             ),
             'primary key' => array('id'),
             'unique keys' => array(
-                'poll_uri_key' => array('uri'),
-                'poll_response_poll_id_profile_id_key' => array('poll_id', 'profile_id'),
+                'sharing_uri_key' => array('uri'),
+                'sharing_response_sharing_id_profile_id_key' => array('sharing_id', 'profile_id'),
             ),
             'indexes' => array(
-                'poll_response_profile_id_poll_id_index' => array('profile_id', 'poll_id'),
+                'sharing_response_profile_id_sharing_id_index' => array('profile_id', 'sharing_id'),
             )
         );
     }
@@ -109,9 +107,9 @@ class Poll_response extends Managed_DataObject
      *
      * @return Poll
      */
-    function getPoll()
+    function getSharing()
     {
-        return Poll::getKV('id', $this->poll_id);
+        return Sharing::getKV('id', $this->sharing_id);
     }
     /**
      * Save a new poll notice
@@ -123,24 +121,16 @@ class Poll_response extends Managed_DataObject
      *
      * @return Notice saved notice
      */
-    static function saveNew($profile, $poll, $selection, $options=null)
+    static function saveNew($profile, $sharing, $options=null)
     {
-        if (empty($options)) {
-            $options = array();
-        }
 
-        if (!$poll->isValidSelection($selection)) {
-            // TRANS: Client exception thrown when responding to a poll with an invalid option.
-            throw new ClientException(_m('Invalid poll selection.'));
-        }
-        $opts = $poll->getOptions();
-        $answer = $opts[$selection - 1];
 
-        $pr = new Poll_response();
-        $pr->id          = UUID::gen();
-        $pr->profile_id  = $profile->id;
-        $pr->poll_id     = $poll->id;
-        $pr->selection   = $selection;
+        $opts = $sharing->getOptions();
+
+        $sr = new Sharing_response();
+        $sr->id          = UUID::gen();
+        $sr->profile_id  = $profile->id;
+        $sr->sharing_id     = $sharing->id;
 
         if (array_key_exists('created', $options)) {
             $pr->created = $options['created'];
@@ -151,29 +141,29 @@ class Poll_response extends Managed_DataObject
         if (array_key_exists('uri', $options)) {
             $pr->uri = $options['uri'];
         } else {
-            $pr->uri = common_local_url('showpollresponse',
-                                        array('id' => $pr->id));
+            $pr->uri = common_local_url('showsharingsresponse',
+                                        array('id' => $sr->id));
         }
 
         common_log(LOG_DEBUG, "Saving poll response: $pr->id $pr->uri");
-        $pr->insert();
+        $sr->insert();
 
         // TRANS: Notice content voting for a poll.
         // TRANS: %s is the chosen option in the poll.
-        $content  = sprintf(_m('voted for "%s"'),
-                            $answer);
-        $link = '<a href="' . htmlspecialchars($poll->uri) . '">' . htmlspecialchars($answer) . '</a>';
+        $content  = sprintf(_m('le interesa "%s"'),
+                            $sharing->displayName);
+        $link = '<a href="' . htmlspecialchars($sharing->uri) . '">' . htmlspecialchars($sharing->displayName) . '</a>';
         // TRANS: Rendered version of the notice content voting for a poll.
         // TRANS: %s a link to the poll with the chosen option as link description.
-        $rendered = sprintf(_m('voted for "%s"'), $link);
+        $rendered = sprintf(_m('le interesa "%s"'), $link);
 
         $tags    = array();
 
         $options = array_merge(array('urls' => array(),
                                      'rendered' => $rendered,
                                      'tags' => $tags,
-                                     'reply_to' => $poll->getNotice()->id,
-                                     'object_type' => PollPlugin::POLL_RESPONSE_OBJECT),
+                                     'reply_to' => $sharing->getNotice()->id,
+                                     'object_type' => SharingsPlugin::SHARINGS_RESPONSE_OBJECT),
                                $options);
 
         if (!array_key_exists('uri', $options)) {

@@ -99,13 +99,13 @@ class SharingsPlugin extends MicroAppPlugin
                     array('action' => 'showsharings'),
                     array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
 
-        /*
-        $m->connect('main/poll/response/:id',
-                    array('action' => 'showpollresponse'),
+        
+        $m->connect('main/sharings/response/:id',
+                    array('action' => 'showsharingsresponse'),
                     array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
 
-        $m->connect('main/poll/:id/respond',
-                    array('action' => 'respondpoll'),
+        $m->connect('main/sharings/:id/respond',
+                    array('action' => 'respondsharings'),
                     array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
 
         $m->connect('settings/poll',
@@ -147,10 +147,10 @@ class SharingsPlugin extends MicroAppPlugin
      */
     function deleteRelated(Notice $notice)
     {
-        $p = Poll::getByNotice($notice);
+        $s = Sharing::getByNotice($notice);
 
-        if (!empty($p)) {
-            $p->delete();
+        if (!empty($s)) {
+            $s->delete();
         }
 
         return true;
@@ -198,20 +198,20 @@ class SharingsPlugin extends MicroAppPlugin
                 }
             } else if ($responseElements->length) {
                 $data = $responseElements->item(0);
-                $pollUri = $data->getAttribute('poll');
-                $selection = intval($data->getAttribute('selection'));
+                $sharingUri = $data->getAttribute('sharing');
+                $profile_id = $data->getAttribute('profile_id');
 
-                if (!$pollUri) {
+                if (!$sharingUri) {
                     // TRANS: Exception thrown trying to respond to a poll without a poll reference.
                     throw new Exception(_m('Invalid poll response: No poll reference.'));
                 }
-                $poll = Poll::getKV('uri', $pollUri);
-                if (!$poll) {
+                $sharing = Sharing::getKV('uri', $sharingUri);
+                if (!$sharing) {
                     // TRANS: Exception thrown trying to respond to a non-existing poll.
                     throw new Exception(_m('Invalid poll response: Poll is unknown.'));
                 }
                 try {
-                    $notice = Poll_response::saveNew($profile, $poll, $selection, $options);
+                    $notice = Sharing_response::saveNew($profile, $poll, $options);
                     common_log(LOG_DEBUG, "Saved Poll_response ok, notice id: " . $notice->id);
                     return $notice;
                 } catch (Exception $e) {
@@ -248,15 +248,15 @@ class SharingsPlugin extends MicroAppPlugin
         $object->summary = $notice->content;
         $object->link    = $notice->getUrl();
 
-        $response = Poll_response::getByNotice($notice);
+        $response = Sharing_response::getByNotice($notice);
         if ($response) {
-            $poll = $response->getPoll();
-            if ($poll) {
+            $sharing = $response->getPoll();
+            if ($sharing) {
                 // Stash data to be formatted later by
                 // $this->activityObjectOutputAtom() or
                 // $this->activityObjectOutputJson()...
-                $object->pollSelection = intval($response->selection);
-                $object->pollUri = $poll->uri;
+                $object->sharingsProfile_id = $notice->profile_id;
+                $object->sharingsUri = $sharing->uri;
             }
         }
         return $object;
@@ -317,16 +317,16 @@ class SharingsPlugin extends MicroAppPlugin
             error_log(var_dump($data));
             $out->elementEnd('sharings:sharings');           
         }
-        if (isset($obj->pollSelection)) {
+        if (isset($obj->sharingsProfile_id)) {
             /**
              * <poll:response xmlns:poll="http://apinamespace.org/activitystreams/object/poll">
              *                poll="http://..../poll/...."
              *                selection="3" />
              */
-            $data = array('xmlns:poll' => self::SHARINGS_OBJECT,
-                          'poll'       => $obj->pollUri,
-                          'selection'  => $obj->pollSelection);
-            $out->element('poll:response', $data, '');
+            $data = array('xmlns:sharings' => self::SHARINGS_OBJECT,
+                          'sharing'       => $obj->sharingsUri,
+                          'profile_id'  => $obj->sharingsProfile_id);
+            $out->element('sharings:response', $data, '');
         }
     }
 
@@ -347,7 +347,7 @@ class SharingsPlugin extends MicroAppPlugin
     public function activityObjectOutputJson(ActivityObject $obj, array &$out)
     {
         common_log(LOG_DEBUG, 'QQQ: ' . var_export($obj, true));
-        if (isset($obj->pollQuestion)) {
+        if (isset($obj->sharingsDisplayName)) {
             /**
              * "poll": {
              *   "question": "Who wants a poll question?",
@@ -363,16 +363,16 @@ class SharingsPlugin extends MicroAppPlugin
             error_log(var_dump($data)); 
             $out['sharings'] = $data;
         }
-        if (isset($obj->pollSelection)) {
+        if (isset($obj->sharingsProfile_id)) {
             /**
              * "pollResponse": {
              *   "poll": "http://..../poll/....",
              *   "selection": 3
              * }
              */
-            $data = array('poll'       => $obj->pollUri,
-                          'selection'  => $obj->pollSelection);
-            $out['pollResponse'] = $data;
+            $data = array('sharing'       => $obj->sharingsUri,
+                          'profile_id'  => $obj->sharingsProfile_id);
+            $out['sharingsResponse'] = $data;
         }
     }
 
