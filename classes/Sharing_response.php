@@ -124,6 +124,10 @@ class Sharing_response extends Managed_DataObject
     static function saveNew($profile, $sharing, $options=null)
     {
 
+        if (empty($options)) {
+            $options = array();
+        }
+
         $sr = new Sharing_response();
         $sr->id          = UUID::gen();
         $sr->profile_id  = $profile->id;

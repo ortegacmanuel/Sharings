@@ -228,6 +228,7 @@ class SharingsPlugin extends MicroAppPlugin
     {
         assert($this->isMyNotice($notice));
 
+        error_log($notice->profile_id . ' ' . $sharing->uri);
         switch ($notice->object_type) {
         case self::SHARINGS_OBJECT:
             return $this->activityObjectFromNoticePoll($notice);
