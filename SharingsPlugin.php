@@ -251,7 +251,7 @@ class SharingsPlugin extends MicroAppPlugin
 
         $response = Sharing_response::getByNotice($notice);
         if ($response) {
-            $sharing = $response->getPoll();
+            $sharing = $response->getSharing();
             if ($sharing) {
                 // Stash data to be formatted later by
                 // $this->activityObjectOutputAtom() or

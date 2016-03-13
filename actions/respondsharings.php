@@ -162,7 +162,7 @@ class RespondSharingsAction extends Action
             $this->element('p', 'error', $this->error);
         }
 
-        $form = new SharingsResponseForm($this->poll, $this);
+        $form = new SharingsResponseForm($this->sharing, $this);
 
         $form->show();
 
