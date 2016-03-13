@@ -56,7 +56,7 @@ class SharingsResponseForm extends Form
      *
      * @return void
      */
-    function __construct(Sharings $sharing, HTMLOutputter $out)
+    function __construct(Sharing $sharing, HTMLOutputter $out)
     {
         parent::__construct($out);
         $this->sharing = $sharing;
