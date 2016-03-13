@@ -48,8 +48,8 @@ class SharingsPlugin extends MicroAppPlugin
     const VERSION         = '0.1';
 
     // @fixme which domain should we use for these namespaces?
-    const SHARINGS_OBJECT          = 'http://activityschema.org/object/poll';
-    const SHARINGS_RESPONSE_OBJECT = 'http://activityschema.org/object/poll-response';
+    const SHARINGS_OBJECT          = 'http://activityschema.org/object/product';
+    const SHARINGS_RESPONSE_OBJECT = 'http://activityschema.org/object/product-response';
 
     var $oldSaveNew = true;
 
@@ -175,21 +175,22 @@ class SharingsPlugin extends MicroAppPlugin
         // Ok for now, we can grab stuff from the XML entry directly.
         // This won't work when reading from JSON source
         if ($activity->entry) {
-            $pollElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'poll');
+            $pollElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'sharings');
             $responseElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'response');
             if ($pollElements->length) {
-                $question = '';
-                $opts = array();
+                $displayName = '';
+                $summary = '';
 
                 $data = $pollElements->item(0);
-                foreach ($data->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'question') as $node) {
-                    $question = $node->textContent;
+                foreach ($data->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'displayName') as $node) {
+                    $displayName = $node->textContent;
                 }
-                foreach ($data->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'option') as $node) {
-                    $opts[] = $node->textContent;
+                foreach ($data->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'summary') as $node) {
+                    $summary = $node->textContent;
                 }
                 try {
-                    $notice = Poll::saveNew($profile, $question, $opts, $options);
+                    error_log("guando una noticia desde una actividad");
+                    $notice = Sharings::saveNew($profile, $displayName, $summary, $options);
                     common_log(LOG_DEBUG, "Saved Poll from ActivityStream data ok: notice id " . $notice->id);
                     return $notice;
                 } catch (Exception $e) {
@@ -270,13 +271,14 @@ class SharingsPlugin extends MicroAppPlugin
         $object->summary = $notice->content;
         $object->link    = $notice->getUrl();
 
-        $poll = Poll::getByNotice($notice);
-        if ($poll) {
+        $sharing = Sharings::getByNotice($notice);
+        if ($sharing) {
             // Stash data to be formatted later by
             // $this->activityObjectOutputAtom() or
             // $this->activityObjectOutputJson()...
-            $object->pollQuestion = $poll->question;
-            $object->pollOptions = $poll->getOptions();
+            $object->sharingsDisplayName = $sharing->displayName;
+            $object->sharingsSummary = $sharing->summary;
+            error_log($sharing->displayName . ' ' . $sharing->summary);
         }
 
         return $object;
@@ -298,7 +300,7 @@ class SharingsPlugin extends MicroAppPlugin
      */
     function activityObjectOutputAtom(ActivityObject $obj, XMLOutputter $out)
     {
-        if (isset($obj->pollQuestion)) {
+        if (isset($obj->sharingsDisplayName)) {
             /**
              * <poll:poll xmlns:poll="http://apinamespace.org/activitystreams/object/poll">
              *   <poll:question>Who wants a poll question?</poll:question>
@@ -307,13 +309,13 @@ class SharingsPlugin extends MicroAppPlugin
              *   <poll:option>Option three</poll:option>
              * </poll:poll>
              */
-            $data = array('xmlns:poll' => self::SHARINGS_OBJECT);
-            $out->elementStart('poll:poll', $data);
-            $out->element('poll:question', array(), $obj->pollQuestion);
-            foreach ($obj->pollOptions as $opt) {
-                $out->element('poll:option', array(), $opt);
-            }
-            $out->elementEnd('poll:poll');
+            $data = array('xmlns:sharings' => self::SHARINGS_OBJECT);
+            $out->elementStart('sharings:sharings', $data);
+            $out->element('sharings:displayName', array(), $obj->sharingsDisplayName);
+            $out->element('sharings:summary', array(), $obj->sharingsSummary);
+
+            error_log($data);
+            $out->elementEnd('sharings:sharings');           
         }
         if (isset($obj->pollSelection)) {
             /**
@@ -356,12 +358,10 @@ class SharingsPlugin extends MicroAppPlugin
              *   ]
              * }
              */
-            $data = array('question' => $obj->pollQuestion,
-                          'options' => array());
-            foreach ($obj->pollOptions as $opt) {
-                $data['options'][] = $opt;
-            }
-            $out['poll'] = $data;
+            $data = array('displayName' => $obj->sharingsDisplayName,
+                          'options' => $obj->sharingsSummary);
+            error_log($data); 
+            $out['sharings'] = $data;
         }
         if (isset($obj->pollSelection)) {
             /**
@@ -378,7 +378,7 @@ class SharingsPlugin extends MicroAppPlugin
 
     function entryForm($out)
     {
-        return new NewPollForm($out);
+        return new NewSharingsForm($out);
     }
 
     // @fixme is this from parent?
