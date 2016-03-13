@@ -44,9 +44,9 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class PollResultForm extends Form
+class SharingsResultForm extends Form
 {
-    protected $poll;
+    protected $sharing;
 
     /**
      * Construct a new poll form
@@ -56,10 +56,10 @@ class PollResultForm extends Form
      *
      * @return void
      */
-    function __construct(Poll $poll, HTMLOutputter $out)
+    function __construct(Sharing $sharing, HTMLOutputter $out)
     {
         parent::__construct($out);
-        $this->poll = $poll;
+        $this->sharing = $sharing;
     }
 
     /**
@@ -89,7 +89,7 @@ class PollResultForm extends Form
      */
     function action()
     {
-        return common_local_url('respondpoll', array('id' => $this->poll->id));
+        return common_local_url('respondsharings', array('id' => $this->sharing->id));
     }
 
     /**
@@ -99,37 +99,14 @@ class PollResultForm extends Form
      */
     function formData()
     {
-        $poll = $this->poll;
+        $sharing = $this->sharing;
         $out = $this->out;
-        $counts = $poll->countResponses();
+        $counts = $sharing->countResponses();
 
-        $width = 200;
-        $max = max($counts);
-        if ($max == 0) {
-            $max = 1; // quick hack :D
-        }
+        $out->element('p', 'sharings-displayName', $sharing->displayName);
+        $out->element('p', 'sharings-summary', $sharing->summary);
+        $out->element('p', 'sharings-summary', 'Este objeto / servicio le interesa a ' . $counts . ' usuarios');
 
-        $out->element('p', 'poll-question', $poll->question);
-        $out->elementStart('table', 'poll-results');
-        foreach ($poll->getOptions() as $i => $opt) {
-            $w = intval($counts[$i] * $width / $max) + 1;
-
-            $out->elementStart('tr');
-
-            $out->elementStart('td');
-            $out->text($opt);
-            $out->elementEnd('td');
-
-            $out->elementStart('td');
-            $out->element('span', array('class' => 'poll-block',
-                                       'style' => "width: {$w}px"),
-                                  "\xc2\xa0"); // nbsp
-            $out->text($counts[$i]);
-            $out->elementEnd('td');
-
-            $out->elementEnd('tr');
-        }
-        $out->elementEnd('table');
     }
 
     /**

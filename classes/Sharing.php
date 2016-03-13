@@ -136,27 +136,11 @@ class Sharing extends Managed_DataObject
 
     function countResponses()
     {
-        $pr = new Poll_response();
-        $pr->poll_id = $this->id;
-        $pr->groupBy('selection');
-        $pr->selectAdd('count(profile_id) as votes');
-        $pr->find();
+        $sr = new Sharing_response();
+        $sr->sharing_id = $this->id;
+        $sr->selectAdd('count(profile_id) as votes');
+        $counts = $sr->find();
 
-        $raw = array();
-        while ($pr->fetch()) {
-            // Votes list 1-based
-            // Array stores 0-based
-            $raw[$pr->selection - 1] = $pr->votes;
-        }
-
-        $counts = array();
-        foreach (array_keys($this->getOptions()) as $key) {
-            if (isset($raw[$key])) {
-                $counts[$key] = $raw[$key];
-            } else {
-                $counts[$key] = 0;
-            }
-        }
         return $counts;
     }
 

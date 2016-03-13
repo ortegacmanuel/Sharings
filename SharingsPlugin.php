@@ -459,7 +459,7 @@ class SharingsPlugin extends MicroAppPlugin
         if ($sharing instanceof Sharing) {
             if (!$scoped instanceof Profile || $sharing->getResponse($scoped) instanceof Sharing_response) {
                 // Either the user is not logged in or it has already responded; show the results.
-                $form = new PollResultForm($poll, $out);
+                $form = new SharingsResultForm($sharing, $out);
             } else {
                 $form = new SharingsResponseForm($sharing, $out);
             }
