@@ -129,7 +129,7 @@ class Sharing extends Managed_DataObject
      */
     function getResponse(Profile $profile)
     {
-    	$pr = Poll_response::pkeyGet(array('poll_id' => $this->id,
+    	$pr = Sharing_response::pkeyGet(array('sharing_id' => $this->id,
     									   'profile_id' => $profile->id));
     	return $pr;
     }
