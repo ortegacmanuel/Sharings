@@ -44,7 +44,7 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class PollResponseForm extends Form
+class SharingsResponseForm extends Form
 {
     protected $poll;
 
@@ -56,10 +56,10 @@ class PollResponseForm extends Form
      *
      * @return void
      */
-    function __construct(Poll $poll, HTMLOutputter $out)
+    function __construct(Sharings $sharing, HTMLOutputter $out)
     {
         parent::__construct($out);
-        $this->poll = $poll;
+        $this->sharing = $sharing;
     }
 
     /**
@@ -89,7 +89,7 @@ class PollResponseForm extends Form
      */
     function action()
     {
-        return common_local_url('respondpoll', array('id' => $this->poll->id));
+        return common_local_url('respondpoll', array('id' => $this->sharing->id));
     }
 
     /**
@@ -99,21 +99,13 @@ class PollResponseForm extends Form
      */
     function formData()
     {
-        $poll = $this->poll;
+        $sharing = $this->sharing;
         $out = $this->out;
-        $id = "poll-" . $poll->id;
-
-        $out->element('p', 'poll-question', $poll->question);
-        $out->elementStart('ul', 'poll-options');
-        foreach ($poll->getOptions() as $i => $opt) {
-            $out->elementStart('li');
-            $out->elementStart('label');
-            $out->element('input', array('type' => 'radio', 'name' => 'pollselection', 'value' => $i + 1), '');
-            $out->text(' ' . $opt);
-            $out->elementEnd('label');
-            $out->elementEnd('li');
-        }
-        $out->elementEnd('ul');
+        $id = "poll-" . $sharing->id;
+        
+        $out->element('h3', 'sharing-title', 'Nuevo objeto o servicio compartido en la red');
+        $out->element('p', 'sharing-displayName', 'Nombre: ' . $sharing->displayName);
+        $out->element('p', 'sharing-summary', 'Detalle: ' . $sharing->summary);
     }
 
     /**
@@ -124,6 +116,6 @@ class PollResponseForm extends Form
     function formActions()
     {
         // TRANS: Button text for submitting a poll response.
-        $this->out->submit('poll-response-submit', _m('BUTTON', 'Submit'), 'submit', 'submit');
+        $this->out->submit('poll-response-submit', _m('BUTTON', 'Responder'), 'submit', 'submit');
     }
 }
