@@ -110,7 +110,7 @@ class SharingsPlugin extends MicroAppPlugin
 
         $m->connect('settings/poll',
                     array('action' => 'pollsettings'));
-        */
+
         return true;
     }
 
