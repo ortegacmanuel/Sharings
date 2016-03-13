@@ -189,7 +189,6 @@ class SharingsPlugin extends MicroAppPlugin
                     $summary = $node->textContent;
                 }
                 try {
-                    error_log("guando una noticia desde una actividad");
                     $notice = Sharing::saveNew($profile, $displayName, $summary, $options);
                     common_log(LOG_DEBUG, "Saved Poll from ActivityStream data ok: notice id " . $notice->id);
                     return $notice;
@@ -211,7 +210,6 @@ class SharingsPlugin extends MicroAppPlugin
                     throw new Exception(_m('Invalid poll response: Poll is unknown.'));
                 }
                 try {
-                    error_log("guando una respuesta desde una actividad");
                     $notice = Sharing_response::saveNew($profile, $sharing, $options);
                     common_log(LOG_DEBUG, "Saved Poll_response ok, notice id: " . $notice->id);
                     return $notice;
@@ -258,7 +256,6 @@ class SharingsPlugin extends MicroAppPlugin
                 // $this->activityObjectOutputJson()...
                 $object->sharingsProfile_id = $notice->profile_id;
                 $object->sharingsUri = $sharing->uri;
-                error_log($notice->profile_id . ' ' . $sharing->uri);
             }
         }
         return $object;
@@ -280,7 +277,6 @@ class SharingsPlugin extends MicroAppPlugin
             // $this->activityObjectOutputJson()...
             $object->sharingsDisplayName = $sharing->displayName;
             $object->sharingsSummary = $sharing->summary;
-            error_log($sharing->displayName . ' ' . $sharing->summary);
         }
 
         return $object;
@@ -316,7 +312,6 @@ class SharingsPlugin extends MicroAppPlugin
             $out->element('sharings:displayName', array(), $obj->sharingsDisplayName);
             $out->element('sharings:summary', array(), $obj->sharingsSummary);
 
-            error_log(var_dump($data));
             $out->elementEnd('sharings:sharings');           
         }
         if (isset($obj->sharingsProfile_id)) {
@@ -329,7 +324,6 @@ class SharingsPlugin extends MicroAppPlugin
                           'sharing'       => $obj->sharingsUri,
                           'profile_id'  => $obj->sharingsProfile_id);
 
-            error_log(var_dump($data));
             $out->element('sharings:response', $data, '');
         }
     }
@@ -363,8 +357,7 @@ class SharingsPlugin extends MicroAppPlugin
              * }
              */
             $data = array('displayName' => $obj->sharingsDisplayName,
-                          'options' => $obj->sharingsSummary);
-            error_log(var_dump($data)); 
+                          'options' => $obj->sharingsSummary); 
             $out['sharings'] = $data;
         }
         if (isset($obj->sharingsProfile_id)) {

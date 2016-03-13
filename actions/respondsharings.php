@@ -139,7 +139,7 @@ class RespondSharingsAction extends Action
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
             // TRANS: Page title after sending a poll response.
-            $this->element('title', null, _m('Poll results'));
+            $this->element('title', null, _m('Detalle del objeto o servicio'));
             $this->elementEnd('head');
             $this->elementStart('body');
             $form = new SharingsResultForm($this->sharing, $this);
