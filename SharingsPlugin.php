@@ -314,7 +314,7 @@ class SharingsPlugin extends MicroAppPlugin
             $out->element('sharings:displayName', array(), $obj->sharingsDisplayName);
             $out->element('sharings:summary', array(), $obj->sharingsSummary);
 
-            error_log($data);
+            error_log(var_dump($data));
             $out->elementEnd('sharings:sharings');           
         }
         if (isset($obj->pollSelection)) {
@@ -360,7 +360,7 @@ class SharingsPlugin extends MicroAppPlugin
              */
             $data = array('displayName' => $obj->sharingsDisplayName,
                           'options' => $obj->sharingsSummary);
-            error_log($data); 
+            error_log(var_dump($data)); 
             $out['sharings'] = $data;
         }
         if (isset($obj->pollSelection)) {
