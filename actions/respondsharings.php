@@ -142,7 +142,7 @@ class RespondSharingsAction extends Action
             $this->element('title', null, _m('Poll results'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $form = new PollResultForm($this->poll, $this);
+            $form = new SharingsResultForm($this->sharing, $this);
             $form->show();
             $this->elementEnd('body');
             $this->endHTML();
