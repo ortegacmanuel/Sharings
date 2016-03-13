@@ -52,7 +52,7 @@ class ShowSharingsAction extends ShownoticeAction
     {
         $this->id = $this->trimmed('id');
 
-        $this->sharings = Sharings::getKV('id', $this->id);
+        $this->sharings = Sharing::getKV('id', $this->id);
 
         if (empty($this->sharings)) {
             // TRANS: Client exception thrown trying to view a non-existing poll.

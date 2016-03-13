@@ -48,8 +48,8 @@ class SharingsPlugin extends MicroAppPlugin
     const VERSION         = '0.1';
 
     // @fixme which domain should we use for these namespaces?
-    const SHARINGS_OBJECT          = 'http://activityschema.org/object/product';
-    const SHARINGS_RESPONSE_OBJECT = 'http://activityschema.org/object/product-response';
+    const SHARINGS_OBJECT          = 'http://activitystrea.ms/head/activity-schema.html#product';
+    const SHARINGS_RESPONSE_OBJECT = 'http://activitystrea.ms/head/activity-schema.html#product-response';
 
     var $oldSaveNew = true;
 
@@ -64,7 +64,7 @@ class SharingsPlugin extends MicroAppPlugin
     function onCheckSchema()
     {
         $schema = Schema::get();
-        $schema->ensureTable('sharings', Sharings::schemaDef());
+        $schema->ensureTable('sharing', Sharing::schemaDef());
         //$schema->ensureTable('poll_response', Poll_response::schemaDef());
         //$schema->ensureTable('user_poll_prefs', User_poll_prefs::schemaDef());
         return true;
@@ -190,7 +190,7 @@ class SharingsPlugin extends MicroAppPlugin
                 }
                 try {
                     error_log("guando una noticia desde una actividad");
-                    $notice = Sharings::saveNew($profile, $displayName, $summary, $options);
+                    $notice = Sharing::saveNew($profile, $displayName, $summary, $options);
                     common_log(LOG_DEBUG, "Saved Poll from ActivityStream data ok: notice id " . $notice->id);
                     return $notice;
                 } catch (Exception $e) {
@@ -271,7 +271,7 @@ class SharingsPlugin extends MicroAppPlugin
         $object->summary = $notice->content;
         $object->link    = $notice->getUrl();
 
-        $sharing = Sharings::getByNotice($notice);
+        $sharing = Sharing::getByNotice($notice);
         if ($sharing) {
             // Stash data to be formatted later by
             // $this->activityObjectOutputAtom() or

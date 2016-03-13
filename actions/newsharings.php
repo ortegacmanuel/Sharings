@@ -137,7 +137,7 @@ class NewSharingsAction extends Action
 
             ToSelector::fillOptions($this, $options);
 
-            $saved = Sharings::saveNew($this->user->getProfile(),
+            $saved = Sharing::saveNew($this->user->getProfile(),
                                    $this->displayName,
                                    $this->summary,
                                    $options);
