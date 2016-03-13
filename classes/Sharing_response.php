@@ -124,24 +124,21 @@ class Sharing_response extends Managed_DataObject
     static function saveNew($profile, $sharing, $options=null)
     {
 
-
-        $opts = $sharing->getOptions();
-
         $sr = new Sharing_response();
         $sr->id          = UUID::gen();
         $sr->profile_id  = $profile->id;
         $sr->sharing_id     = $sharing->id;
 
         if (array_key_exists('created', $options)) {
-            $pr->created = $options['created'];
+            $sr->created = $options['created'];
         } else {
-            $pr->created = common_sql_now();
+            $sr->created = common_sql_now();
         }
 
         if (array_key_exists('uri', $options)) {
-            $pr->uri = $options['uri'];
+            $sr->uri = $options['uri'];
         } else {
-            $pr->uri = common_local_url('showsharingsresponse',
+            $sr->uri = common_local_url('showsharingsresponse',
                                         array('id' => $sr->id));
         }
 
@@ -167,7 +164,7 @@ class Sharing_response extends Managed_DataObject
                                $options);
 
         if (!array_key_exists('uri', $options)) {
-            $options['uri'] = $pr->uri;
+            $options['uri'] = $sr->uri;
         }
 
         $saved = Notice::saveNew($profile->id,
