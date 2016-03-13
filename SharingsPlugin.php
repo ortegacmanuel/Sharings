@@ -258,6 +258,7 @@ class SharingsPlugin extends MicroAppPlugin
                 // $this->activityObjectOutputJson()...
                 $object->sharingsProfile_id = $notice->profile_id;
                 $object->sharingsUri = $sharing->uri;
+                error_log($notice->profile_id . ' ' . $sharing->uri);
             }
         }
         return $object;
@@ -327,6 +328,8 @@ class SharingsPlugin extends MicroAppPlugin
             $data = array('xmlns:sharings' => self::SHARINGS_OBJECT,
                           'sharing'       => $obj->sharingsUri,
                           'profile_id'  => $obj->sharingsProfile_id);
+
+            error_log(var_dump($data));
             $out->element('sharings:response', $data, '');
         }
     }
