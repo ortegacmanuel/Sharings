@@ -23,7 +23,7 @@ $(document).bind('qvitterAfterLanguageIsSet', function() {
 
     // add new sharing to menu-container in UI
     $('#main-menu').append('\
-        <a class="stream-selection" href="' + window.siteInstanceURL + 'sharings/new" data-tooltip="' + window.sL.sharinsLongHeadline + '">\
+        <a class="stream-selection" href="' + window.siteInstanceURL + 'main/sharings/new" data-tooltip="' + window.sL.sharinsLongHeadline + '">\
             ' + window.sL.sharingsShortHeadline + '\
             <i class="chev-right"></i>\
         </a>');
