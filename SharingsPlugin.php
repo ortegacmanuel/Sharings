@@ -83,6 +83,11 @@ class SharingsPlugin extends MicroAppPlugin
         return true;
     }
 
+    function onQvitterEndShowScripts($action)
+    {
+        print '<script type="text/javascript" src="'.$this->path('js/sharings.js').'"></script>'."\n";
+    }
+
     /**
      * Map URLs to actions
      *
