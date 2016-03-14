@@ -72,6 +72,7 @@ class RespondSharingsAction extends Action
     function prepare($argarray)
     {
         parent::prepare($argarray);
+        
         if ($this->boolean('ajax')) {
             GNUsocial::setApi(true);
         }
@@ -135,6 +136,7 @@ class RespondSharingsAction extends Action
             return;
         }
 
+
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
@@ -147,8 +149,10 @@ class RespondSharingsAction extends Action
             $this->elementEnd('body');
             $this->endHTML();
         } else {
-            common_redirect($this->sharing->getUrl(), 303);
+            $profile = $this->sharing->getNotice()->getProfile();
+            common_redirect(common_local_url('newnotice', array('replyto' => $profile->id), array('inreplyto' => $this->sharing->getNotice()->id)), 303);
         }
+
     }
 
     /**
