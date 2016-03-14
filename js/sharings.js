@@ -1,15 +1,19 @@
 // translations
 var sharingsTranslations = {
     sv: {
+        sharingsLongHeadline: "Share",
         sharingsShortHeadline: "Share"
     },
     eo: {
+        sharingsLongHeadline: "Kundividu objektojn kaj servojn en la reto",
         sharingsShortHeadline: "Kundividi"
     },
     en: {
+        sharingsLongHeadline: "Share objects and services in the network",
         sharingsShortHeadline: "Share"
     },
     es: {
+        sharingsLongHeadline: "Comparte objetos y servicios en la red",
         sharingsShortHeadline: "Compartir"
     }
 };
