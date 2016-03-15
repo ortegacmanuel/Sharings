@@ -466,5 +466,5 @@ class SharingsPlugin extends MicroAppPlugin
             // TRANS: Error text displayed if no poll data could be found.
             $out->text(_m('Sharing data is missing'));
         }
-    }
+    }  
 }
