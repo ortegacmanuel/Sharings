@@ -97,6 +97,15 @@ class SharingsPlugin extends MicroAppPlugin
      */
     public function onRouterInitialized(URLMapper $m)
     {
+
+        // only if not already mapped (by qvitter)
+        try {
+            $m->match('sharings/notices');
+        } catch (Exception $e) {
+            $m->connect('sharings/notices',
+                            array('action' => 'sharingsnotices'));
+        }
+
         $m->connect('main/sharings/new',
                     array('action' => 'newsharings'));
 
@@ -115,6 +124,18 @@ class SharingsPlugin extends MicroAppPlugin
 
         $m->connect('settings/poll',
                     array('action' => 'pollsettings'));
+
+        $m->connect('api/sharings/notices.json',
+                        array('action' => 'apisharingsnotices'));
+
+        return true;
+    }
+
+    public function onQvitterHijackUI(URLMapper $m)
+    {
+
+        $m->connect('sharings/notices',
+                        array('action' => 'qvitter'));
 
         return true;
     }
@@ -466,5 +487,27 @@ class SharingsPlugin extends MicroAppPlugin
             // TRANS: Error text displayed if no poll data could be found.
             $out->text(_m('Sharing data is missing'));
         }
-    }  
+    }
+
+    public function onEndPublicGroupNav(Menu $menu)
+    {
+
+        // When qvitter not activated
+        try {
+            if (!common_config('singleuser', 'enabled')) {
+                // TRANS: Menu item in search group navigation panel.
+                $menu->out->menuItem(common_local_url('sharingsnotices'), _m('MENU','Catálogo'),
+                                     // TRANS: Menu item title in search group navigation panel.
+                                     _('Objetos y servicios compartidos en la red'), $menu->actionName == 'sharingsnotices');
+            }
+        //When qvitter activated
+        } catch (Exception $e) { 
+             if (!common_config('singleuser', 'enabled')) {
+                // TRANS: Menu item in search group navigation panel.
+                $menu->out->menuItem(common_local_url('qvitter'), _m('MENU','Catálogo'),
+                                     // TRANS: Menu item title in search group navigation panel.
+                                     _('Objetos y servicios compartidos en la red'), $menu->actionName == 'hederoposts');
+            }
+       }
+    }
 }
