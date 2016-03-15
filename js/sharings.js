@@ -27,7 +27,7 @@ var sharingsTranslations = {
         sharingsShortHeadline: "Compartir",
         catalogLongHeadline: "Ver el catálogo de objetos y servicios compartidos",
         catalogShortHeadline: "Catálogo",
-        catalogHeadline: "Catálogo de objetos y servicio compartidos"
+        catalogHeadline: "Catálogo de objetos y servicios compartidos"
     }
 };
 
