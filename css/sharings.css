@@ -1,0 +1,52 @@
+/* Poll specific styles */
+
+.poll-block {
+    float: left;
+    height: 16px;
+    background: #8aa;
+    margin-right: 8px;
+}
+
+.poll-winner {
+    background: #4af;
+}
+
+.notice div.poll-content {
+    opacity: 1;
+}
+
+.sharings-edit-submit {
+    padding: 10px 15px;
+    background: #a22430;
+    color: #FFF;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: solid 1px #a22430;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+.sharings-edit-submit:hover {
+    background: -moz-linear-gradient(top, #c33541 0%, #d44652 100%);
+    border: solid 1px #a22430;
+    text-decoration: none;
+    color: #FFF;
+}
+
+.sharings-edit-submit:active {
+    -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+    background: #2E5481;
+    border: solid 1px #203E5F;
+}

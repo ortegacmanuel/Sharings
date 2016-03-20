@@ -66,6 +66,7 @@ class SharingsPlugin extends MicroAppPlugin
         $schema = Schema::get();
         $schema->ensureTable('sharing', Sharing::schemaDef());
         $schema->ensureTable('sharing_response', Sharing_response::schemaDef());
+        $schema->ensureTable('sharing_notice', Sharing_notice::schemaDef());
         //$schema->ensureTable('user_poll_prefs', User_poll_prefs::schemaDef());
         return true;
     }
@@ -79,7 +80,7 @@ class SharingsPlugin extends MicroAppPlugin
      */
     function onEndShowStyles($action)
     {
-        $action->cssLink($this->path('css/poll.css'));
+        $action->cssLink($this->path('css/sharings.css'));
         return true;
     }
 
@@ -108,6 +109,10 @@ class SharingsPlugin extends MicroAppPlugin
 
         $m->connect('main/sharings/new',
                     array('action' => 'newsharings'));
+
+        $m->connect('main/sharings/:id/edit',
+                    array('action' => 'editsharings'),
+                    array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
 
         $m->connect('main/sharings/:id',
                     array('action' => 'showsharings'),
@@ -164,6 +169,10 @@ class SharingsPlugin extends MicroAppPlugin
         return array(self::SHARINGS_OBJECT, self::SHARINGS_RESPONSE_OBJECT);
     }
 
+    public function verbs() {
+        return array(ActivityVerb::POST, ActivityVerb::UPDATE, ActivityVerb::DELETE);
+    }
+
     /**
      * When a notice is deleted, delete the related Poll
      *
@@ -203,6 +212,7 @@ class SharingsPlugin extends MicroAppPlugin
         if ($activity->entry) {
             $pollElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'sharings');
             $responseElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'response');
+            $updateElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'update');
             if ($pollElements->length) {
                 $displayName = '';
                 $summary = '';
@@ -242,6 +252,30 @@ class SharingsPlugin extends MicroAppPlugin
                 } catch (Exception $e) {
                     common_log(LOG_DEBUG, "Poll response  save fail: " . $e->getMessage());
                 }
+            } else if ($updateElements->length) {
+                $data = $updateElements->item(0);
+                $sharingUri = $data->getAttribute('sharing');
+
+                $options['verb'] = ActivityVerb::UPDATE;
+                $options['displayName'] = $data->getAttribute('displayName');
+                $options['summary'] = $data->getAttribute('summary');
+
+                if (!$sharingUri) {
+                    // TRANS: Exception thrown trying to respond to a poll without a poll reference.
+                    throw new Exception(_m('Invalid poll response: No poll reference.'));
+                }
+                $sharing = Sharing::getKV('uri', $sharingUri);
+                if (!$sharing) {
+                    // TRANS: Exception thrown trying to respond to a non-existing poll.
+                    throw new Exception(_m('Invalid poll response: Poll is unknown.'));
+                }
+                try {
+                    $notice = Sharing_notice::saveNew($profile, $sharing, $options);
+                    common_log(LOG_DEBUG, "Saved Sharing_notice ok, notice id: " . $notice->id);
+                    return $notice;
+                } catch (Exception $e) {
+                    common_log(LOG_DEBUG, "Poll response  save fail: " . $e->getMessage());
+                }
             } else {
                 common_log(LOG_DEBUG, "YYY no poll data");
             }
@@ -254,7 +288,16 @@ class SharingsPlugin extends MicroAppPlugin
 
         switch ($notice->object_type) {
         case self::SHARINGS_OBJECT:
-            return $this->activityObjectFromNoticePoll($notice);
+            switch ($notice->verb) {
+                case ActivityVerb::POST:
+                    return $this->activityObjectFromNoticePoll($notice);
+                case ActivityVerb::UPDATE:
+                    return $this->activityObjectFromNoticeSharingUpdate($notice);
+                default:
+                    // TRANS: Exception thrown when performing an unexpected action on a poll.
+                    // TRANS: %s is the unexpected object type.
+                    throw new Exception(sprintf(_m('Unexpected verb for sharings plugin: %s.'), $notice->object_type));
+                }
         case self::SHARINGS_RESPONSE_OBJECT:
             return $this->activityObjectFromNoticePollResponse($notice);
         default:
@@ -308,6 +351,29 @@ class SharingsPlugin extends MicroAppPlugin
         return $object;
     }
 
+    function activityObjectFromNoticeSharingUpdate(Notice $notice)
+    {
+
+        $object = new ActivityObject();
+        $object->id      = $notice->uri;
+        $object->type    = self::SHARINGS_OBJECT;
+        $object->title   = $notice->content;
+        $object->summary = $notice->content;
+        $object->link    = $notice->getUrl();
+
+        $sn = Sharing_notice::getByNotice($notice);
+
+        if ($sn) {
+           $sharing = $sn->getSharing();
+            if ($sharing) {
+                $object->sharingsUri = $sharing->uri;
+                $object->sharingsDisplayName = $sharing->displayName;
+                $object->sharingsSummary = $sharing->summary;            }
+        }
+
+        return $object;
+    }
+
     /**
      * Called when generating Atom XML ActivityStreams output from an
      * ActivityObject belonging to this plugin. Gives the plugin
@@ -324,7 +390,7 @@ class SharingsPlugin extends MicroAppPlugin
      */
     function activityObjectOutputAtom(ActivityObject $obj, XMLOutputter $out)
     {
-        if (isset($obj->sharingsDisplayName)) {
+        if (isset($obj->sharingsDisplayName) and !(isset($obj->sharingsUri))) {
             /**
              * <poll:poll xmlns:poll="http://apinamespace.org/activitystreams/object/poll">
              *   <poll:question>Who wants a poll question?</poll:question>
@@ -352,6 +418,19 @@ class SharingsPlugin extends MicroAppPlugin
 
             $out->element('sharings:response', $data, '');
         }
+        if (isset($obj->sharingsUri)) {
+            /**
+             * <poll:response xmlns:poll="http://apinamespace.org/activitystreams/object/poll">
+             *                poll="http://..../poll/...."
+             *                selection="3" />
+             */
+            $data = array('xmlns:sharings' => self::SHARINGS_OBJECT,
+                          'sharing'       => $obj->sharingsUri,
+                          'displayName'  => $obj->sharingsDisplayName,
+                          'summary'  => $obj->sharingsSummary);
+
+            $out->element('sharings:update', $data, '');
+        }
     }
 
     /**
@@ -371,7 +450,7 @@ class SharingsPlugin extends MicroAppPlugin
     public function activityObjectOutputJson(ActivityObject $obj, array &$out)
     {
         common_log(LOG_DEBUG, 'QQQ: ' . var_export($obj, true));
-        if (isset($obj->sharingsDisplayName)) {
+        if (isset($obj->sharingsDisplayName) and !(isset($object->sharingsUri))) {
             /**
              * "poll": {
              *   "question": "Who wants a poll question?",
@@ -396,6 +475,18 @@ class SharingsPlugin extends MicroAppPlugin
             $data = array('sharing'       => $obj->sharingsUri,
                           'profile_id'  => $obj->sharingsProfile_id);
             $out['sharingsResponse'] = $data;
+        }
+        if (isset($object->sharingsUri)) {
+            /**
+             * "pollResponse": {
+             *   "poll": "http://..../poll/....",
+             *   "selection": 3
+             * }
+             */
+            $data = array('sharing'       => $obj->sharingsUri,
+                          'displayName'  => $obj->sharingsDisplayName,
+                          'summary' => $obj->sharingsSummary);
+            $out['sharingsUpdate'] = $data;
         }
     }
 
@@ -475,11 +566,12 @@ class SharingsPlugin extends MicroAppPlugin
         // If the stored notice is a SHARINGS_OBJECT
         $sharing = Sharing::getByNotice($stored);
         if ($sharing instanceof Sharing) {
-            if (!$scoped instanceof Profile || $sharing->getResponse($scoped) instanceof Sharing_response
-                || ($sharing->profile_id == common_current_user()->getProfile()->id)) {
+            if (!$scoped instanceof Profile || $sharing->getResponse($scoped) instanceof Sharing_response) {
                 // Either the user is not logged in or it has already responded; show the results.
                 $form = new SharingsResultForm($sharing, $out);
-            } else {
+            }else if ($sharing->profile_id == common_current_user()->getProfile()->id) { 
+                $form = new MySharingsForm($sharing, $out);
+            }else {
                 $form = new SharingsResponseForm($sharing, $out);
             }
             $form->show();
