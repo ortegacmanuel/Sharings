@@ -613,23 +613,6 @@ class SharingsPlugin extends MicroAppPlugin
         return true;
     }
 
-    function onStartNoticeInScope(Notice $stored, Profile $scoped=null) {
-
-        if ($stored->object_type == self::SHARINGS_RESPONSE_OBJECT) {
-            return;
-        }
-
-        // If the stored notice is a SHARINGS_OBJECT
-        $sharing = Sharing::getByNotice($stored);
-
-        if ($sharing instanceof Sharing) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
     protected function showNoticeContent(Notice $stored, HTMLOutputter $out, Profile $scoped=null)
     {
         if ($stored->object_type == self::SHARINGS_RESPONSE_OBJECT) {
