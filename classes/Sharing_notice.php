@@ -174,12 +174,18 @@ class Sharing_notice extends Managed_DataObject
                                      'object_type' => SharingsPlugin::SHARINGS_OBJECT),
                                $options);
 
-        if (!array_key_exists('uri', $options)) {
-            $options['uri'] = $sharing->uri;
-        }
-
         if ($options['verb'] == ActivityVerb::DELETE) {
+
+            if (!array_key_exists('uri', $options)) {
+                $options['uri'] = $sharing->uri;
+            }
             $sharing->delete();
+        } else {
+
+            if (!array_key_exists('uri', $options)) {
+                $options['uri'] = $sn->uri;
+            }
+
         }
 
         $saved = Notice::saveNew($profile->id,
