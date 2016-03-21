@@ -124,7 +124,14 @@ class Sharing_notice extends Managed_DataObject
 
             $sharing->updated = common_sql_now();
 
+            $target = $sharing->getNotice();
+
             $sharing->update();
+        }
+
+        if ($options['verb'] == ActivityVerb::DELETE) {
+
+            $target = $sharing->getNotice();
         }
 
         $sn = new Sharing_notice();
@@ -151,6 +158,12 @@ class Sharing_notice extends Managed_DataObject
             $rendered = sprintf(_m('ha actualizado "%s"'), $link);
         }
 
+        if ($options['verb'] == ActivityVerb::DELETE) {
+            $content  = sprintf(_m('ha eliminado "%s"'),
+                            $sharing->displayName);
+            $rendered = sprintf(_m('ha eliminado "%s"'), $link);
+        }
+
         $tags    = array();
 
         $options = array_merge(array('urls' => array(),
@@ -162,7 +175,11 @@ class Sharing_notice extends Managed_DataObject
                                $options);
 
         if (!array_key_exists('uri', $options)) {
-            $options['uri'] = $sn->uri;
+            $options['uri'] = $sharing->uri;
+        }
+
+        if ($options['verb'] == ActivityVerb::DELETE) {
+            $sharing->delete();
         }
 
         $saved = Notice::saveNew($profile->id,

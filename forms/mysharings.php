@@ -111,6 +111,11 @@ class MySharingsForm extends Form
             array('href' => common_local_url('editsharings', array('id' => $sharing->id)), 'class' => 'sharings-edit-submit'),
             // TRANS: Link description for link to list of users subscribed to a tag.
             _('Editar'));
+
+        $this->out->element('a',
+            array('href' => common_local_url('deletesharings', array('id' => $sharing->id)), 'class' => 'sharings-edit-submit'),
+            // TRANS: Link description for link to list of users subscribed to a tag.
+            _('Dar de baja'));
     }
 
     /**

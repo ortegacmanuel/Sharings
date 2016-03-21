@@ -122,6 +122,6 @@ class DeleteSharingsForm extends Form
     function formActions()
     {
         // TRANS: Button text for saving a new poll.
-        $this->out->submit('sharings-submit', _m('BUTTON', 'Confirmar'), 'submit', 'submit');
+        $this->out->submit('sharings-edit-submit', _m('BUTTON', 'Confirmar'), 'submit', 'submit');
     }
 }

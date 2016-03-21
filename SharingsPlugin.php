@@ -114,6 +114,10 @@ class SharingsPlugin extends MicroAppPlugin
                     array('action' => 'editsharings'),
                     array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
 
+        $m->connect('main/sharings/:id/delete',
+                    array('action' => 'deletesharings'),
+                    array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
+
         $m->connect('main/sharings/:id',
                     array('action' => 'showsharings'),
                     array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
@@ -213,6 +217,7 @@ class SharingsPlugin extends MicroAppPlugin
             $pollElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'sharings');
             $responseElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'response');
             $updateElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'update');
+            $deleteElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'delete');
             if ($pollElements->length) {
                 $displayName = '';
                 $summary = '';
@@ -276,6 +281,28 @@ class SharingsPlugin extends MicroAppPlugin
                 } catch (Exception $e) {
                     common_log(LOG_DEBUG, "Poll response  save fail: " . $e->getMessage());
                 }
+            } else if ($deleteElements->length) {
+                $data = $updateElements->item(0);
+                $sharingUri = $data->getAttribute('sharing');
+
+                $options['verb'] = ActivityVerb::DELETE;
+
+                if (!$sharingUri) {
+                    // TRANS: Exception thrown trying to respond to a poll without a poll reference.
+                    throw new Exception(_m('Invalid poll response: No poll reference.'));
+                }
+                $sharing = Sharing::getKV('uri', $sharingUri);
+                if (!$sharing) {
+                    // TRANS: Exception thrown trying to respond to a non-existing poll.
+                    throw new Exception(_m('Invalid poll response: Poll is unknown.'));
+                }
+                try {
+                    $notice = Sharing_notice::saveNew($profile, $sharing, $options);
+                    common_log(LOG_DEBUG, "Saved Sharing_notice ok, notice id: " . $notice->id);
+                    return $notice;
+                } catch (Exception $e) {
+                    common_log(LOG_DEBUG, "Poll response  save fail: " . $e->getMessage());
+                }
             } else {
                 common_log(LOG_DEBUG, "YYY no poll data");
             }
@@ -293,6 +320,8 @@ class SharingsPlugin extends MicroAppPlugin
                     return $this->activityObjectFromNoticePoll($notice);
                 case ActivityVerb::UPDATE:
                     return $this->activityObjectFromNoticeSharingUpdate($notice);
+                case ActivityVerb::DELETE:
+                    return $this->activityObjectFromNoticeSharingDelete($notice);
                 default:
                     // TRANS: Exception thrown when performing an unexpected action on a poll.
                     // TRANS: %s is the unexpected object type.
@@ -374,6 +403,21 @@ class SharingsPlugin extends MicroAppPlugin
         return $object;
     }
 
+    function activityObjectFromNoticeSharingDelete(Notice $notice)
+    {
+
+        $object = new ActivityObject();
+        $object->id      = $notice->uri;
+        $object->type    = self::SHARINGS_OBJECT;
+        $object->title   = $notice->content;
+        $object->summary = $notice->content;
+        $object->link    = $notice->getUrl();
+
+        $object->sharingsUri = $notice->uri;
+        error_log('entra en sharing delete');
+        return $object;
+    }
+
     /**
      * Called when generating Atom XML ActivityStreams output from an
      * ActivityObject belonging to this plugin. Gives the plugin
@@ -418,7 +462,7 @@ class SharingsPlugin extends MicroAppPlugin
 
             $out->element('sharings:response', $data, '');
         }
-        if (isset($obj->sharingsUri)) {
+        if (isset($obj->sharingsUri) and isset($obj->sharingsDisplayName)) {
             /**
              * <poll:response xmlns:poll="http://apinamespace.org/activitystreams/object/poll">
              *                poll="http://..../poll/...."
@@ -430,6 +474,19 @@ class SharingsPlugin extends MicroAppPlugin
                           'summary'  => $obj->sharingsSummary);
 
             $out->element('sharings:update', $data, '');
+        }
+        error_log('entra en sharing xml delete');
+        if (isset($obj->id) and !(isset($obj->sharingsUri)) and !(isset($obj->sharingsDisplayName))) {
+            error_log('montando el xml');
+            /**
+             * <poll:response xmlns:poll="http://apinamespace.org/activitystreams/object/poll">
+             *                poll="http://..../poll/...."
+             *                selection="3" />
+             */
+            $data = array('xmlns:sharings' => self::SHARINGS_OBJECT,
+                          'sharing'       => $obj->id);
+
+            $out->element('sharings:delete', $data, '');
         }
     }
 
