@@ -282,7 +282,7 @@ class SharingsPlugin extends MicroAppPlugin
                     common_log(LOG_DEBUG, "Poll response  save fail: " . $e->getMessage());
                 }
             } else if ($deleteElements->length) {
-                $data = $updateElements->item(0);
+                $data = $deleteElements->item(0);
                 $sharingUri = $data->getAttribute('sharing');
 
                 $options['verb'] = ActivityVerb::DELETE;
