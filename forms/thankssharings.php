@@ -44,9 +44,8 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class DeleteSharingsForm extends Form
+class ThanksSharingsForm extends Form
 {
-    protected $sharing;
 
     /**
      * Construct a new poll form
@@ -56,10 +55,9 @@ class DeleteSharingsForm extends Form
      *
      * @return void
      */
-    function __construct(Sharing $sharing, HTMLOutputter $out)
+    function __construct(HTMLOutputter $out)
     {
-        parent::__construct($out);
-        $this->sharing = $sharing;
+        $this->out = $out;
     }
 
     /**
@@ -89,7 +87,7 @@ class DeleteSharingsForm extends Form
      */
     function action()
     {
-        return common_local_url('deletesharings', array('id' => $this->sharing->id));
+
     }
 
     /**
@@ -99,19 +97,20 @@ class DeleteSharingsForm extends Form
      */
     function formData()
     {
-        $sharing = $this->sharing;
-        $out = $this->out;
-        $id = "sharing-" . $sharing->id;
-        
-        $out->element('h3', 'sharing-title', '¿Estás seguro que quieres eliminar este objeto/servicio?');
-        $out->element('p', 'sharing-displayName', 'Nombre: ' . $sharing->displayName);
-        $out->element('p', 'sharing-summary', 'Detalle: ' . $sharing->summary);
+         
+        $this->out->element('h3', 'sharing-title', '¡Gracias por compartir!');
+
+        $this->out->element('br');
 
         $this->out->element('a',
-            array('href' => $sharing->uri, 'class' => 'sharings-edit-submit'),
+            array('href' => common_local_url('newsharings'), 'class' => 'sharings-edit-submit'),
             // TRANS: Link description for link to list of users subscribed to a tag.
-            _('Cancelar'));
+            _('Agregar objeto o servicio'));
 
+        $this->out->element('a',
+            array('href' => common_local_url('sharingsnotices'), 'class' => 'sharings-edit-submit'),
+            // TRANS: Link description for link to list of users subscribed to a tag.
+            _('Ver catálogo'));
     }
 
     /**
@@ -121,7 +120,6 @@ class DeleteSharingsForm extends Form
      */
     function formActions()
     {
-        // TRANS: Button text for saving a new poll.
-        $this->out->submit(_m('BUTTON', 'Confirmar'), _m('BUTTON', 'Confirmar'), 'sharings-edit-submit');
+
     }
 }
