@@ -384,6 +384,10 @@ class SharingsPlugin extends MicroAppPlugin
             // $this->activityObjectOutputJson()...
             $object->sharingsDisplayName = $sharing->displayName;
             $object->sharingsSummary = $sharing->summary;
+            $object->sharingsPrice = $sharing->price;
+            $object->sharingsCategory_id = $sharing->sharing_category_id;
+            $object->sharingsType_id = $sharing->sharing_type_id;
+            $object->sharingsCity_id = $sharing->sharing_city_id;
         }
 
         return $object;
@@ -456,6 +460,10 @@ class SharingsPlugin extends MicroAppPlugin
             $out->elementStart('sharings:sharings', $data);
             $out->element('sharings:displayName', array(), $obj->sharingsDisplayName);
             $out->element('sharings:summary', array(), $obj->sharingsSummary);
+            $out->element('sharings:price', array(), $obj->sharingsPrice);
+            $out->element('sharings:category_id', array(), $obj->sharingsCategory_id);
+            $out->element('sharings:type_id', array(), $obj->sharingsType_id);
+            $out->element('sharings:city_id', array(), $obj->sharingsCity_id);
 
             $out->elementEnd('sharings:sharings');           
         }
@@ -484,7 +492,6 @@ class SharingsPlugin extends MicroAppPlugin
 
             $out->element('sharings:update', $data, '');
         }
-        error_log('entra en sharing xml delete');
         if (isset($obj->id) and !(isset($obj->sharingsUri)) and !(isset($obj->sharingsDisplayName))) {
             error_log('montando el xml');
             /**
@@ -528,7 +535,11 @@ class SharingsPlugin extends MicroAppPlugin
              * }
              */
             $data = array('displayName' => $obj->sharingsDisplayName,
-                          'options' => $obj->sharingsSummary); 
+                          'summary' => $obj->sharingsSummary,
+                          'price' => $obj->sharingsPrice,
+                          'category_id' => $obj->sharingsCategory_id,
+                          'type_id' => $obj->sharingsType_id,
+                          'city_id' => $obj->sharingsCity_id); 
             $out['sharings'] = $data;
         }
         if (isset($obj->sharingsProfile_id)) {

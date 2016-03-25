@@ -46,8 +46,12 @@ if (!defined('STATUSNET')) {
  */
 class NewSharingsForm extends Form
 {
-    protected $displayName = null;
-    protected $summary = null;
+    protected $sharing_category_id = null;
+    protected $sharing_type_id = null;
+    protected $sharing_city_id = null;
+    protected $displayName    = null;
+    protected $summary     = null;
+    protected $price    = null;
 
     protected $kategori = array();
     protected $urbi = array();
@@ -61,9 +65,17 @@ class NewSharingsForm extends Form
      *
      * @return void
      */
-    function __construct($out=null, $displayName=null, $summary=null)
+    function __construct($out=null, $displayName=null, $summary=null, $price=null, $sharing_category_id=null,
+                         $sharing_type_id=null, $sharing_city_id=null)
     {
         parent::__construct($out);
+
+        $this->displayName = $displayName;
+        $this->summary = $summary;
+        $this->price = $price;
+        $this->sharing_category_id = $sharing_category_id;
+        $this->sharing_type_id = $sharing_type_id;
+        $this->sharing_city_id = $sharing_city_id;
 
         $kategori = new Sharing_category();
 
@@ -184,9 +196,9 @@ class NewSharingsForm extends Form
                           // TRANS: Field label for an answer option on the page to create a poll.
                           // TRANS: %d is the option number.
                           _m('Precio'),
-                          $this->summary,
+                          $this->price,
                           _m('Indica el precio asociado a este producto o servicio. Asignale 0 - cero - en caso de querer compartirlo de forma gratuita'),
-                          'summary',
+                          'price',
                           true);   // HTML5 "required" attribute for 2 options
         $this->unli();
 

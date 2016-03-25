@@ -166,15 +166,19 @@ class Sharing extends Managed_DataObject
      *
      * @return Notice saved notice
      */
-    static function saveNew($profile, $displayName, $summary, $options=null)
+    static function saveNew($profile, $options=null)
     {
 
         $s = new Sharing();
 
         $s->id          = UUID::gen();
         $s->profile_id  = $profile->id;
-        $s->displayName    = $displayName;
-        $s->summary     = $summary;
+        $s->displayName = $options['displayName'];
+        $s->summary     = $options['summary'];
+        $s->price       = $options['price'];
+        $s->sharing_category_id = $options['sharing_category_id'];
+        $s->sharing_type_id = $options['sharing_type_id'];
+        $s->sharing_city_id = $options['sharing_city_id'];
 
         if (array_key_exists('created', $options)) {
             $s->created = $options['created'];
@@ -196,12 +200,12 @@ class Sharing extends Managed_DataObject
         // TRANS: Notice content creating a poll.
         // TRANS: %1$s is the poll question, %2$s is a link to the poll.
         $content  = sprintf(_m('Objeto/Servicio: %1$s %2$s'),
-                            $displayName,
+                            $s->displayName,
                             $s->uri);
-        $link = '<a href="' . htmlspecialchars($s->uri) . '">' . htmlspecialchars($displayName) . '</a>';
+        $link = '<a href="' . htmlspecialchars($s->uri) . '">' . htmlspecialchars($s->displayName) . '</a>';
         // TRANS: Rendered version of the notice content creating a poll.
         // TRANS: %s is a link to the poll with the question as link description.
-        $rendered = sprintf(_m('Objeto/Servicio: %s'), $link);
+        $rendered = sprintf(_m('He compartido un objeto/servicio en %s: %s'), Sharing_city::getNameById($s->sharing_city_id), $link);
 
         $tags    = array('sharings');
         $replies = array();

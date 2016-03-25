@@ -53,7 +53,7 @@ class NewSharingsAction extends Action
     protected $sharing_type_id = null;
     protected $sharing_city_id = null;
     protected $displayName    = null;
-    protected $summary     = array();
+    protected $summary     = null;
     protected $price    = null;
 
     /**
@@ -141,14 +141,40 @@ class NewSharingsAction extends Action
                 throw new ClientException(_m('Tiene que indicar información detallada sobre el objeto o servicio que quiere compartir.'));
             }
 
+            if ($this->sharing_category_id == 0) {
+            // TRANS: Client exception thrown trying to create a poll without a question.
+                throw new ClientException(_m('Tiene que seleccionar una categoría.'));
+            }
+
+            if ($this->sharing_type_id == 0) {
+            // TRANS: Client exception thrown trying to create a poll without a question.
+                throw new ClientException(_m('Tiene que seleccionar Oferta o Demanda.'));
+            }
+
+            if ($this->sharing_city_id == 0) {
+            // TRANS: Client exception thrown trying to create a poll without a question.
+                throw new ClientException(_m('Tiene que seleccionar una cuidad.'));
+            }
+
+            if (empty($this->price)) {
+                if($this->price != 0){
+                // TRANS: Client exception thrown trying to create a poll without a question.
+                    throw new ClientException(_m('Tiene que indicar el precio para este producto o bien asinarle precio 0 - cero - para compartilo gratuitamente.'));
+                }
+            }
+
             // Does the heavy-lifting for getting "To:" information
 
             ToSelector::fillOptions($this, $options);
 
-            $saved = Sharing::saveNew($this->user->getProfile(),
-                                   $this->displayName,
-                                   $this->summary,
-                                   $options);
+            $options['displayName'] = $this->displayName;
+            $options['summary'] = $this->summary;
+            $options['price'] = $this->price;
+            $options['sharing_category_id'] = $this->sharing_category_id;
+            $options['sharing_type_id'] = $this->sharing_type_id;
+            $options['sharing_city_id'] = $this->sharing_city_id;
+
+            $saved = Sharing::saveNew($this->user->getProfile(), $options);
 
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
@@ -200,7 +226,11 @@ class NewSharingsAction extends Action
 
         $form = new NewSharingsForm($this,
                                  $this->displayName,
-                                 $this->summary);
+                                 $this->summary, 
+                                 $this->price, 
+                                 $this->sharing_category_id,
+                                 $this->sharing_type_id,
+                                 $this->sharing_city_id);
 
         $form->show();
 
