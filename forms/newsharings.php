@@ -49,6 +49,11 @@ class NewSharingsForm extends Form
     protected $displayName = null;
     protected $summary = null;
 
+    protected $kategori = array();
+    protected $urbi = array();
+    protected $tipi = array();
+
+
     /**
      * Construct a new poll form
      *
@@ -59,6 +64,38 @@ class NewSharingsForm extends Form
     function __construct($out=null, $displayName=null, $summary=null)
     {
         parent::__construct($out);
+
+        $kategori = new Sharing_category();
+
+        $kategori->find();
+
+        $this->kategori[0] = "Selecciona una categoría";
+
+        while ($kategori->fetch()) {
+            $this->kategori[$kategori->id] = $kategori->name;
+        }
+
+        $urbi = new Sharing_city();
+
+        $urbi->orderBy('name ASC');
+
+        $urbi->find();
+
+        $this->urbi[0] = "Selecciona una ciudad";
+
+        while ($urbi->fetch()) {
+            $this->urbi[$urbi->id] = $urbi->name;
+        }
+
+        $tipi = new Sharing_type();
+
+        $this->tipi[0] = "Selecciona Oferta o Demanda";
+
+        $tipi->find();
+
+        while ($tipi->fetch()) {
+            $this->tipi[$tipi->id] = $tipi->name;
+        }
     }
 
     /**
@@ -103,6 +140,24 @@ class NewSharingsForm extends Form
 
         $this->li();
 
+        $this->dropdown('sharing_category_id', _('Categoría'),
+                     // TRANS: Tooltip for dropdown list label in form for profile settings.
+                        $this->kategori, _('Por favor, selecciona la categoría en la que quieres publicar'),
+                        true, 0);
+
+        $this->unli();
+
+        $this->li();
+
+        $this->dropdown('sharing_type_id', _('Tipo'),
+                     // TRANS: Tooltip for dropdown list label in form for profile settings.
+                        $this->tipi, _('Por favor, indica si estas publicando una oferta o una demanda'),
+                        true, 0);
+
+        $this->unli();
+
+        $this->li();
+
         $this->out->input('displayName',
                           // TRANS: Field label on the page to create a poll.
                           _m('Nombre'),
@@ -122,6 +177,26 @@ class NewSharingsForm extends Form
                           _m('Detalle del objeto o servicio que se quiere compartir'),
                           'summary',
                           true);   // HTML5 "required" attribute for 2 options
+        $this->unli();
+
+        $this->li();
+        $this->out->input('price',
+                          // TRANS: Field label for an answer option on the page to create a poll.
+                          // TRANS: %d is the option number.
+                          _m('Precio'),
+                          $this->summary,
+                          _m('Indica el precio asociado a este producto o servicio. Asignale 0 - cero - en caso de querer compartirlo de forma gratuita'),
+                          'summary',
+                          true);   // HTML5 "required" attribute for 2 options
+        $this->unli();
+
+        $this->li();
+
+        $this->dropdown('sharing_city_id', _('Ciudad'),
+                     // TRANS: Tooltip for dropdown list label in form for profile settings.
+                        $this->urbi, _('Por favor, selecciona una ciudad'),
+                        true, 0);
+
         $this->unli();
 
         $this->out->elementEnd('ul');

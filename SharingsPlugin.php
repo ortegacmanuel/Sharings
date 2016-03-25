@@ -68,10 +68,10 @@ class SharingsPlugin extends MicroAppPlugin
         $schema->ensureTable('sharing_response', Sharing_response::schemaDef());
         $schema->ensureTable('sharing_notice', Sharing_notice::schemaDef());
             
-        // Kategori kaj subkategori
+        // Kategori kaj urbi
  
         $schema->ensureTable('sharing_category', Sharing_category::schemaDef());
-        $schema->ensureTable('sharing_subcategory', Sharing_subcategory::schemaDef());
+        $schema->ensureTable('sharing_city', Sharing_city::schemaDef());
 
         // Tipi
         $schema->ensureTable('sharing_type', Sharing_type::schemaDef());

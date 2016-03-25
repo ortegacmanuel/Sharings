@@ -43,21 +43,6 @@ foreach ($data as $row) {
   $obj->insert();
 }
 
-$srcfile = SCRIPTSDIR . '/subcategories.json';
-
-$data = json_decode(file_get_contents($srcfile));
-
-foreach ($data as $row) {
-  $obj = new Sharing_subcategory();
-  $obj->id        = $row->id;
-  $obj->name        = $row->name;
-  $obj->slug        = $row->slug;
-  $obj->description = $row->description;
-  $obj->sharing_category_id = $row->category_id;
-  $obj->created     = common_sql_now();
-  $obj->insert();
-}
-
 $srcfile = SCRIPTSDIR . '/types.json';
 
 $data = json_decode(file_get_contents($srcfile));
@@ -70,4 +55,21 @@ foreach ($data as $row) {
   $obj->description = $row->description;
   $obj->created     = common_sql_now();
   $obj->insert();
+}
+
+$srcfile = SCRIPTSDIR . '/cities.json';
+
+$data = json_decode(file_get_contents($srcfile));
+
+$city_id = 1;
+
+foreach ($data as $row) {
+  $obj = new Sharing_city();
+  $obj->id = $city_id;
+  $obj->name        = $row->city;
+  $obj->lat = $row->lat;
+  $obj->long = $row->lon;
+  $obj->created     = common_sql_now();
+  $obj->insert();
+  $city_id++;
 }

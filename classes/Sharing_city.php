@@ -42,13 +42,13 @@ if (!defined('STATUSNET')) {
  *
  * @see      DB_DataObject
  */
-class Sharing_subcategory extends Managed_DataObject
+class Sharing_city extends Managed_DataObject
 {
-    public $__table = 'sharing_subcategory'; // table name
+    public $__table = 'sharing_city'; // table name
     public $id;          // char(36) primary key not null -> UUID
     public $name;         // varchar(191)   not 255 because utf8mb4 takes more space
-    public $slug;     // char(36) -> poll.id UUID
-    public $description;     // datetime
+    public $lat;                             // decimal(10,7)
+    public $lon;                             // decimal(10,7)
     public $created;     // datetime
 
     /**
@@ -57,13 +57,12 @@ class Sharing_subcategory extends Managed_DataObject
     public static function schemaDef()
     {
         return array(
-            'description' => 'Record of sharing subcategories',
+            'description' => 'Record of sharing cities',
             'fields' => array(
                 'id' => array('type' => 'int', 'not null' => true),
-                'name' => array('type' => 'varchar', 'length' => 200, 'not null' => true, 'description' => 'Subcategory name'),
-                'slug' => array('type' => 'varchar', 'length' => 200, 'not null' => true, 'description' => 'Subcategory slug'),
-                'description' => array('type' => 'varchar', 'length' => 500, 'not null' => false, 'description' => 'Subcategory description'),
-                'sharing_category_id' => array('type' => 'int', 'not null' => true, 'description' => 'Sharing category', 'default' => 1),
+                'name' => array('type' => 'varchar', 'length' => 200, 'not null' => true, 'description' => 'City name'),
+                'lat' => array('type' => 'numeric', 'precision' => 10, 'scale' => 7, 'description' => 'latitude'),
+                'lon' => array('type' => 'numeric', 'precision' => 10, 'scale' => 7, 'description' => 'longitude'),
                 'created' => array('type' => 'datetime', 'not null' => true),               
             ),
             'primary key' => array('id'),

@@ -49,7 +49,6 @@ class Sharing_category extends Managed_DataObject
     public $name;         // varchar(191)   not 255 because utf8mb4 takes more space
     public $slug;     // char(36) -> poll.id UUID
     public $description;     // varchar(500)
-    public $sharing_category_id;  // int -> sharing_category.id
     public $created;     // datetime
 
     /**
