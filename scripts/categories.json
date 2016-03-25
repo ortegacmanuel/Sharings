@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Casas/Viviendas/Hospitalidad",
+    "slug": "casas",
+    "description": "Casas/Viviendas/Hospitalidad"
+  },
+  {
+    "id": 2,
+    "name": "Objetos/Servicios",
+    "slug": "objetos_servicios",
+    "description": "Objetos y servicios"
+  },
+  {
+    "id": 3,
+    "name": "Trayectos",
+    "slug": "trayectos",
+    "description": "Compartir coche"
+  }
+]

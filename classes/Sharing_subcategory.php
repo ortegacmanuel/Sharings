@@ -49,6 +49,7 @@ class Sharing_subcategory extends Managed_DataObject
     public $name;         // varchar(191)   not 255 because utf8mb4 takes more space
     public $slug;     // char(36) -> poll.id UUID
     public $description;     // datetime
+    public $created;     // datetime
 
     /**
      * The One True Thingy that must be defined and declared.
@@ -61,7 +62,9 @@ class Sharing_subcategory extends Managed_DataObject
                 'id' => array('type' => 'int', 'not null' => true),
                 'name' => array('type' => 'varchar', 'length' => 200, 'not null' => true, 'description' => 'Subcategory name'),
                 'slug' => array('type' => 'varchar', 'length' => 200, 'not null' => true, 'description' => 'Subcategory slug'),
-                'description' => array('type' => 'varchar', 'length' => 500, 'not null' => false, 'description' => 'Subcategory description'),                
+                'description' => array('type' => 'varchar', 'length' => 500, 'not null' => false, 'description' => 'Subcategory description'),
+                'sharing_category_id' => array('type' => 'int', 'not null' => true, 'description' => 'Sharing category', 'default' => 1),
+                'created' => array('type' => 'datetime', 'not null' => true),               
             ),
             'primary key' => array('id'),
         );

@@ -49,6 +49,7 @@ class Sharing_type extends Managed_DataObject
     public $name;         // varchar(191)   not 255 because utf8mb4 takes more space
     public $slug;     // char(36) -> poll.id UUID
     public $description;     // datetime
+    public $created;     // datetime
 
     /**
      * The One True Thingy that must be defined and declared.
@@ -61,7 +62,8 @@ class Sharing_type extends Managed_DataObject
                 'id' => array('type' => 'int', 'not null' => true),
                 'name' => array('type' => 'varchar', 'length' => 200, 'not null' => true, 'description' => 'Type name'),
                 'slug' => array('type' => 'varchar', 'length' => 200, 'not null' => true, 'description' => 'Type slug'),
-                'description' => array('type' => 'varchar', 'length' => 500, 'not null' => false, 'description' => 'Type description'),                
+                'description' => array('type' => 'varchar', 'length' => 500, 'not null' => false, 'description' => 'Type description'),
+                'created' => array('type' => 'datetime', 'not null' => true),        
             ),
             'primary key' => array('id'),
         );

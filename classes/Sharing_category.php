@@ -48,7 +48,9 @@ class Sharing_category extends Managed_DataObject
     public $id;          // char(36) primary key not null -> UUID
     public $name;         // varchar(191)   not 255 because utf8mb4 takes more space
     public $slug;     // char(36) -> poll.id UUID
-    public $description;     // datetime
+    public $description;     // varchar(500)
+    public $sharing_category_id;  // int -> sharing_category.id
+    public $created;     // datetime
 
     /**
      * The One True Thingy that must be defined and declared.
@@ -61,7 +63,8 @@ class Sharing_category extends Managed_DataObject
                 'id' => array('type' => 'int', 'not null' => true),
                 'name' => array('type' => 'varchar', 'length' => 200, 'not null' => true, 'description' => 'Category name'),
                 'slug' => array('type' => 'varchar', 'length' => 200, 'not null' => true, 'description' => 'Category slug'),
-                'description' => array('type' => 'varchar', 'length' => 500, 'not null' => false, 'description' => 'Category description'),                
+                'description' => array('type' => 'varchar', 'length' => 500, 'not null' => false, 'description' => 'Category description'),
+                'created' => array('type' => 'datetime', 'not null' => true),                
             ),
             'primary key' => array('id'),
         );
