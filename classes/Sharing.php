@@ -51,6 +51,9 @@ class Sharing extends Managed_DataObject
     public $profile_id;  // int -> profile.id
     public $displayName;    // text
     public $summary;    // text
+    public $sharing_category_id;  // int -> sharing_category.id
+    public $sharing_subcategory_id;  // int -> sharing_subcategory.id
+    public $sharing_type_id;  // int -> sharing_category.id
     public $created;     // datetime
     public $updated;     // datetime
 
@@ -67,12 +70,21 @@ class Sharing extends Managed_DataObject
                 'profile_id' => array('type' => 'int'),
                 'displayName' => array('type' => 'text'),
                 'summary' => array('type' => 'text'),
+                'sharing_category_id' => array('type' => 'int', 'not null' => true, 'description' => 'Sharing category', 'default' => 1),
+                'sharing_subcategory_id' => array('type' => 'int', 'not null' => true, 'description' => 'Sharing subcategory'),
+                'sharing_type_id' => array('type' => 'int', 'not null' => true, 'description' => 'Sharing type', 'default' => 1),
                 'created' => array('type' => 'datetime', 'not null' => true),
                 'updated' => array('type' => 'datetime', 'not null' => true),
             ),
             'primary key' => array('id'),
             'unique keys' => array(
                 'sharing_uri_key' => array('uri'),
+            ),
+            'foreign keys' => array(
+                'sharing_profile_id_fkey' => array('profile', array('profile_id' => 'id')),
+                'sharing_sharing_category_id_fkey' => array('sharing_category', array('sharing_category_id' => 'id')),
+                'sharing_sharing_subcategory_id_fkey' => array('sharing_subcategory', array('sharing_subcategory_id' => 'id')),
+                'sharing_sharing_type_id_fkey' => array('sharing_type', array('sharing_type_id' => 'id')),
             ),
         );
     }
