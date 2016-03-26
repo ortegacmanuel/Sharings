@@ -3964,5 +3964,17 @@
     "lon": 179.85,
     "wikipedia": "Nukulaelae",
     "city": "Nukulaelae"
+  },
+  {
+    "lat": -17.3841,
+    "lon": -66.1667,
+    "wikipedia": "Cochabamba",
+    "city": "Cochabamba"
+  },
+  {
+    "lat": 43.0026319,
+    "lon": -7.4994393,
+    "wikipedia": "Lugo",
+    "city": "Lugo"
   }
 ]
