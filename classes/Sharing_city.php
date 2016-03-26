@@ -71,7 +71,13 @@ class Sharing_city extends Managed_DataObject
 
     static function getNameById($id)
     {
-        return self::getKV('id', $id)->name;
+        $city = self::getKV('id', $id);
+        
+        if($city) {
+            return $city->name;
+        } else {
+            return 'Objeto o servicio sin ciudad';
+        }
     }
 
 }
