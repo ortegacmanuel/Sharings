@@ -87,8 +87,12 @@ class EditSharingsAction extends Action
             $this->checkSessionToken();
         }
 
+        $this->sharing_category_id = $this->trimmed('sharing_category_id');
+        $this->sharing_type_id = $this->trimmed('sharing_type_id');
         $this->displayName = $this->trimmed('displayName');
         $this->summary = $this->trimmed('summary');
+        $this->price = $this->trimmed('price');
+        $this->sharing_city_id = $this->trimmed('sharing_city_id');
 
         $id = $this->trimmed('id');
         $this->sharing = Sharing::getKV('id', $id);
