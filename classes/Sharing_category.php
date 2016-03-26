@@ -69,4 +69,9 @@ class Sharing_category extends Managed_DataObject
         );
     }
 
+    static function getNameById($id)
+    {
+        return self::getKV('id', $id)->name;
+    }
+
 }

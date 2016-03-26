@@ -135,6 +135,15 @@ class Sharing extends Managed_DataObject
         return $this->getNotice()->getUrl();
     }
 
+    function getPriceText()
+    {
+        if ($this->price == 0) {
+            return 'de forma gratuita';
+        } else {
+            return 'por ' . $this->price . ' euros';
+        }
+    }
+
     /**
      * Get the response of a particular user to this poll, if any.
      *
@@ -205,7 +214,7 @@ class Sharing extends Managed_DataObject
         $link = '<a href="' . htmlspecialchars($s->uri) . '">' . htmlspecialchars($s->displayName) . '</a>';
         // TRANS: Rendered version of the notice content creating a poll.
         // TRANS: %s is a link to the poll with the question as link description.
-        $rendered = sprintf(_m('He compartido un objeto/servicio en %s: %s'), Sharing_city::getNameById($s->sharing_city_id), $link);
+        $rendered = sprintf(_m('He compartido un nuevo objeto/servicio en %s: %s. %s %s dentro de la categoría %s'), Sharing_city::getNameById($s->sharing_city_id), $link, Sharing_type::getNameById($s->sharing_type_id), $s->getPriceText(), Sharing_category::getNameById($s->sharing_category_id));
 
         $tags    = array('sharings');
         $replies = array();

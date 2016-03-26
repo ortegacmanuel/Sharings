@@ -100,12 +100,23 @@ class MySharingsForm extends Form
     function formData()
     {
         $sharing = $this->sharing;
+        $counts = $sharing->countResponses();
         $out = $this->out;
         $id = "poll-" . $sharing->id;
         
         $out->element('h3', 'sharing-title', 'He compartido');
+        $out->element('p', 'sharing-category', 'Categoría: ' . Sharing_category::getNameById($sharing->sharing_category_id));
+        $out->element('p', 'sharing-type', 'Tipo: ' . Sharing_type::getNameById($sharing->sharing_type_id));
         $out->element('p', 'sharing-displayName', 'Nombre: ' . $sharing->displayName);
         $out->element('p', 'sharing-summary', 'Detalle: ' . $sharing->summary);
+        $out->element('p', 'sharing-price', $sharing->getPriceText());
+        $out->element('p', 'sharing-city', 'En ' . Sharing_city::getNameById($sharing->sharing_city_id));
+
+        $out->element('br');
+
+        $out->element('p', 'sharings-summary', 'Tu objeto / servicio le interesa a ' . $counts . ' usuarios');
+
+        $out->element('br');
 
         $this->out->element('a',
             array('href' => common_local_url('editsharings', array('id' => $sharing->id)), 'class' => 'sharings-edit-submit'),

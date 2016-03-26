@@ -228,22 +228,39 @@ class SharingsPlugin extends MicroAppPlugin
             $updateElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'update');
             $deleteElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'delete');
             if ($pollElements->length) {
-                $displayName = '';
-                $summary = '';
+
+                $options['displayName'] = '';
+                $options['summary'] = '';
+                $options['price'] = '';
+                $options['sharing_category_id'] = '';
+                $options['sharing_type_id'] = '';
+                $options['sharing_city_id'] = '';
 
                 $data = $pollElements->item(0);
                 foreach ($data->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'displayName') as $node) {
-                    $displayName = $node->textContent;
+                    $options['displayName'] = $node->textContent;
                 }
                 foreach ($data->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'summary') as $node) {
-                    $summary = $node->textContent;
+                    $options['summary'] = $node->textContent;
+                }
+                foreach ($data->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'price') as $node) {
+                    $options['summary'] = $node->textContent;
+                }
+                foreach ($data->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'category_id') as $node) {
+                    $options['sharing_category_id'] = $node->textContent;
+                }
+                foreach ($data->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'type_id') as $node) {
+                    $options['sharing_type_id'] = $node->textContent;
+                }
+                foreach ($data->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'city_id') as $node) {
+                    $options['sharing_city_id'] = $node->textContent;
                 }
                 try {
-                    $notice = Sharing::saveNew($profile, $displayName, $summary, $options);
-                    common_log(LOG_DEBUG, "Saved Poll from ActivityStream data ok: notice id " . $notice->id);
+                    $notice = Sharing::saveNew($profile, $options);
+                    common_log(LOG_DEBUG, "Saved sharing from ActivityStream data ok: notice id " . $notice->id);
                     return $notice;
                 } catch (Exception $e) {
-                    common_log(LOG_DEBUG, "Poll save from ActivityStream data failed: " . $e->getMessage());
+                    common_log(LOG_DEBUG, "Sharing save from ActivityStream data failed: " . $e->getMessage());
                 }
             } else if ($responseElements->length) {
                 $data = $responseElements->item(0);
