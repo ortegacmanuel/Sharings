@@ -119,8 +119,13 @@ class Sharing_notice extends Managed_DataObject
     {
 
         if ($options['verb'] == ActivityVerb::UPDATE) {
+
             $sharing->displayName = $options['displayName'];
             $sharing->summary = $options['summary'];
+            $sharing->price = $options['price'];
+            $sharing->sharing_category_id = $options['sharing_category_id'];
+            $sharing->sharing_type_id = $options['sharing_type_id'];
+            $sharing->sharing_city_id = $options['sharing_city_id'];
 
             $sharing->updated = common_sql_now();
 
@@ -147,7 +152,7 @@ class Sharing_notice extends Managed_DataObject
         $sn->uri = UUID::gen();
 
 
-        common_log(LOG_DEBUG, "Saving poll response: $sn->id $sn->uri");
+        common_log(LOG_DEBUG, "Saving sharing response: $sn->id $sn->uri");
         $sn->insert();
 
         $link = '<a href="' . htmlspecialchars($sharing->uri) . '">' . htmlspecialchars($sharing->displayName) . '</a>';

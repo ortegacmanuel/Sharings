@@ -288,8 +288,13 @@ class SharingsPlugin extends MicroAppPlugin
                 $sharingUri = $data->getAttribute('sharing');
 
                 $options['verb'] = ActivityVerb::UPDATE;
+
                 $options['displayName'] = $data->getAttribute('displayName');
                 $options['summary'] = $data->getAttribute('summary');
+                $options['price'] = $data->getAttribute('price');
+                $options['sharing_category_id'] = $data->getAttribute('category_id');
+                $options['sharing_type_id'] = $data->getAttribute('type_id');
+                $options['sharing_city_id'] = $data->getAttribute('city_id');
 
                 if (!$sharingUri) {
                     // TRANS: Exception thrown trying to respond to a poll without a poll reference.
@@ -427,7 +432,12 @@ class SharingsPlugin extends MicroAppPlugin
             if ($sharing) {
                 $object->sharingsUri = $sharing->uri;
                 $object->sharingsDisplayName = $sharing->displayName;
-                $object->sharingsSummary = $sharing->summary;            }
+                $object->sharingsSummary = $sharing->summary;
+                $object->sharingsPrice = $sharing->price;
+                $object->sharingsCategory_id = $sharing->sharing_category_id;
+                $object->sharingsType_id = $sharing->sharing_type_id;
+                $object->sharingsCity_id = $sharing->sharing_city_id;
+            }
         }
 
         return $object;
@@ -505,7 +515,11 @@ class SharingsPlugin extends MicroAppPlugin
             $data = array('xmlns:sharings' => self::SHARINGS_OBJECT,
                           'sharing'       => $obj->sharingsUri,
                           'displayName'  => $obj->sharingsDisplayName,
-                          'summary'  => $obj->sharingsSummary);
+                          'summary'  => $obj->sharingsSummary,
+                          'price'  => $obj->sharingsPrice,
+                          'category_id'  => $obj->sharingsCategory_id,
+                          'type_id'  => $obj->sharingsType_id,
+                          'city_id'  => $obj->sharingsCity_id);
 
             $out->element('sharings:update', $data, '');
         }
@@ -579,7 +593,12 @@ class SharingsPlugin extends MicroAppPlugin
              */
             $data = array('sharing'       => $obj->sharingsUri,
                           'displayName'  => $obj->sharingsDisplayName,
-                          'summary' => $obj->sharingsSummary);
+                          'summary' => $obj->sharingsSummary,
+                          'price' => $obj->sharingsPrice,
+                          'category_id' => $obj->sharingsCategory_id,
+                          'type_id' => $obj->sharingsType_id,
+                          'city_id' => $obj->sharingsCity_id);
+
             $out['sharingsUpdate'] = $data;
         }
     }

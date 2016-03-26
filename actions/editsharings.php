@@ -141,9 +141,36 @@ class EditSharingsAction extends Action
                 throw new ClientException(_m('Tiene que indicar información detallada sobre el objeto o servicio que quiere compartir.'));
             }
 
+            if ($this->sharing_category_id == 0) {
+            // TRANS: Client exception thrown trying to create a poll without a question.
+                throw new ClientException(_m('Tiene que seleccionar una categoría.'));
+            }
+
+            if ($this->sharing_type_id == 0) {
+            // TRANS: Client exception thrown trying to create a poll without a question.
+                throw new ClientException(_m('Tiene que seleccionar Oferta o Demanda.'));
+            }
+
+            if ($this->sharing_city_id == 0) {
+            // TRANS: Client exception thrown trying to create a poll without a question.
+                throw new ClientException(_m('Tiene que seleccionar una cuidad.'));
+            }
+
+            if (empty($this->price)) {
+                if($this->price != 0){
+                // TRANS: Client exception thrown trying to create a poll without a question.
+                    throw new ClientException(_m('Tiene que indicar el precio para este producto o bien asinarle precio 0 - cero - para compartilo gratuitamente.'));
+                }
+            }
+
             $options['verb'] = ActivityVerb::UPDATE;
+
             $options['displayName'] = $this->displayName;
             $options['summary'] = $this->summary;
+            $options['price'] = $this->price;
+            $options['sharing_category_id'] = $this->sharing_category_id;
+            $options['sharing_type_id'] = $this->sharing_type_id;
+            $options['sharing_city_id'] = $this->sharing_city_id;
 
             $notice = Sharing_notice::saveNew($this->user->getProfile(),
                                              $this->sharing,
