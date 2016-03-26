@@ -244,7 +244,7 @@ class SharingsPlugin extends MicroAppPlugin
                     $options['summary'] = $node->textContent;
                 }
                 foreach ($data->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'price') as $node) {
-                    $options['summary'] = $node->textContent;
+                    $options['price'] = $node->textContent;
                 }
                 foreach ($data->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'category_id') as $node) {
                     $options['sharing_category_id'] = $node->textContent;
