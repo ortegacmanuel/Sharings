@@ -5,7 +5,9 @@ var sharingsTranslations = {
         sharingsShortHeadline: "Share",
         catalogLongHeadline: "Catalog",
         catalogShortHeadline: "Catalog",
-        catalogHeadline: "Catálogo de objetos y servicio compartidos"
+        catalogHeadline: "Catálogo de objetos y servicio compartidos",
+        myCatalogShortHeadline: "My Catalog",
+        myCatalogHeadline: "Catálogo de objetos y servicio compartidos"
 
     },
     eo: {
@@ -13,21 +15,27 @@ var sharingsTranslations = {
         sharingsShortHeadline: "Kundividi",
         catalogLongHeadline: "Vidi la katalogon de kundividitaj objektoj kaj servoj",
         catalogShortHeadline: "Katalogo",
-        catalogHeadline: "Katalogo de objektoj kaj servoj kundividitaj"
+        catalogHeadline: "Katalogo de objektoj kaj servoj kundividitaj",
+        myCatalogShortHeadline: "Mia katalogo",
+        myCatalogHeadline: "Mia katalogo de objektoj kaj servoj kundividitaj"
     },
     en: {
         sharingsLongHeadline: "Share objects and services in the network",
         sharingsShortHeadline: "Share",
         catalogLongHeadline: "Display the catalog of shared objects and services",
         catalogShortHeadline: "Catalog",
-        catalogHeadline: "Catalog of shared objects and services"
+        catalogHeadline: "Catalog of shared objects and services",
+        myCatalogShortHeadline: "My catalog",
+        myCatalogHeadline: "My catalog of shared objects and services"
     },
     es: {
         sharingsLongHeadline: "Comparte objetos y servicios en la red",
         sharingsShortHeadline: "Compartir",
         catalogLongHeadline: "Ver el catálogo de objetos y servicios compartidos",
         catalogShortHeadline: "Catálogo",
-        catalogHeadline: "Catálogo de objetos y servicios compartidos"
+        catalogHeadline: "Catálogo de objetos y servicios compartidos",
+        myCatalogShortHeadline: "Mi catálogo",
+        myCatalogHeadline: "Mi catálogo de objetos y servicios compartidos"
     }
 };
 

@@ -68,3 +68,17 @@
     height: 22px;
     width: 22px;
 }
+
+#nav_timeline_sharings a::before {
+    content: "\f1e0" !important;
+    font-family: "fa";
+    font-size: 15px;
+    margin-left: -16px;
+    margin-top: -1px;
+    line-height: 22px;
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+    height: 22px;
+    width: 22px;
+}

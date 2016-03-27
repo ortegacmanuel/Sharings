@@ -151,6 +151,10 @@ class SharingsPlugin extends MicroAppPlugin
             array('action' => 'sharingsdirectory')
         );
 
+        $m->connect(':nickname/sharings',
+                    array('action' => 'mysharings'),
+                    array('nickname' => Nickname::DISPLAY_FMT));
+
         return true;
     }
 
@@ -712,5 +716,15 @@ class SharingsPlugin extends MicroAppPlugin
                                              // TRANS: Menu item title in search group navigation panel.
                                              _('Objetos y servicios compartidos en la red'), $menu->actionName == 'sharingsdirectory', 'nav_sharings_directory');
          }
+    }
+
+    function onEndPersonalGroupNav(Menu $menu, Profile $target, Profile $scoped=null)
+    {
+        $menu->menuItem(common_local_url('mysharings', array('nickname' => $target->getNickname())),
+                          // TRANS: Menu item in sample plugin.
+                          _m('Mi catálogo'),
+                          // TRANS: Menu item title in sample plugin.
+                          _m('Mi objetos y servicios'), false, 'nav_timeline_sharings');
+        return true;
     }
 }

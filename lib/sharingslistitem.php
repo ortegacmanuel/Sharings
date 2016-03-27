@@ -152,7 +152,12 @@ class SharingsListItem extends Widget
         $sharing = $this->notice;
         $out = $this->out;
     
-        $form = new SharingsDirectoryForm($sharing, $out);
+        if ($sharing->profile_id == common_current_user()->getProfile()->id) {
+            $form = new MySharingsForm($sharing, $out);
+        } else {
+            $form = new SharingsDirectoryForm($sharing, $out);
+        }
+
         $form->show();
 
 
