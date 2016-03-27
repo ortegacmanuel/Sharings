@@ -321,7 +321,7 @@ class SharingsdirectoryAction extends ManagedAction
         $sharing->orderBy('created DESC');
 
         if(!empty($this->pc)) {
-            $sharing->whereAdd(sprintf('(displayName LIKE "%%%s%%" OR summary LIKE "%%%s%%")', $this->pc, $this->pc));
+            $sharing->whereAdd(sprintf('(lower(displayName) LIKE "%%%s%%" OR lower(summary) LIKE "%%%s%%")', strtolower($this->pc), strtolower($this->pc)));
         }
 
         if($this->sharing_category_id != 0) {
