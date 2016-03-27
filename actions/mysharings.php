@@ -244,9 +244,9 @@ class MySharingsAction extends ManagedAction
     function showEmptyListMessage()
     {
         // TRANS: Empty list message for user directory.
-        $this->element('p', 'error', _m('Sin resultados.'));
+        $this->element('p', 'error', _m('No has compartido ningún objeto o servicio en la red.'));
         // TRANS: Standard search suggestions shown when a search does not give any results.
-        $message = _m("* Vuelve a intentarlo cambiando los criterios de búsqueda.");
+        $message = _m("");
         $message .= "\n";
 
         $this->elementStart('div', 'help instructions');
