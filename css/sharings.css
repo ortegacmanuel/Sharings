@@ -50,3 +50,21 @@
     background: #2E5481;
     border: solid 1px #203E5F;
 }
+
+#sharingsdirectory-form {
+    margin-bottom: 15px;
+}
+
+#nav_sharings_directory a::before {
+    content: "\f1e0";
+    font-family: "fa";
+    font-size: 15px;
+    margin-left: -16px;
+    margin-top: -1px;
+    line-height: 22px;
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+    height: 22px;
+    width: 22px;
+}

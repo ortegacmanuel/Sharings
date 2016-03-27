@@ -58,7 +58,7 @@ $(document).bind('qvitterAfterLanguageIsSet', function() {
 
     // add show catalog to menu-container in UI
     $('#main-menu').append('\
-        <a class="stream-selection" href="' + window.siteInstanceURL + 'sharings/notices" data-tooltip="' + window.sL.catalogLongHeadline + '">\
+        <a class="stream-selection" href="' + window.siteInstanceURL + 'sharings/directory" data-tooltip="' + window.sL.catalogLongHeadline + '">\
             ' + window.sL.catalogShortHeadline + '\
             <i class="chev-right"></i>\
         </a>');

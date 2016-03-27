@@ -146,6 +146,11 @@ class SharingsPlugin extends MicroAppPlugin
         $m->connect('api/sharings/notices.json',
                         array('action' => 'apisharingsnotices'));
 
+        $m->connect(
+            'sharings/directory',
+            array('action' => 'sharingsdirectory')
+        );
+
         return true;
     }
 
@@ -701,22 +706,11 @@ class SharingsPlugin extends MicroAppPlugin
     public function onEndPublicGroupNav(Menu $menu)
     {
 
-        // When qvitter not activated
-        try {
-            if (!common_config('singleuser', 'enabled')) {
-                // TRANS: Menu item in search group navigation panel.
-                $menu->out->menuItem(common_local_url('sharingsnotices'), _m('MENU','Catálogo'),
-                                     // TRANS: Menu item title in search group navigation panel.
-                                     _('Objetos y servicios compartidos en la red'), $menu->actionName == 'sharingsnotices');
-            }
-        //When qvitter activated
-        } catch (Exception $e) { 
-             if (!common_config('singleuser', 'enabled')) {
-                // TRANS: Menu item in search group navigation panel.
-                $menu->out->menuItem(common_local_url('qvitter'), _m('MENU','Catálogo'),
-                                     // TRANS: Menu item title in search group navigation panel.
-                                     _('Objetos y servicios compartidos en la red'), $menu->actionName == 'hederoposts');
-            }
-       }
+        if (!common_config('singleuser', 'enabled')) {
+                        // TRANS: Menu item in search group navigation panel.
+                        $menu->out->menuItem(common_local_url('sharingsdirectory'), _m('MENU','Catálogo'),
+                                             // TRANS: Menu item title in search group navigation panel.
+                                             _('Objetos y servicios compartidos en la red'), $menu->actionName == 'sharingsdirectory', 'nav_sharings_directory');
+         }
     }
 }

@@ -140,7 +140,7 @@ class Sharing extends Managed_DataObject
         if ($this->price == 0) {
             return 'de forma gratuita';
         } else {
-            return 'por ' . $this->price . ' euros';
+            return 'por ' . $this->price . ' unidades (consultar moneda con el propietario de este objeto o servicio)';
         }
     }
 
