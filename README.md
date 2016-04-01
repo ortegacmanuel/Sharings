@@ -13,3 +13,17 @@ Clonar `Sharings` dentro del directorio `local/plugins` y activarlo en config.ph
 ```php
 addPlugin('Sharings');
 ```
+
+Actualizar los esquemas de la base de datos desde la raíz de tu instalación de GNU social
+
+```php
+php scripts/checkschema.php
+```
+
+Cargar las categorías, tipos y cuidades utilizadas en Sharings desde el directorio raíz del plugin en `local/plugins/Sharings`
+
+```php
+php scripts/seedsharings.php
+```
+
+

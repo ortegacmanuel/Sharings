@@ -1,34 +1,29 @@
 [
   {
-    "id": 1,    
     "name": "Intercambio de casas",
     "slug": "intercambio",
     "description": "Intercambio de casas",
     "category_id": 1
   },
   {
-    "id": 2,    
     "name": "Hospitalidad",
     "slug": "hospitalidad",
     "description": "Hospitalidad",
     "category_id": "1"
   },
   {
-    "id": 3,
     "name": "Objetos",
     "slug": "objetos",
     "description": "Objetos",
     "category_id": "2"
   },
   {
-    "id": 4,
     "name": "Servicios",
     "slug": "servicios",
     "description": "Servicios",
     "category_id": "2"
   },
   {
-    "id": 5,
     "name": "Libros",
     "slug": "libros",
     "description": "Biblioteca federada",

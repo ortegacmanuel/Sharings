@@ -1,12 +1,10 @@
 [
   {
-    "id": 1,
     "name": "Oferta",
     "slug": "oferta",
     "description": "Ofertas"
   },
   {
-    "id": 2,
     "name": "Demanda",
     "slug": "demanda",
     "description": "Demanda"

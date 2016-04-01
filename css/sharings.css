@@ -56,8 +56,8 @@
 }
 
 #nav_sharings_directory a::before {
-    content: "\f1e0";
-    font-family: "fa";
+    /* content: "\f1e0";
+    font-family: "fa"; */
     font-size: 15px;
     margin-left: -16px;
     margin-top: -1px;
@@ -70,7 +70,7 @@
 }
 
 #nav_timeline_sharings a::before {
-    content: "\f1e0" !important;
+    content: "" !important;
     font-family: "fa";
     font-size: 15px;
     margin-left: -16px;

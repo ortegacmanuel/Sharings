@@ -1,96 +1,80 @@
 [
   {
-    "id": 1,
     "name": "Hospitalidad",
     "slug": "hospitalidad",
     "description": "Hospitalidad"
   },
   {
-    "id": 2,
     "name": "Intercambio de casas",
     "slug": "casas_intercambio",
     "description": "Intercambio de casas"
   },
   {
-    "id": 3,
     "name": "Transporte y viajar juntos",
     "slug": "transporte_viajar",
     "description": "Compartir coche, mesa en renfe, compra de billetes en grupo"
   },
   {
-    "id": 4,
     "name": "Experiencias",
     "slug": "experiencias",
     "description": "Experiencias"
   },
   {
-    "id": 5,
     "name": "Libros, Películas y Música",
     "slug": "libros_peliculas_musica",
     "description": "Biblioteca multimedia federada"
   },
   {
-    "id": 6,
     "name": "Tecnología e informática",
     "slug": "tecnologia_informatica",
     "description": "Cursos, talleres y actividades de aprindizaje"
   },
   {
-    "id": 7,
     "name": "Coches y motos",
     "slug": "coches_motos",
     "description": "Coches y motos"
   },
   {
-    "id": 8,
     "name": "Deporte y Ocio",
     "slug": "deporte_ocio",
     "description": "Deporte y Ocio"
   },
   {
-    "id": 9,
     "name": "Muebles, Deco y Jardin",
     "slug": "muebles_deco_jardin",
     "description": "Muebles, Deco y Jardin"
   },
   {
-    "id": 10,
     "name": "Consolas y Videojuegos",
     "slug": "consolas_videojuegos",
     "description": "Consolas y Videojuegos"
   },
   {
-    "id": 11,
     "name": "Moda y accesorios",
     "slug": "moda_accesorios",
     "description": "Moda y accesorios"
   },
   {
-    "id": 12,
     "name": "Juguetes, Niños y Bebés",
     "slug": "jueguetes_ninos_bebes",
     "description": "Juguetes, Niños y Bebés"
   },
   {
-    "id": 13,
     "name": "Inmobiliaria",
     "slug": "inmobiliaria",
     "description": "Inmobiliaria"
   },
   {
-    "id": 14,
     "name": "Electrodomésticos",
     "slug": "electrodomesticos",
     "description": "Coches y motos"
   },
   {
-    "id": 15,
     "name": "Servicios",
     "slug": "servicios",
     "description": "Servicios"
   },
   {
-    "id": 16,
     "name": "Otros",
     "slug": "otros",
     "description": "Otros"
