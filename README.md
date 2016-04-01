@@ -26,4 +26,20 @@ Cargar las categorías, tipos y cuidades utilizadas en Sharings desde el directo
 php scripts/seedsharings.php
 ```
 
+# Actualización
+
+Hacer `git pull` dentro del directorio raíz de Sharings
+
+Actualizar los esquemas de la base de datos desde la raíz de tu instalación de GNU social
+
+```php
+php scripts/checkschema.php
+```
+
+Actualizar las categorías, tipos y cuidades utilizadas en Sharings desde el directorio raíz de Sharings
+
+```php
+php scripts/seedsharings.php
+```
+
 

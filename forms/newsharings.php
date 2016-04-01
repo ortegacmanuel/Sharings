@@ -206,7 +206,7 @@ class NewSharingsForm extends Form
 
         $this->dropdown('sharing_city_id', _('Ciudad'),
                      // TRANS: Tooltip for dropdown list label in form for profile settings.
-                        $this->urbi, _('Por favor, selecciona una ciudad'),
+                        $this->urbi, _('Por favor, selecciona una ciudad. Si tu ciudad no está en el listado puedes no indicar la ciudad ahora, agregar el objeto o servicio y pedir añadir tu ciudad en http://git.lasindias.club/manuel/Sharings/issues'),
                         true, 0);
 
         $this->unli();

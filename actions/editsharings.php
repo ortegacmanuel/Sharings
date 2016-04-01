@@ -155,10 +155,12 @@ class EditSharingsAction extends Action
                 throw new ClientException(_m('Tiene que seleccionar Oferta o Demanda.'));
             }
 
-            if ($this->sharing_city_id == 0) {
+            // Desabilitado hasta ver como evoluciona la gestión y actualización de ciudades
+
+            //if ($this->sharing_city_id == 0) {
             // TRANS: Client exception thrown trying to create a poll without a question.
-                throw new ClientException(_m('Tiene que seleccionar una cuidad.'));
-            }
+            //    throw new ClientException(_m('Tiene que seleccionar una cuidad.'));
+            //}
 
             if (empty($this->price)) {
                 if($this->price != 0){
