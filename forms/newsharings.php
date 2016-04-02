@@ -81,7 +81,7 @@ class NewSharingsForm extends Form
 
         $kategori->find();
 
-        $this->kategori[0] = "Selecciona una categoría";
+        $this->kategori[0] = _m('Selecciona una categoría');
 
         while ($kategori->fetch()) {
             $this->kategori[$kategori->id] = $kategori->name;
@@ -93,7 +93,7 @@ class NewSharingsForm extends Form
 
         $urbi->find();
 
-        $this->urbi[0] = "Selecciona una ciudad";
+        $this->urbi[0] = _m('Selecciona una ciudad');
 
         while ($urbi->fetch()) {
             $this->urbi[$urbi->id] = $urbi->name;
@@ -101,7 +101,7 @@ class NewSharingsForm extends Form
 
         $tipi = new Sharing_type();
 
-        $this->tipi[0] = "Selecciona Oferta o Demanda";
+        $this->tipi[0] = _m('Selecciona Oferta o Demanda');
 
         $tipi->find();
 
@@ -154,7 +154,7 @@ class NewSharingsForm extends Form
 
         $this->dropdown('sharing_category_id', _('Categoría'),
                      // TRANS: Tooltip for dropdown list label in form for profile settings.
-                        $this->kategori, _('Por favor, selecciona la categoría en la que quieres publicar'),
+                        $this->kategori, _m('Por favor, selecciona la categoría en la que quieres publicar'),
                         true, 0);
 
         $this->unli();
@@ -163,7 +163,7 @@ class NewSharingsForm extends Form
 
         $this->dropdown('sharing_type_id', _('Tipo'),
                      // TRANS: Tooltip for dropdown list label in form for profile settings.
-                        $this->tipi, _('Por favor, indica si estas publicando una oferta o una demanda'),
+                        $this->tipi, _m('Por favor, indica si estas publicando una oferta o una demanda'),
                         true, 0);
 
         $this->unli();
@@ -206,7 +206,7 @@ class NewSharingsForm extends Form
 
         $this->dropdown('sharing_city_id', _('Ciudad'),
                      // TRANS: Tooltip for dropdown list label in form for profile settings.
-                        $this->urbi, _('Por favor, selecciona una ciudad. Si tu ciudad no está en el listado puedes no indicar la ciudad ahora, agregar el objeto o servicio y pedir añadir tu ciudad en http://git.lasindias.club/manuel/Sharings/issues'),
+                        $this->urbi, _m('Por favor, selecciona una ciudad. Si tu ciudad no está en el listado puedes no indicar la ciudad ahora, agregar el objeto o servicio y pedir añadir tu ciudad en http://git.lasindias.club/manuel/Sharings/issues'),
                         true, 0);
 
         $this->unli();

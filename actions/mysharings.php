@@ -246,7 +246,7 @@ class MySharingsAction extends ManagedAction
         // TRANS: Empty list message for user directory.
         $this->element('p', 'error', _m('No has compartido ningún objeto o servicio en la red.'));
         // TRANS: Standard search suggestions shown when a search does not give any results.
-        $message = _m("");
+        $message = _m("Compartiendo obtendras la medala «Mumi»");
         $message .= "\n";
 
         $this->elementStart('div', 'help instructions');

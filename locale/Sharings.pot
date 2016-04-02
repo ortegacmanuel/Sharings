@@ -1,0 +1,328 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-04-02 12:51+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: actions/mysharings.php:121
+msgid "Mi Catálogo"
+msgstr ""
+
+#. TRANS: %%site.name%% is the name of the StatusNet site.
+#: actions/mysharings.php:132
+msgid "Listado de mis objetos y servicios compartidos en la red."
+msgstr ""
+
+#. TRANS: Empty list message for user directory.
+#: actions/mysharings.php:247
+msgid "No has compartido ningún objeto o servicio en la red."
+msgstr ""
+
+#. TRANS: Standard search suggestions shown when a search does not give any results.
+#: actions/mysharings.php:249
+msgid "Compartiendo obtendras la medala «Mumi»"
+msgstr ""
+
+#. TRANS: Title for poll page.
+#: actions/editsharings.php:64
+msgid "Editar un objeto o servicio"
+msgstr ""
+
+#. TRANS: Client exception thrown trying to create a poll while not logged in.
+#: actions/editsharings.php:82 actions/newsharings.php:85
+#: actions/deletesharings.php:82
+msgid "You must be logged in to post a poll."
+msgstr ""
+
+#. TRANS: Client exception thrown trying to respond to a non-existing poll.
+#: actions/editsharings.php:101 actions/respondsharings.php:96
+#: actions/deletesharings.php:94
+msgid "Invalid or missing poll."
+msgstr ""
+
+#. TRANS: Client exception thrown trying to create a poll without a question.
+#: actions/editsharings.php:140 actions/newsharings.php:136
+msgid "El objeto o servicio a compartir tiene que tener un nombre."
+msgstr ""
+
+#. TRANS: Client exception thrown trying to create a poll with fewer than two options.
+#: actions/editsharings.php:145 actions/newsharings.php:141
+msgid ""
+"Tiene que indicar información detallada sobre el objeto o servicio que "
+"quiere compartir."
+msgstr ""
+
+#. TRANS: Client exception thrown trying to create a poll without a question.
+#: actions/editsharings.php:150 actions/newsharings.php:146
+msgid "Tiene que seleccionar una categoría."
+msgstr ""
+
+#. TRANS: Client exception thrown trying to create a poll without a question.
+#: actions/editsharings.php:155 actions/newsharings.php:151
+msgid "Tiene que seleccionar Oferta o Demanda."
+msgstr ""
+
+#. TRANS: Client exception thrown trying to create a poll without a question.
+#: actions/editsharings.php:168 actions/newsharings.php:164
+msgid ""
+"Tiene que indicar el precio para este producto o bien asinarle precio 0 - "
+"cero - para compartilo gratuitamente."
+msgstr ""
+
+#. TRANS: Page title after sending a notice.
+#: actions/editsharings.php:196 actions/newsharings.php:191
+#: actions/deletesharings.php:149
+msgid "Notice posted"
+msgstr ""
+
+#. TRANS: Menu item title in search group navigation panel.
+#: actions/sharingsnotices.php:107 SharingsPlugin.php:677
+msgid "Objetos y servicios compartidos en la red"
+msgstr ""
+
+#. TRANS: Page title for poll response.
+#: actions/respondsharings.php:62
+msgid "Poll response"
+msgstr ""
+
+#. TRANS: Client exception thrown trying to respond to a poll while not logged in.
+#: actions/respondsharings.php:84
+msgid "You must be logged in to respond to a poll."
+msgstr ""
+
+#. TRANS: Page title after sending a poll response.
+#: actions/respondsharings.php:144
+msgid "Detalle del objeto o servicio"
+msgstr ""
+
+#. TRANS: Client exception thrown trying to view a non-existing poll.
+#: actions/showsharings.php:59
+msgid "No such poll."
+msgstr ""
+
+#. TRANS: Client exception thrown trying to view a non-existing poll notice.
+#: actions/showsharings.php:67
+msgid "No such poll notice."
+msgstr ""
+
+#. TRANS: Page title for a poll.
+#. TRANS: %1$s is the nickname of the user that created the poll, %2$s is the poll question.
+#: actions/showsharings.php:84
+#, php-format
+msgid "%2$s compartido por %1$s: "
+msgstr ""
+
+#: actions/sharingsdirectory.php:121
+msgid "Catálogo"
+msgstr ""
+
+#. TRANS: %%site.name%% is the name of the StatusNet site.
+#: actions/sharingsdirectory.php:132
+msgid ""
+"Busca objetos y servicios por categorías, ciudades y una palabra clave. "
+"También puedes indicar si estás buscando una oferta o una demanda."
+msgstr ""
+
+#. TRANS: Fieldset legend.
+#: actions/sharingsdirectory.php:260
+msgid "Search site"
+msgstr ""
+
+#. TRANS: Field label for user directory filter.
+#: actions/sharingsdirectory.php:265
+msgid "Palabra clave"
+msgstr ""
+
+#. TRANS: Button text.
+#: actions/sharingsdirectory.php:268
+msgctxt "BUTTON"
+msgid "Buscar"
+msgstr ""
+
+#. TRANS: Empty list message for user directory.
+#: actions/sharingsdirectory.php:373
+msgid "Sin resultados."
+msgstr ""
+
+#. TRANS: Standard search suggestions shown when a search does not give any results.
+#: actions/sharingsdirectory.php:375
+msgid "* Vuelve a intentarlo cambiando los criterios de búsqueda."
+msgstr ""
+
+#. TRANS: Page title.
+#: actions/pollsettings.php:42
+msgid "Poll settings"
+msgstr ""
+
+#. TRANS: Page instructions.
+#: actions/pollsettings.php:54
+msgid "Set your poll preferences"
+msgstr ""
+
+#. TRANS: Title for poll page.
+#: actions/newsharings.php:67
+msgid "Compartir un objeto o servicio"
+msgstr ""
+
+#. TRANS: Title for poll page.
+#: actions/deletesharings.php:64
+msgid "Eliminar un objeto o servicio"
+msgstr ""
+
+#. TRANS: Field label on the page to create a poll.
+#: forms/editsharings.php:158 forms/newsharings.php:175
+msgid "Nombre"
+msgstr ""
+
+#. TRANS: Field title on the page to create a poll.
+#: forms/editsharings.php:161 forms/newsharings.php:178
+msgid "Nombre del objeto o servicio a compartir"
+msgstr ""
+
+#. TRANS: Field label for an answer option on the page to create a poll.
+#. TRANS: %d is the option number.
+#: forms/editsharings.php:170 forms/newsharings.php:187
+msgid "Detalle"
+msgstr ""
+
+#: forms/editsharings.php:172 forms/newsharings.php:189
+msgid "Detalle del objeto o servicio que se quiere compartir"
+msgstr ""
+
+#. TRANS: Field label for an answer option on the page to create a poll.
+#. TRANS: %d is the option number.
+#: forms/editsharings.php:181 forms/newsharings.php:198
+msgid "Precio"
+msgstr ""
+
+#: forms/editsharings.php:183 forms/newsharings.php:200
+msgid ""
+"Indica el precio asociado a este producto o servicio. Asignale 0 - cero - en "
+"caso de querer compartirlo de forma gratuita"
+msgstr ""
+
+#. TRANS: Button text for saving a new poll.
+#: forms/editsharings.php:215
+msgctxt "BUTTON"
+msgid "Guardar cambios"
+msgstr ""
+
+#. TRANS: Button text for submitting a poll response.
+#: forms/sharingsresponse.php:123 forms/sharingsdirectory.php:120
+msgctxt "BUTTON"
+msgid "Me interesa"
+msgstr ""
+
+#. TRANS: Button text for saving a new poll.
+#: forms/newsharings.php:232
+msgctxt "BUTTON"
+msgid "Compartir"
+msgstr ""
+
+#. TRANS: Button text for saving a new poll.
+#: forms/deletesharings.php:125
+msgctxt "BUTTON"
+msgid "Confirmar"
+msgstr ""
+
+#. TRANS: Notice content voting for a poll.
+#. TRANS: %s is the chosen option in the poll.
+#. TRANS: Rendered version of the notice content voting for a poll.
+#. TRANS: %s a link to the poll with the chosen option as link description.
+#: classes/Sharing_response.php:154 classes/Sharing_response.php:159
+#, php-format
+msgid "le interesa \"%s\""
+msgstr ""
+
+#: classes/Sharing_notice.php:161 classes/Sharing_notice.php:163
+#, php-format
+msgid "ha actualizado \"%s\""
+msgstr ""
+
+#: classes/Sharing_notice.php:167 classes/Sharing_notice.php:169
+#, php-format
+msgid "ha eliminado \"%s\""
+msgstr ""
+
+#. TRANS: Notice content creating a poll.
+#. TRANS: %1$s is the poll question, %2$s is a link to the poll.
+#: classes/Sharing.php:211
+#, php-format
+msgid "Objeto/Servicio: %1$s %2$s"
+msgstr ""
+
+#. TRANS: Rendered version of the notice content creating a poll.
+#. TRANS: %s is a link to the poll with the question as link description.
+#: classes/Sharing.php:217
+#, php-format
+msgid ""
+"He compartido un nuevo objeto/servicio en %s: %s. %s %s dentro de la "
+"categoría %s"
+msgstr ""
+
+#. TRANS: Exception thrown trying to respond to a poll without a poll reference.
+#. TRANS: Exception thrown trying to respond to a sharing without a sharing reference.
+#: SharingsPlugin.php:251 SharingsPlugin.php:280 SharingsPlugin.php:302
+msgid "Invalid sharing response: No sharing reference."
+msgstr ""
+
+#. TRANS: Exception thrown trying to respond to a non-existing poll.
+#. TRANS: Exception thrown trying to respond to a non-existing sharing.
+#: SharingsPlugin.php:256 SharingsPlugin.php:285 SharingsPlugin.php:307
+msgid "Invalid sharing response: Sharing is unknown."
+msgstr ""
+
+#. TRANS: Exception thrown when performing an unexpected action on a poll.
+#. TRANS: %s is the unexpected object type.
+#: SharingsPlugin.php:338
+#, php-format
+msgid "Unexpected verb for sharings plugin: %s."
+msgstr ""
+
+#. TRANS: Exception thrown when performing an unexpected action on a poll.
+#. TRANS: %s is the unexpected object type.
+#: SharingsPlugin.php:345
+#, php-format
+msgid "Unexpected type for sharings plugin: %s."
+msgstr ""
+
+#. TRANS: Application title.
+#: SharingsPlugin.php:586
+msgctxt "APPTITLE"
+msgid "Share"
+msgstr ""
+
+#. TRANS: Menu item in search group navigation panel.
+#: SharingsPlugin.php:675
+msgctxt "MENU"
+msgid "Catálogo"
+msgstr ""
+
+#. TRANS: Menu item in sample plugin.
+#: SharingsPlugin.php:685
+msgid "Mi catálogo"
+msgstr ""
+
+#. TRANS: Menu item title in sample plugin.
+#: SharingsPlugin.php:687
+msgid "Mi objetos y servicios"
+msgstr ""
+
+#. TRANS: Plugin description.
+#: SharingsPlugin.php:706
+msgid ""
+"Sharings transforma GNU social en una platoforma del            compartir."
+msgstr ""

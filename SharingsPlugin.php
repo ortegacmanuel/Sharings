@@ -1,9 +1,8 @@
 <?php
 /**
- * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2011, StatusNet, Inc.
+ * GNU social - a federating social network
  *
- * A plugin to enable social-bookmarking functionality
+ * Sharings - A plugin to transform GNU social into a Sharing Economy platform
  *
  * PHP version 5
  *
@@ -20,34 +19,21 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  PollPlugin
- * @package   StatusNet
- * @author    Brion Vibber <brion@status.net>
- * @copyright 2011 StatusNet, Inc.
- * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
- * @link      http://status.net/
+ * @category  Plugin
+ * @package   GNUsocial
+ * @author    Manuel Ortega <manuel@lasindias.coop>
+ * @copyright 2014 Free Software Foundation http://fsf.org
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      https://www.gnu.org/software/social/
  */
 
-if (!defined('STATUSNET')) {
-    exit(1);
-}
+if (!defined('GNUSOCIAL')) { exit(1); }
 
-/**
- * Poll plugin main class
- *
- * @category  PollPlugin
- * @package   StatusNet
- * @author    Brion Vibber <brionv@status.net>
- * @author    Evan Prodromou <evan@status.net>
- * @copyright 2011 StatusNet, Inc.
- * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
- * @link      http://status.net/
- */
+
 class SharingsPlugin extends MicroAppPlugin
 {
     const VERSION         = '0.1';
 
-    // @fixme which domain should we use for these namespaces?
     const SHARINGS_OBJECT          = 'http://activitystrea.ms/head/activity-schema.html#product';
     const SHARINGS_RESPONSE_OBJECT = 'http://activitystrea.ms/head/activity-schema.html#product-response';
 
@@ -68,15 +54,17 @@ class SharingsPlugin extends MicroAppPlugin
         $schema->ensureTable('sharing_response', Sharing_response::schemaDef());
         $schema->ensureTable('sharing_notice', Sharing_notice::schemaDef());
             
-        // Kategori kaj urbi
+        // Categorías y ciudades
  
         $schema->ensureTable('sharing_category', Sharing_category::schemaDef());
         $schema->ensureTable('sharing_city', Sharing_city::schemaDef());
 
-        // Tipi
+        // Tipos
         $schema->ensureTable('sharing_type', Sharing_type::schemaDef());
 
-        //$schema->ensureTable('user_poll_prefs', User_poll_prefs::schemaDef());
+        // Pendiente para cuando implementemos la configuración del plugin por los admin's
+        //$schema->ensureTable('user_sharings_prefs', User_sharings_prefs::schemaDef());
+
         return true;
     }
 
@@ -139,9 +127,10 @@ class SharingsPlugin extends MicroAppPlugin
         $m->connect('main/sharings/:id/respond',
                     array('action' => 'respondsharings'),
                     array('id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'));
-
-        $m->connect('settings/poll',
-                    array('action' => 'pollsettings'));
+        
+        // pendiente para cuando implementemos la configuración del plugin
+        //$m->connect('settings/sharings',
+        //            array('action' => 'sharingssettings'));
 
         $m->connect('api/sharings/notices.json',
                         array('action' => 'apisharingsnotices'));
@@ -167,25 +156,6 @@ class SharingsPlugin extends MicroAppPlugin
         return true;
     }
 
-    /**
-     * Plugin version data
-     *
-     * @param array &$versions array of version data
-     *
-     * @return value
-     */
-    function onPluginVersion(array &$versions)
-    {
-        $versions[] = array('name' => 'Sharings',
-                            'version' => self::VERSION,
-                            'author' => 'Manuel Ortega',
-                            'homepage' => 'http://git.lasindias.club/manuel/Sharings',
-                            'rawdescription' =>
-                            // TRANS: Plugin description.
-                            _m('Simple extension for supporting sharing economy.'));
-        return true;
-    }
-
     function types()
     {
         return array(self::SHARINGS_OBJECT, self::SHARINGS_RESPONSE_OBJECT);
@@ -196,7 +166,7 @@ class SharingsPlugin extends MicroAppPlugin
     }
 
     /**
-     * When a notice is deleted, delete the related Poll
+     * When a notice is deleted, delete the related Sharing
      *
      * @param Notice $notice Notice being deleted
      *
@@ -214,7 +184,7 @@ class SharingsPlugin extends MicroAppPlugin
     }
 
     /**
-     * Save a poll from an activity
+     * Save a sharing from an activity
      *
      * @param Profile  $profile  Profile to use as author
      * @param Activity $activity Activity to save
@@ -232,11 +202,11 @@ class SharingsPlugin extends MicroAppPlugin
         // Ok for now, we can grab stuff from the XML entry directly.
         // This won't work when reading from JSON source
         if ($activity->entry) {
-            $pollElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'sharings');
+            $sharingElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'sharings');
             $responseElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'response');
             $updateElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'update');
             $deleteElements = $activity->entry->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'delete');
-            if ($pollElements->length) {
+            if ($sharingElements->length) {
 
                 $options['displayName'] = '';
                 $options['summary'] = '';
@@ -245,7 +215,7 @@ class SharingsPlugin extends MicroAppPlugin
                 $options['sharing_type_id'] = '';
                 $options['sharing_city_id'] = '';
 
-                $data = $pollElements->item(0);
+                $data = $sharingElements->item(0);
                 foreach ($data->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'displayName') as $node) {
                     $options['displayName'] = $node->textContent;
                 }
@@ -278,19 +248,19 @@ class SharingsPlugin extends MicroAppPlugin
 
                 if (!$sharingUri) {
                     // TRANS: Exception thrown trying to respond to a poll without a poll reference.
-                    throw new Exception(_m('Invalid poll response: No poll reference.'));
+                    throw new Exception(_m('Invalid sharing response: No sharing reference.'));
                 }
                 $sharing = Sharing::getKV('uri', $sharingUri);
                 if (!$sharing) {
                     // TRANS: Exception thrown trying to respond to a non-existing poll.
-                    throw new Exception(_m('Invalid poll response: Poll is unknown.'));
+                    throw new Exception(_m('Invalid sharing response: Sharing is unknown.'));
                 }
                 try {
                     $notice = Sharing_response::saveNew($profile, $sharing, $options);
-                    common_log(LOG_DEBUG, "Saved Poll_response ok, notice id: " . $notice->id);
+                    common_log(LOG_DEBUG, "Saved Sharing_response ok, notice id: " . $notice->id);
                     return $notice;
                 } catch (Exception $e) {
-                    common_log(LOG_DEBUG, "Poll response  save fail: " . $e->getMessage());
+                    common_log(LOG_DEBUG, "Sharing response  save fail: " . $e->getMessage());
                 }
             } else if ($updateElements->length) {
                 $data = $updateElements->item(0);
@@ -306,20 +276,20 @@ class SharingsPlugin extends MicroAppPlugin
                 $options['sharing_city_id'] = $data->getAttribute('city_id');
 
                 if (!$sharingUri) {
-                    // TRANS: Exception thrown trying to respond to a poll without a poll reference.
-                    throw new Exception(_m('Invalid poll response: No poll reference.'));
+                    // TRANS: Exception thrown trying to respond to a sharing without a sharing reference.
+                    throw new Exception(_m('Invalid sharing response: No sharing reference.'));
                 }
                 $sharing = Sharing::getKV('uri', $sharingUri);
                 if (!$sharing) {
-                    // TRANS: Exception thrown trying to respond to a non-existing poll.
-                    throw new Exception(_m('Invalid poll response: Poll is unknown.'));
+                    // TRANS: Exception thrown trying to respond to a non-existing sharing.
+                    throw new Exception(_m('Invalid sharing response: Sharing is unknown.'));
                 }
                 try {
                     $notice = Sharing_notice::saveNew($profile, $sharing, $options);
                     common_log(LOG_DEBUG, "Saved Sharing_notice ok, notice id: " . $notice->id);
                     return $notice;
                 } catch (Exception $e) {
-                    common_log(LOG_DEBUG, "Poll response  save fail: " . $e->getMessage());
+                    common_log(LOG_DEBUG, "Sharing response  save fail: " . $e->getMessage());
                 }
             } else if ($deleteElements->length) {
                 $data = $deleteElements->item(0);
@@ -328,23 +298,23 @@ class SharingsPlugin extends MicroAppPlugin
                 $options['verb'] = ActivityVerb::DELETE;
 
                 if (!$sharingUri) {
-                    // TRANS: Exception thrown trying to respond to a poll without a poll reference.
-                    throw new Exception(_m('Invalid poll response: No poll reference.'));
+                    // TRANS: Exception thrown trying to respond to a sharing without a sharing reference.
+                    throw new Exception(_m('Invalid sharing response: No sharing reference.'));
                 }
                 $sharing = Sharing::getKV('uri', $sharingUri);
                 if (!$sharing) {
-                    // TRANS: Exception thrown trying to respond to a non-existing poll.
-                    throw new Exception(_m('Invalid poll response: Poll is unknown.'));
+                    // TRANS: Exception thrown trying to respond to a non-existing sharing.
+                    throw new Exception(_m('Invalid sharing response: Sharing is unknown.'));
                 }
                 try {
                     $notice = Sharing_notice::saveNew($profile, $sharing, $options);
                     common_log(LOG_DEBUG, "Saved Sharing_notice ok, notice id: " . $notice->id);
                     return $notice;
                 } catch (Exception $e) {
-                    common_log(LOG_DEBUG, "Poll response  save fail: " . $e->getMessage());
+                    common_log(LOG_DEBUG, "Sharing response  save fail: " . $e->getMessage());
                 }
             } else {
-                common_log(LOG_DEBUG, "YYY no poll data");
+                common_log(LOG_DEBUG, "YYY no sharing data");
             }
         }
     }
@@ -357,7 +327,7 @@ class SharingsPlugin extends MicroAppPlugin
         case self::SHARINGS_OBJECT:
             switch ($notice->verb) {
                 case ActivityVerb::POST:
-                    return $this->activityObjectFromNoticePoll($notice);
+                    return $this->activityObjectFromNoticeSharing($notice);
                 case ActivityVerb::UPDATE:
                     return $this->activityObjectFromNoticeSharingUpdate($notice);
                 case ActivityVerb::DELETE:
@@ -368,15 +338,15 @@ class SharingsPlugin extends MicroAppPlugin
                     throw new Exception(sprintf(_m('Unexpected verb for sharings plugin: %s.'), $notice->object_type));
                 }
         case self::SHARINGS_RESPONSE_OBJECT:
-            return $this->activityObjectFromNoticePollResponse($notice);
+            return $this->activityObjectFromNoticeSharingResponse($notice);
         default:
             // TRANS: Exception thrown when performing an unexpected action on a poll.
             // TRANS: %s is the unexpected object type.
-            throw new Exception(sprintf(_m('Unexpected type for poll plugin: %s.'), $notice->object_type));
+            throw new Exception(sprintf(_m('Unexpected type for sharings plugin: %s.'), $notice->object_type));
         }
     }
 
-    function activityObjectFromNoticePollResponse(Notice $notice)
+    function activityObjectFromNoticeSharingResponse(Notice $notice)
     {
         $object = new ActivityObject();
         $object->id      = $notice->uri;
@@ -399,7 +369,7 @@ class SharingsPlugin extends MicroAppPlugin
         return $object;
     }
 
-    function activityObjectFromNoticePoll(Notice $notice)
+    function activityObjectFromNoticeSharing(Notice $notice)
     {
         $object = new ActivityObject();
         $object->id      = $notice->uri;
@@ -463,7 +433,7 @@ class SharingsPlugin extends MicroAppPlugin
         $object->link    = $notice->getUrl();
 
         $object->sharingsUri = $notice->uri;
-        error_log('entra en sharing delete');
+
         return $object;
     }
 
@@ -485,12 +455,14 @@ class SharingsPlugin extends MicroAppPlugin
     {
         if (isset($obj->sharingsDisplayName) and !(isset($obj->sharingsUri))) {
             /**
-             * <poll:poll xmlns:poll="http://apinamespace.org/activitystreams/object/poll">
-             *   <poll:question>Who wants a poll question?</poll:question>
-             *   <poll:option>Option one</poll:option>
-             *   <poll:option>Option two</poll:option>
-             *   <poll:option>Option three</poll:option>
-             * </poll:poll>
+              *  <sharings:sharings xmlns:sharings="http://activitystrea.ms/head/activity-schema.html#product">
+              *   <sharings:displayName>Clases de Komunuma</sharings:displayName>
+              *   <sharings:summary>Clases de Komunuma</sharings:summary>
+              *   <sharings:price>0</sharings:price>
+              *   <sharings:category_id>2</sharings:category_id>
+              *   <sharings:type_id>1</sharings:type_id>
+              *   <sharings:city_id>0</sharings:city_id>
+              *  </sharings:sharings>
              */
             $data = array('xmlns:sharings' => self::SHARINGS_OBJECT);
             $out->elementStart('sharings:sharings', $data);
@@ -505,9 +477,11 @@ class SharingsPlugin extends MicroAppPlugin
         }
         if (isset($obj->sharingsProfile_id)) {
             /**
-             * <poll:response xmlns:poll="http://apinamespace.org/activitystreams/object/poll">
-             *                poll="http://..../poll/...."
-             *                selection="3" />
+                * <sharings:response xmlns:sharings="http://activitystrea.ms/head/activity-schema.html#product" 
+                *    sharing="http://gnusocial.bilbao/main/sharings/d0cf5ecd-5638-4165-9222-844efa3bae5e" 
+                *    profile_id="1">
+                *  </sharings:response>
+                *
              */
             $data = array('xmlns:sharings' => self::SHARINGS_OBJECT,
                           'sharing'       => $obj->sharingsUri,
@@ -517,10 +491,16 @@ class SharingsPlugin extends MicroAppPlugin
         }
         if (isset($obj->sharingsUri) and isset($obj->sharingsDisplayName)) {
             /**
-             * <poll:response xmlns:poll="http://apinamespace.org/activitystreams/object/poll">
-             *                poll="http://..../poll/...."
-             *                selection="3" />
-             */
+              *  <sharings:update xmlns:sharings="http://activitystrea.ms/head/activity-schema.html#product" 
+              *      sharing="http://gnusocial.local/main/sharings/3b686246-72bb-4f46-ba61-aa6630019bb6"
+              *      displayName="Clases de Komunuma" 
+              *      summary="Clases de Komunuma" 
+              *      price="0" 
+              *      category_id="2" 
+              *      type_id="1" 
+              *      city_id="412">
+              *  </sharings:update>
+            */
             $data = array('xmlns:sharings' => self::SHARINGS_OBJECT,
                           'sharing'       => $obj->sharingsUri,
                           'displayName'  => $obj->sharingsDisplayName,
@@ -533,11 +513,10 @@ class SharingsPlugin extends MicroAppPlugin
             $out->element('sharings:update', $data, '');
         }
         if (isset($obj->id) and !(isset($obj->sharingsUri)) and !(isset($obj->sharingsDisplayName))) {
-            error_log('montando el xml');
             /**
-             * <poll:response xmlns:poll="http://apinamespace.org/activitystreams/object/poll">
-             *                poll="http://..../poll/...."
-             *                selection="3" />
+              *  <sharings:delete xmlns:sharings="http://activitystrea.ms/head/activity-schema.html#product" 
+              *      sharing="de29a116-c7bc-4048-b4ff-2388ca9295f5">
+              *  </sharings:delete>
              */
             $data = array('xmlns:sharings' => self::SHARINGS_OBJECT,
                           'sharing'       => $obj->id);
@@ -564,16 +543,6 @@ class SharingsPlugin extends MicroAppPlugin
     {
         common_log(LOG_DEBUG, 'QQQ: ' . var_export($obj, true));
         if (isset($obj->sharingsDisplayName) and !(isset($object->sharingsUri))) {
-            /**
-             * "poll": {
-             *   "question": "Who wants a poll question?",
-             *   "options": [
-             *     "Option 1",
-             *     "Option 2",
-             *     "Option 3"
-             *   ]
-             * }
-             */
             $data = array('displayName' => $obj->sharingsDisplayName,
                           'summary' => $obj->sharingsSummary,
                           'price' => $obj->sharingsPrice,
@@ -583,23 +552,11 @@ class SharingsPlugin extends MicroAppPlugin
             $out['sharings'] = $data;
         }
         if (isset($obj->sharingsProfile_id)) {
-            /**
-             * "pollResponse": {
-             *   "poll": "http://..../poll/....",
-             *   "selection": 3
-             * }
-             */
             $data = array('sharing'       => $obj->sharingsUri,
                           'profile_id'  => $obj->sharingsProfile_id);
             $out['sharingsResponse'] = $data;
         }
         if (isset($object->sharingsUri)) {
-            /**
-             * "pollResponse": {
-             *   "poll": "http://..../poll/....",
-             *   "selection": 3
-             * }
-             */
             $data = array('sharing'       => $obj->sharingsUri,
                           'displayName'  => $obj->sharingsDisplayName,
                           'summary' => $obj->sharingsSummary,
@@ -664,19 +621,22 @@ class SharingsPlugin extends MicroAppPlugin
      * @return boolean hook return
      */
 
+    /*
+    * Pendiente a la implementación de la configuración del plugin
     function onEndAccountSettingsNav($action)
     {
         $action_name = $action->trimmed('action');
 
-        $action->menuItem(common_local_url('pollsettings'),
+        $action->menuItem(common_local_url('sharingssettings'),
                           // TRANS: Poll plugin menu item on user settings page.
-                          _m('MENU', 'Polls'),
+                          _m('MENU', 'Sharings'),
                           // TRANS: Poll plugin tooltip for user settings menu item.
-                          _m('Configure poll behavior'),
-                          $action_name === 'pollsettings');
+                          _m('Configure sharings behavior'),
+                          $action_name === 'sharingssettings');
 
         return true;
     }
+    */
 
     protected function showNoticeContent(Notice $stored, HTMLOutputter $out, Profile $scoped=null)
     {
@@ -714,7 +674,7 @@ class SharingsPlugin extends MicroAppPlugin
                         // TRANS: Menu item in search group navigation panel.
                         $menu->out->menuItem(common_local_url('sharingsdirectory'), _m('MENU','Catálogo'),
                                              // TRANS: Menu item title in search group navigation panel.
-                                             _('Objetos y servicios compartidos en la red'), $menu->actionName == 'sharingsdirectory', 'nav_sharings_directory');
+                                             _m('Objetos y servicios compartidos en la red'), $menu->actionName == 'sharingsdirectory', 'nav_sharings_directory');
          }
     }
 
@@ -725,6 +685,25 @@ class SharingsPlugin extends MicroAppPlugin
                           _m('Mi catálogo'),
                           // TRANS: Menu item title in sample plugin.
                           _m('Mi objetos y servicios'), false, 'nav_timeline_sharings');
+        return true;
+    }
+
+    /**
+     * Plugin version data
+     *
+     * @param array &$versions array of version data
+     *
+     * @return value
+     */
+    function onPluginVersion(array &$versions)
+    {
+        $versions[] = array('name' => 'Sharings',
+                            'version' => self::VERSION,
+                            'author' => 'Manuel Ortega',
+                            'homepage' => 'http://git.lasindias.club/manuel/Sharings',
+                            'rawdescription' =>
+                            // TRANS: Plugin description.
+                            _m('Sharings transforma GNU social en una platoforma del            compartir.'));
         return true;
     }
 }
