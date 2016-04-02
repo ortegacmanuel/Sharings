@@ -56,7 +56,7 @@ class ShowSharingsAction extends ShownoticeAction
 
         if (empty($this->sharings)) {
             // TRANS: Client exception thrown trying to view a non-existing poll.
-            throw new ClientException(_m('No such poll.'), 404);
+            throw new ClientException(_m('No such sharing.'), 404);
         }
 
         $notice = $this->sharings->getNotice();
@@ -64,7 +64,7 @@ class ShowSharingsAction extends ShownoticeAction
         if (empty($notice)) {
             // Did we used to have it, and it got deleted?
             // TRANS: Client exception thrown trying to view a non-existing poll notice.
-            throw new ClientException(_m('No such poll notice.'), 404);
+            throw new ClientException(_m('No such sharing notice.'), 404);
         }
 
         return $notice;

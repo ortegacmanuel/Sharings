@@ -98,19 +98,19 @@ class ThanksSharingsForm extends Form
     function formData()
     {
          
-        $this->out->element('h3', 'sharing-title', '¡Gracias por compartir!');
+        $this->out->element('h3', 'sharing-title', _m('¡Gracias por compartir!'));
 
         $this->out->element('br');
 
         $this->out->element('a',
             array('href' => common_local_url('newsharings'), 'class' => 'sharings-edit-submit'),
             // TRANS: Link description for link to list of users subscribed to a tag.
-            _('Agregar objeto o servicio'));
+            _m('Agregar objeto o servicio'));
 
         $this->out->element('a',
             array('href' => common_local_url('sharingsnotices'), 'class' => 'sharings-edit-submit'),
             // TRANS: Link description for link to list of users subscribed to a tag.
-            _('Ver catálogo'));
+            _m('Ver catálogo'));
     }
 
     /**

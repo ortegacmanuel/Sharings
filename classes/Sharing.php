@@ -138,9 +138,9 @@ class Sharing extends Managed_DataObject
     function getPriceText()
     {
         if ($this->price == 0) {
-            return 'de forma gratuita';
+            return _m('de forma gratuita');
         } else {
-            return 'por ' . $this->price . ' unidades (consultar moneda con el propietario de este objeto o servicio)';
+            return sprintf(_m('por %d unidades consultar moneda con el propietario de este objeto o servicio'), $this->price);
         }
     }
 

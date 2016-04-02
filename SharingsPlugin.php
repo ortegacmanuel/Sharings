@@ -247,12 +247,12 @@ class SharingsPlugin extends MicroAppPlugin
                 $profile_id = $data->getAttribute('profile_id');
 
                 if (!$sharingUri) {
-                    // TRANS: Exception thrown trying to respond to a poll without a poll reference.
+                    // TRANS: Exception thrown trying to respond to a sharing without a sharing reference.
                     throw new Exception(_m('Invalid sharing response: No sharing reference.'));
                 }
                 $sharing = Sharing::getKV('uri', $sharingUri);
                 if (!$sharing) {
-                    // TRANS: Exception thrown trying to respond to a non-existing poll.
+                    // TRANS: Exception thrown trying to respond to a non-existing sharing.
                     throw new Exception(_m('Invalid sharing response: Sharing is unknown.'));
                 }
                 try {
@@ -333,14 +333,14 @@ class SharingsPlugin extends MicroAppPlugin
                 case ActivityVerb::DELETE:
                     return $this->activityObjectFromNoticeSharingDelete($notice);
                 default:
-                    // TRANS: Exception thrown when performing an unexpected action on a poll.
+                    // TRANS: Exception thrown when performing an unexpected action on a sharing.
                     // TRANS: %s is the unexpected object type.
                     throw new Exception(sprintf(_m('Unexpected verb for sharings plugin: %s.'), $notice->object_type));
                 }
         case self::SHARINGS_RESPONSE_OBJECT:
             return $this->activityObjectFromNoticeSharingResponse($notice);
         default:
-            // TRANS: Exception thrown when performing an unexpected action on a poll.
+            // TRANS: Exception thrown when performing an unexpected action on a sharing.
             // TRANS: %s is the unexpected object type.
             throw new Exception(sprintf(_m('Unexpected type for sharings plugin: %s.'), $notice->object_type));
         }
@@ -588,7 +588,7 @@ class SharingsPlugin extends MicroAppPlugin
 
     function onStartAddNoticeReply($nli, $parent, $child)
     {
-        // Filter out any poll responses
+        // Filter out any sharing responses
         if ($parent->object_type == self::SHARINGS_OBJECT &&
             $child->object_type == self::SHARINGS_RESPONSE_OBJECT) {
             return false;
@@ -596,7 +596,7 @@ class SharingsPlugin extends MicroAppPlugin
         return true;
     }
 
-    // Hide poll responses for @chuck
+    // Hide sharing responses for @chuck
 
     function onEndNoticeWhoGets($notice, &$ni) {
         if ($notice->object_type == self::SHARINGS_RESPONSE_OBJECT) {
@@ -628,9 +628,9 @@ class SharingsPlugin extends MicroAppPlugin
         $action_name = $action->trimmed('action');
 
         $action->menuItem(common_local_url('sharingssettings'),
-                          // TRANS: Poll plugin menu item on user settings page.
+                          // TRANS: Sharings plugin menu item on user settings page.
                           _m('MENU', 'Sharings'),
-                          // TRANS: Poll plugin tooltip for user settings menu item.
+                          // TRANS: Sharings plugin tooltip for user settings menu item.
                           _m('Configure sharings behavior'),
                           $action_name === 'sharingssettings');
 
@@ -658,7 +658,7 @@ class SharingsPlugin extends MicroAppPlugin
             }
             $form->show();
         } else {
-            // TRANS: Error text displayed if no poll data could be found.
+            // TRANS: Error text displayed if no sharing data could be found.
             //$out->text(_m('Sharing data is missing'));
 
             $form = new ThanksSharingsForm($out);
@@ -703,7 +703,7 @@ class SharingsPlugin extends MicroAppPlugin
                             'homepage' => 'http://git.lasindias.club/manuel/Sharings',
                             'rawdescription' =>
                             // TRANS: Plugin description.
-                            _m('Sharings transforma GNU social en una platoforma del            compartir.'));
+                            _m('Sharings transforma GNU social en una platoforma del compartir.'));
         return true;
     }
 }

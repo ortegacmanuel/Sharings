@@ -103,11 +103,11 @@ class SharingsResultForm extends Form
         $out = $this->out;
         $counts = $sharing->countResponses();
 
-        $out->element('h3', 'sharing-title', 'Un nuevo usuario ha indicado que le interesa:');
+        $out->element('h3', 'sharing-title', _m('Un nuevo usuario ha indicado que le interesa:'));
         $out->element('p', 'sharings-displayName', $sharing->displayName);
         $out->element('p', 'sharings-summary', $sharing->summary);
 
-        $out->element('p', 'sharings-summary', 'Este objeto / servicio le interesa a ' . $counts . ' usuarios');
+        $out->element('p', 'sharings-summary', sprintf(_m('Este objeto / servicio le interesa a %d usuarios'), $counts));
 
     }
 

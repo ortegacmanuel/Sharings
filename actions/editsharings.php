@@ -27,11 +27,7 @@
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-if (!defined('STATUSNET')) {
-    // This check helps protect against security problems;
-    // your code file can't be executed directly from the web.
-    exit(1);
-}
+if (!defined('GNUSOCIAL')) { exit(1); }
 
 /**
  * Add a new Poll
@@ -79,7 +75,7 @@ class EditSharingsAction extends Action
 
         if (empty($this->user)) {
             // TRANS: Client exception thrown trying to create a poll while not logged in.
-            throw new ClientException(_m('You must be logged in to post a poll.'),
+            throw new ClientException(_m('You must be logged in to post a sharing.'),
                                       403);
         }
 
@@ -98,7 +94,7 @@ class EditSharingsAction extends Action
         $this->sharing = Sharing::getKV('id', $id);
         if (empty($this->sharing)) {
             // TRANS: Client exception thrown trying to respond to a non-existing poll.
-            throw new ClientException(_m('Invalid or missing poll.'), 404);
+            throw new ClientException(_m('Invalid or missing sharing.'), 404);
         }
 
         return true;

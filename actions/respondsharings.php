@@ -59,7 +59,7 @@ class RespondSharingsAction extends Action
     function title()
     {
         // TRANS: Page title for poll response.
-        return _m('Poll response');
+        return _m('Sharing response');
     }
 
     /**
@@ -81,7 +81,7 @@ class RespondSharingsAction extends Action
 
         if (empty($this->user)) {
             // TRANS: Client exception thrown trying to respond to a poll while not logged in.
-            throw new ClientException(_m('You must be logged in to respond to a poll.'),
+            throw new ClientException(_m('You must be logged in to respond to a sharing.'),
                                       403);
         }
 
@@ -93,7 +93,7 @@ class RespondSharingsAction extends Action
         $this->sharing = Sharing::getKV('id', $id);
         if (empty($this->sharing)) {
             // TRANS: Client exception thrown trying to respond to a non-existing poll.
-            throw new ClientException(_m('Invalid or missing poll.'), 404);
+            throw new ClientException(_m('Invalid or missing sharing.'), 404);
         }
 
         return true;

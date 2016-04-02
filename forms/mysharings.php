@@ -104,29 +104,29 @@ class MySharingsForm extends Form
         $out = $this->out;
         $id = "poll-" . $sharing->id;
         
-        $out->element('h3', 'sharing-title', 'He compartido');
-        $out->element('p', 'sharing-category', 'Categoría: ' . Sharing_category::getNameById($sharing->sharing_category_id));
-        $out->element('p', 'sharing-type', 'Tipo: ' . Sharing_type::getNameById($sharing->sharing_type_id));
-        $out->element('p', 'sharing-displayName', 'Nombre: ' . $sharing->displayName);
-        $out->element('p', 'sharing-summary', 'Detalle: ' . $sharing->summary);
+        $out->element('h3', 'sharing-title', _m('He compartido'));
+        $out->element('p', 'sharing-category', sprintf(_m('Categoría: %s'), Sharing_category::getNameById($sharing->sharing_category_id)));
+        $out->element('p', 'sharing-type', sprintf(_m('Tipo: %s'), Sharing_type::getNameById($sharing->sharing_type_id)));
+        $out->element('p', 'sharing-displayName', sprintf(_m('Nombre: %s'), $sharing->displayName));
+        $out->element('p', 'sharing-summary', sprintf(_m('Detalle: %s'), $sharing->summary));
         $out->element('p', 'sharing-price', $sharing->getPriceText());
-        $out->element('p', 'sharing-city', 'En ' . Sharing_city::getNameById($sharing->sharing_city_id));
+        $out->element('p', 'sharing-city', sprintf(_m('En %s'), Sharing_city::getNameById($sharing->sharing_city_id)));
 
         $out->element('br');
 
-        $out->element('p', 'sharings-summary', 'Tu objeto / servicio le interesa a ' . $counts . ' usuarios');
+        $out->element('p', 'sharings-summary', sprintf(_m('Tu objeto / servicio le interesa a %d usuarios'), $counts));
 
         $out->element('br');
 
         $this->out->element('a',
             array('href' => common_local_url('editsharings', array('id' => $sharing->id)), 'class' => 'sharings-edit-submit'),
             // TRANS: Link description for link to list of users subscribed to a tag.
-            _('Editar'));
+            _m('Editar'));
 
         $this->out->element('a',
             array('href' => common_local_url('deletesharings', array('id' => $sharing->id)), 'class' => 'sharings-edit-submit'),
             // TRANS: Link description for link to list of users subscribed to a tag.
-            _('Dar de baja'));
+            _m('Dar de baja'));
     }
 
     /**

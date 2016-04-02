@@ -84,7 +84,7 @@ class NewSharingsForm extends Form
         $this->kategori[0] = _m('Selecciona una categoría');
 
         while ($kategori->fetch()) {
-            $this->kategori[$kategori->id] = $kategori->name;
+            $this->kategori[$kategori->id] = _m(sprintf('%s', $kategori->name));
         }
 
         $urbi = new Sharing_city();
@@ -106,7 +106,7 @@ class NewSharingsForm extends Form
         $tipi->find();
 
         while ($tipi->fetch()) {
-            $this->tipi[$tipi->id] = $tipi->name;
+            $this->tipi[$tipi->id] = _m(sprintf('%s', $tipi->name));
         }
     }
 
@@ -152,7 +152,7 @@ class NewSharingsForm extends Form
 
         $this->li();
 
-        $this->dropdown('sharing_category_id', _('Categoría'),
+        $this->dropdown('sharing_category_id', _m('Categoría'),
                      // TRANS: Tooltip for dropdown list label in form for profile settings.
                         $this->kategori, _m('Por favor, selecciona la categoría en la que quieres publicar'),
                         true, 0);
@@ -161,7 +161,7 @@ class NewSharingsForm extends Form
 
         $this->li();
 
-        $this->dropdown('sharing_type_id', _('Tipo'),
+        $this->dropdown('sharing_type_id', _m('Tipo'),
                      // TRANS: Tooltip for dropdown list label in form for profile settings.
                         $this->tipi, _m('Por favor, indica si estas publicando una oferta o una demanda'),
                         true, 0);
@@ -204,7 +204,7 @@ class NewSharingsForm extends Form
 
         $this->li();
 
-        $this->dropdown('sharing_city_id', _('Ciudad'),
+        $this->dropdown('sharing_city_id', _m('Ciudad'),
                      // TRANS: Tooltip for dropdown list label in form for profile settings.
                         $this->urbi, _m('Por favor, selecciona una ciudad. Si tu ciudad no está en el listado puedes no indicar la ciudad ahora, agregar el objeto o servicio y pedir añadir tu ciudad en http://git.lasindias.club/manuel/Sharings/issues'),
                         true, 0);

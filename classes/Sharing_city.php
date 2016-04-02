@@ -76,7 +76,7 @@ class Sharing_city extends Managed_DataObject
         if($city) {
             return $city->name;
         } else {
-            return 'Objeto o servicio sin ciudad';
+            return _m('Objeto o servicio sin ciudad');
         }
     }
 

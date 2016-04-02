@@ -79,7 +79,7 @@ class DeleteSharingsAction extends Action
 
         if (empty($this->user)) {
             // TRANS: Client exception thrown trying to create a poll while not logged in.
-            throw new ClientException(_m('You must be logged in to post a poll.'),
+            throw new ClientException(_m('You must be logged in to post a sharing.'),
                                       403);
         }
 
@@ -91,7 +91,7 @@ class DeleteSharingsAction extends Action
         $this->sharing = Sharing::getKV('id', $id);
         if (empty($this->sharing)) {
             // TRANS: Client exception thrown trying to respond to a non-existing poll.
-            throw new ClientException(_m('Invalid or missing poll.'), 404);
+            throw new ClientException(_m('Invalid or missing sharing.'), 404);
         }
 
         return true;
@@ -153,7 +153,7 @@ class DeleteSharingsAction extends Action
             $this->elementEnd('body');
             $this->endHTML();
         } else {
-            common_redirect(common_local_url('sharingsnotices'));
+            common_redirect(common_local_url('sharingsdirectory'));
         }
     }
 

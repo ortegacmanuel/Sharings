@@ -156,7 +156,7 @@ class SharingsdirectoryAction extends ManagedAction
 
         $kategori->find();
 
-        $this->kategori[0] = "Todas";
+        $this->kategori[0] = _m('Todas');
 
         while ($kategori->fetch()) {
             $this->kategori[$kategori->id] = $kategori->name;
@@ -168,7 +168,7 @@ class SharingsdirectoryAction extends ManagedAction
 
         $urbi->find();
 
-        $this->urbi[0] = "Todas";
+        $this->urbi[0] = _m('Todas');
 
         while ($urbi->fetch()) {
             $this->urbi[$urbi->id] = $urbi->name;
@@ -176,7 +176,7 @@ class SharingsdirectoryAction extends ManagedAction
 
         $tipi = new Sharing_type();
 
-        $this->tipi[0] = "Todos";
+        $this->tipi[0] = _m('Todos');
 
         $tipi->find();
 
@@ -270,7 +270,7 @@ class SharingsdirectoryAction extends ManagedAction
 
         $this->elementStart('li');
 
-        $this->dropdown('sharing_category_id', _('Categoría'),
+        $this->dropdown('sharing_category_id', _m('Categoría'),
                      // TRANS: Tooltip for dropdown list label in form for profile settings.
                         $this->kategori, _(''),
                         true, $this->sharing_category_id);
@@ -279,7 +279,7 @@ class SharingsdirectoryAction extends ManagedAction
 
         $this->elementStart('li');
 
-        $this->dropdown('sharing_type_id', _('Tipo'),
+        $this->dropdown('sharing_type_id', _m('Tipo'),
                      // TRANS: Tooltip for dropdown list label in form for profile settings.
                         $this->tipi, _(''),
                         true, $this->sharing_type_id);
@@ -288,7 +288,7 @@ class SharingsdirectoryAction extends ManagedAction
 
         $this->elementStart('li');
 
-        $this->dropdown('sharing_city_id', _('Ciudad'),
+        $this->dropdown('sharing_city_id', _m('Ciudad'),
                      // TRANS: Tooltip for dropdown list label in form for profile settings.
                         $this->urbi, _(''),
                         true, $this->sharing_city_id);
@@ -298,7 +298,7 @@ class SharingsdirectoryAction extends ManagedAction
         $this->elementStart('li');
 
         $this->checkbox('gratuito',
-                        _('Mostrar sólo los intercambios de forma gratuita'),
+                        _m('Mostrar sólo los intercambios de forma gratuita'),
                         $this->gratuito);
 
         $this->elementEnd('li');

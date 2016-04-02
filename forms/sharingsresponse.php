@@ -103,13 +103,13 @@ class SharingsResponseForm extends Form
         $out = $this->out;
         $id = "poll-" . $sharing->id;
         
-        $out->element('h3', 'sharing-title', 'Nuevo objeto o servicio compartido en la red');
-        $out->element('p', 'sharing-category', 'Categoría: ' . Sharing_category::getNameById($sharing->sharing_category_id));
-        $out->element('p', 'sharing-type', 'Tipo: ' . Sharing_type::getNameById($sharing->sharing_type_id));
-        $out->element('p', 'sharing-displayName', 'Nombre: ' . $sharing->displayName);
-        $out->element('p', 'sharing-summary', 'Detalle: ' . $sharing->summary);
+        $out->element('h3', 'sharing-title', _m('Nuevo objeto o servicio compartido en la red'));
+        $out->element('p', 'sharing-category', sprintf(_m('Categoría: %s'), Sharing_category::getNameById($sharing->sharing_category_id)));
+        $out->element('p', 'sharing-type', sprintf(_m('Tipo: %s'), Sharing_type::getNameById($sharing->sharing_type_id)));
+        $out->element('p', 'sharing-displayName', sprintf(_m('Nombre: %s'), $sharing->displayName));
+        $out->element('p', 'sharing-summary', sprintf(_m('Detalle: %s'), $sharing->summary));
         $out->element('p', 'sharing-price', $sharing->getPriceText());
-        $out->element('p', 'sharing-city', 'En ' . Sharing_city::getNameById($sharing->sharing_city_id));
+        $out->element('p', 'sharing-city', sprintf(_m('En %s'), Sharing_city::getNameById($sharing->sharing_city_id)));
     }
 
     /**

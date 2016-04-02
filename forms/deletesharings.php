@@ -103,14 +103,14 @@ class DeleteSharingsForm extends Form
         $out = $this->out;
         $id = "sharing-" . $sharing->id;
         
-        $out->element('h3', 'sharing-title', '¿Estás seguro que quieres eliminar este objeto/servicio?');
-        $out->element('p', 'sharing-displayName', 'Nombre: ' . $sharing->displayName);
-        $out->element('p', 'sharing-summary', 'Detalle: ' . $sharing->summary);
+        $out->element('h3', 'sharing-title', _m('¿Estás seguro que quieres eliminar este objeto/servicio?'));
+        $out->element('p', 'sharing-displayName', sprintf(_m('Nombre: %s'), $sharing->displayName));
+        $out->element('p', 'sharing-summary', sprintf(_('Detalle: %s'), $sharing->summary));
 
         $this->out->element('a',
             array('href' => $sharing->uri, 'class' => 'sharings-edit-submit'),
             // TRANS: Link description for link to list of users subscribed to a tag.
-            _('Cancelar'));
+            _m('Cancelar'));
 
     }
 

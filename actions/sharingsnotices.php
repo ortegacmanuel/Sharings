@@ -136,7 +136,7 @@ class SharingsNoticesAction extends Action
     }
 
     function showEmptyList() {
-        $message = sprintf('Aún no se han compartido objetos o servicios');
+        $message = _m('Aún no se han compartido objetos o servicios');
 
         $this->elementStart('div', 'guide');
         $this->raw(common_markup_to_html($message));

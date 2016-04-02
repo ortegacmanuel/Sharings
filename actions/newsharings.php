@@ -82,7 +82,7 @@ class NewSharingsAction extends Action
 
         if (empty($this->user)) {
             // TRANS: Client exception thrown trying to create a poll while not logged in.
-            throw new ClientException(_m('You must be logged in to post a poll.'),
+            throw new ClientException(_m('You must be logged in to post a sharing.'),
                                       403);
         }
 

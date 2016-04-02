@@ -104,9 +104,9 @@ class SharingsDirectoryForm extends Form
         $id = "sharing-" . $sharing->id;
         
         $out->element('h3', 'sharing-title', $sharing->displayName);
-        $out->element('p', 'sharing-summary', 'Detalle: ' . $sharing->summary);
-        $out->element('p', 'sharing-category', sprintf('%s %s en la categoría %s', Sharing_type::getNameById($sharing->sharing_type_id), $sharing->getPriceText(), Sharing_category::getNameById($sharing->sharing_category_id)));
-        $out->element('p', 'sharing-city', 'En ' . Sharing_city::getNameById($sharing->sharing_city_id));
+        $out->element('p', 'sharing-summary', sprintf(_m('Detalle: %s'), $sharing->summary));
+        $out->element('p', 'sharing-category', sprintf(_m('%s %s en la categoría %s'), Sharing_type::getNameById($sharing->sharing_type_id), $sharing->getPriceText(), Sharing_category::getNameById($sharing->sharing_category_id)));
+        $out->element('p', 'sharing-city', sprintf(_m('En %s'), Sharing_city::getNameById($sharing->sharing_city_id)));
     }
 
     /**

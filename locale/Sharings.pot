@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-02 12:51+0200\n"
+"POT-Creation-Date: 2016-04-02 22:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,53 +37,53 @@ msgid "Compartiendo obtendras la medala «Mumi»"
 msgstr ""
 
 #. TRANS: Title for poll page.
-#: actions/editsharings.php:64
+#: actions/editsharings.php:60
 msgid "Editar un objeto o servicio"
 msgstr ""
 
 #. TRANS: Client exception thrown trying to create a poll while not logged in.
-#: actions/editsharings.php:82 actions/newsharings.php:85
+#: actions/editsharings.php:78 actions/newsharings.php:85
 #: actions/deletesharings.php:82
-msgid "You must be logged in to post a poll."
+msgid "You must be logged in to post a sharing."
 msgstr ""
 
 #. TRANS: Client exception thrown trying to respond to a non-existing poll.
-#: actions/editsharings.php:101 actions/respondsharings.php:96
+#: actions/editsharings.php:97 actions/respondsharings.php:96
 #: actions/deletesharings.php:94
-msgid "Invalid or missing poll."
+msgid "Invalid or missing sharing."
 msgstr ""
 
 #. TRANS: Client exception thrown trying to create a poll without a question.
-#: actions/editsharings.php:140 actions/newsharings.php:136
+#: actions/editsharings.php:136 actions/newsharings.php:136
 msgid "El objeto o servicio a compartir tiene que tener un nombre."
 msgstr ""
 
 #. TRANS: Client exception thrown trying to create a poll with fewer than two options.
-#: actions/editsharings.php:145 actions/newsharings.php:141
+#: actions/editsharings.php:141 actions/newsharings.php:141
 msgid ""
 "Tiene que indicar información detallada sobre el objeto o servicio que "
 "quiere compartir."
 msgstr ""
 
 #. TRANS: Client exception thrown trying to create a poll without a question.
-#: actions/editsharings.php:150 actions/newsharings.php:146
+#: actions/editsharings.php:146 actions/newsharings.php:146
 msgid "Tiene que seleccionar una categoría."
 msgstr ""
 
 #. TRANS: Client exception thrown trying to create a poll without a question.
-#: actions/editsharings.php:155 actions/newsharings.php:151
+#: actions/editsharings.php:151 actions/newsharings.php:151
 msgid "Tiene que seleccionar Oferta o Demanda."
 msgstr ""
 
 #. TRANS: Client exception thrown trying to create a poll without a question.
-#: actions/editsharings.php:168 actions/newsharings.php:164
+#: actions/editsharings.php:164 actions/newsharings.php:164
 msgid ""
 "Tiene que indicar el precio para este producto o bien asinarle precio 0 - "
 "cero - para compartilo gratuitamente."
 msgstr ""
 
 #. TRANS: Page title after sending a notice.
-#: actions/editsharings.php:196 actions/newsharings.php:191
+#: actions/editsharings.php:192 actions/newsharings.php:191
 #: actions/deletesharings.php:149
 msgid "Notice posted"
 msgstr ""
@@ -93,14 +93,18 @@ msgstr ""
 msgid "Objetos y servicios compartidos en la red"
 msgstr ""
 
+#: actions/sharingsnotices.php:139
+msgid "Aún no se han compartido objetos o servicios"
+msgstr ""
+
 #. TRANS: Page title for poll response.
 #: actions/respondsharings.php:62
-msgid "Poll response"
+msgid "Sharing response"
 msgstr ""
 
 #. TRANS: Client exception thrown trying to respond to a poll while not logged in.
 #: actions/respondsharings.php:84
-msgid "You must be logged in to respond to a poll."
+msgid "You must be logged in to respond to a sharing."
 msgstr ""
 
 #. TRANS: Page title after sending a poll response.
@@ -110,12 +114,12 @@ msgstr ""
 
 #. TRANS: Client exception thrown trying to view a non-existing poll.
 #: actions/showsharings.php:59
-msgid "No such poll."
+msgid "No such sharing."
 msgstr ""
 
 #. TRANS: Client exception thrown trying to view a non-existing poll notice.
 #: actions/showsharings.php:67
-msgid "No such poll notice."
+msgid "No such sharing notice."
 msgstr ""
 
 #. TRANS: Page title for a poll.
@@ -136,6 +140,14 @@ msgid ""
 "También puedes indicar si estás buscando una oferta o una demanda."
 msgstr ""
 
+#: actions/sharingsdirectory.php:159 actions/sharingsdirectory.php:171
+msgid "Todas"
+msgstr ""
+
+#: actions/sharingsdirectory.php:179
+msgid "Todos"
+msgstr ""
+
 #. TRANS: Fieldset legend.
 #: actions/sharingsdirectory.php:260
 msgid "Search site"
@@ -150,6 +162,25 @@ msgstr ""
 #: actions/sharingsdirectory.php:268
 msgctxt "BUTTON"
 msgid "Buscar"
+msgstr ""
+
+#: actions/sharingsdirectory.php:273 forms/editsharings.php:138
+#: forms/newsharings.php:155
+msgid "Categoría"
+msgstr ""
+
+#: actions/sharingsdirectory.php:282 forms/editsharings.php:147
+#: forms/newsharings.php:164
+msgid "Tipo"
+msgstr ""
+
+#: actions/sharingsdirectory.php:291 forms/editsharings.php:190
+#: forms/newsharings.php:207
+msgid "Ciudad"
+msgstr ""
+
+#: actions/sharingsdirectory.php:301
+msgid "Mostrar sólo los intercambios de forma gratuita"
 msgstr ""
 
 #. TRANS: Empty list message for user directory.
@@ -180,6 +211,75 @@ msgstr ""
 #. TRANS: Title for poll page.
 #: actions/deletesharings.php:64
 msgid "Eliminar un objeto o servicio"
+msgstr ""
+
+#: forms/mysharings.php:107
+msgid "He compartido"
+msgstr ""
+
+#: forms/mysharings.php:108 forms/sharingsresponse.php:107
+#, php-format
+msgid "Categoría: %s"
+msgstr ""
+
+#: forms/mysharings.php:109 forms/sharingsresponse.php:108
+#, php-format
+msgid "Tipo: %s"
+msgstr ""
+
+#: forms/mysharings.php:110 forms/sharingsresponse.php:109
+#: forms/deletesharings.php:107
+#, php-format
+msgid "Nombre: %s"
+msgstr ""
+
+#: forms/mysharings.php:111 forms/sharingsresponse.php:110
+#: forms/sharingsdirectory.php:107
+#, php-format
+msgid "Detalle: %s"
+msgstr ""
+
+#: forms/mysharings.php:113 forms/sharingsresponse.php:112
+#: forms/sharingsdirectory.php:109
+#, php-format
+msgid "En %s"
+msgstr ""
+
+#: forms/mysharings.php:117
+#, php-format
+msgid "Tu objeto / servicio le interesa a %d usuarios"
+msgstr ""
+
+#. TRANS: Link description for link to list of users subscribed to a tag.
+#: forms/mysharings.php:124
+msgid "Editar"
+msgstr ""
+
+#. TRANS: Link description for link to list of users subscribed to a tag.
+#: forms/mysharings.php:129
+msgid "Dar de baja"
+msgstr ""
+
+#: forms/editsharings.php:67 forms/newsharings.php:84
+msgid "Selecciona una categoría"
+msgstr ""
+
+#: forms/editsharings.php:79 forms/newsharings.php:96
+msgid "Selecciona una ciudad"
+msgstr ""
+
+#: forms/editsharings.php:87 forms/newsharings.php:104
+msgid "Selecciona Oferta o Demanda"
+msgstr ""
+
+#. TRANS: Tooltip for dropdown list label in form for profile settings.
+#: forms/editsharings.php:140 forms/newsharings.php:157
+msgid "Por favor, selecciona la categoría en la que quieres publicar"
+msgstr ""
+
+#. TRANS: Tooltip for dropdown list label in form for profile settings.
+#: forms/editsharings.php:149 forms/newsharings.php:166
+msgid "Por favor, indica si estas publicando una oferta o una demanda"
 msgstr ""
 
 #. TRANS: Field label on the page to create a poll.
@@ -214,10 +314,22 @@ msgid ""
 "caso de querer compartirlo de forma gratuita"
 msgstr ""
 
+#. TRANS: Tooltip for dropdown list label in form for profile settings.
+#: forms/editsharings.php:192 forms/newsharings.php:209
+msgid ""
+"Por favor, selecciona una ciudad. Si tu ciudad no está en el listado puedes "
+"no indicar la ciudad ahora, agregar el objeto o servicio y pedir añadir tu "
+"ciudad en http://git.lasindias.club/manuel/Sharings/issues"
+msgstr ""
+
 #. TRANS: Button text for saving a new poll.
 #: forms/editsharings.php:215
 msgctxt "BUTTON"
 msgid "Guardar cambios"
+msgstr ""
+
+#: forms/sharingsresponse.php:106
+msgid "Nuevo objeto o servicio compartido en la red"
 msgstr ""
 
 #. TRANS: Button text for submitting a poll response.
@@ -226,16 +338,53 @@ msgctxt "BUTTON"
 msgid "Me interesa"
 msgstr ""
 
+#: forms/thankssharings.php:101
+msgid "¡Gracias por compartir!"
+msgstr ""
+
+#. TRANS: Link description for link to list of users subscribed to a tag.
+#: forms/thankssharings.php:108
+msgid "Agregar objeto o servicio"
+msgstr ""
+
+#. TRANS: Link description for link to list of users subscribed to a tag.
+#: forms/thankssharings.php:113
+msgid "Ver catálogo"
+msgstr ""
+
+#: forms/sharingsdirectory.php:108
+#, php-format
+msgid "%s %s en la categoría %s"
+msgstr ""
+
 #. TRANS: Button text for saving a new poll.
 #: forms/newsharings.php:232
 msgctxt "BUTTON"
 msgid "Compartir"
 msgstr ""
 
+#: forms/deletesharings.php:106
+msgid "¿Estás seguro que quieres eliminar este objeto/servicio?"
+msgstr ""
+
+#. TRANS: Link description for link to list of users subscribed to a tag.
+#: forms/deletesharings.php:113
+msgid "Cancelar"
+msgstr ""
+
 #. TRANS: Button text for saving a new poll.
 #: forms/deletesharings.php:125
 msgctxt "BUTTON"
 msgid "Confirmar"
+msgstr ""
+
+#: forms/sharingsresult.php:106
+msgid "Un nuevo usuario ha indicado que le interesa:"
+msgstr ""
+
+#: forms/sharingsresult.php:110
+#, php-format
+msgid "Este objeto / servicio le interesa a %d usuarios"
 msgstr ""
 
 #. TRANS: Notice content voting for a poll.
@@ -257,6 +406,16 @@ msgstr ""
 msgid "ha eliminado \"%s\""
 msgstr ""
 
+#: classes/Sharing.php:141
+msgid "de forma gratuita"
+msgstr ""
+
+#: classes/Sharing.php:143
+#, php-format
+msgid ""
+"por %d unidades consultar moneda con el propietario de este objeto o servicio"
+msgstr ""
+
 #. TRANS: Notice content creating a poll.
 #. TRANS: %1$s is the poll question, %2$s is a link to the poll.
 #: classes/Sharing.php:211
@@ -273,26 +432,28 @@ msgid ""
 "categoría %s"
 msgstr ""
 
-#. TRANS: Exception thrown trying to respond to a poll without a poll reference.
+#: classes/Sharing_city.php:79
+msgid "Objeto o servicio sin ciudad"
+msgstr ""
+
 #. TRANS: Exception thrown trying to respond to a sharing without a sharing reference.
 #: SharingsPlugin.php:251 SharingsPlugin.php:280 SharingsPlugin.php:302
 msgid "Invalid sharing response: No sharing reference."
 msgstr ""
 
-#. TRANS: Exception thrown trying to respond to a non-existing poll.
 #. TRANS: Exception thrown trying to respond to a non-existing sharing.
 #: SharingsPlugin.php:256 SharingsPlugin.php:285 SharingsPlugin.php:307
 msgid "Invalid sharing response: Sharing is unknown."
 msgstr ""
 
-#. TRANS: Exception thrown when performing an unexpected action on a poll.
+#. TRANS: Exception thrown when performing an unexpected action on a sharing.
 #. TRANS: %s is the unexpected object type.
 #: SharingsPlugin.php:338
 #, php-format
 msgid "Unexpected verb for sharings plugin: %s."
 msgstr ""
 
-#. TRANS: Exception thrown when performing an unexpected action on a poll.
+#. TRANS: Exception thrown when performing an unexpected action on a sharing.
 #. TRANS: %s is the unexpected object type.
 #: SharingsPlugin.php:345
 #, php-format
@@ -323,6 +484,63 @@ msgstr ""
 
 #. TRANS: Plugin description.
 #: SharingsPlugin.php:706
-msgid ""
-"Sharings transforma GNU social en una platoforma del            compartir."
+msgid "Sharings transforma GNU social en una platoforma del compartir."
+msgstr ""
+
+# Categorías
+
+msgid "Hospitalidad"
+msgstr ""
+
+msgid "Intercambio de casas"
+msgstr ""
+
+msgid "Transporte y viajar juntos"
+msgstr ""
+
+msgid "Experiencias"
+msgstr ""
+
+msgid "Libros, Películas y Música"
+msgstr ""
+
+msgid "Tecnología e informática"
+msgstr ""
+
+msgid "Coches y motos"
+msgstr ""
+
+msgid "Deporte y Ocio"
+msgstr ""
+
+msgid "Muebles, Deco y Jardin"
+msgstr ""
+
+msgid "Consolas y Videojuegos"
+msgstr ""
+
+msgid "Moda y accesorios"
+msgstr ""
+
+msgid "Juguetes, Niños y Bebés"
+msgstr ""
+
+msgid "Inmobiliaria"
+msgstr ""
+
+msgid "Electrodomésticos"
+msgstr ""
+
+msgid "Servicios"
+msgstr ""
+
+msgid "Otros"
+msgstr ""
+
+# Tipos
+
+msgid "Oferta"
+msgstr ""
+
+msgid "Demanda"
 msgstr ""
