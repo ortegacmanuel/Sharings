@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-02 22:18+0200\n"
-"PO-Revision-Date: 2016-04-02 22:19+0200\n"
+"PO-Revision-Date: 2016-04-02 23:44+0200\n"
 "Last-Translator: Manuel Ortega <manuel@lasindias.coop>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -19,27 +19,27 @@ msgstr ""
 
 #: actions/mysharings.php:121
 msgid "Mi Catálogo"
-msgstr "My Catalog"
+msgstr "Mia katalogo"
 
 #. TRANS: %%site.name%% is the name of the StatusNet site.
 #: actions/mysharings.php:132
 msgid "Listado de mis objetos y servicios compartidos en la red."
-msgstr "List of shared objects or services on the network"
+msgstr "Listo el objekti kaj servi kundividita en la reto"
 
 #. TRANS: Empty list message for user directory.
 #: actions/mysharings.php:247
 msgid "No has compartido ningún objeto o servicio en la red."
-msgstr "You have shared none objects/services yet"
+msgstr "Neniu kundividita objekto aŭ servo"
 
 #. TRANS: Standard search suggestions shown when a search does not give any results.
 #: actions/mysharings.php:249
 msgid "Compartiendo obtendras la medala «Mumi»"
-msgstr "Sharing you will obtain the badge «Mumi»"
+msgstr "Kundividado premios vin per la medalo «Mumi»"
 
 #. TRANS: Title for poll page.
 #: actions/editsharings.php:60
 msgid "Editar un objeto o servicio"
-msgstr "Edit an object or service"
+msgstr "Redaktare objekto aŭ servo"
 
 #. TRANS: Client exception thrown trying to create a poll while not logged in.
 #: actions/editsharings.php:78 actions/newsharings.php:85
@@ -56,24 +56,24 @@ msgstr ""
 #. TRANS: Client exception thrown trying to create a poll without a question.
 #: actions/editsharings.php:136 actions/newsharings.php:136
 msgid "El objeto o servicio a compartir tiene que tener un nombre."
-msgstr "Name is required"
+msgstr "Nomo nepras"
 
 #. TRANS: Client exception thrown trying to create a poll with fewer than two options.
 #: actions/editsharings.php:141 actions/newsharings.php:141
 msgid ""
 "Tiene que indicar información detallada sobre el objeto o servicio que "
 "quiere compartir."
-msgstr "Detail is required"
+msgstr "Detali nepras"
 
 #. TRANS: Client exception thrown trying to create a poll without a question.
 #: actions/editsharings.php:146 actions/newsharings.php:146
 msgid "Tiene que seleccionar una categoría."
-msgstr "Category is required"
+msgstr "Kategorio nepras"
 
 #. TRANS: Client exception thrown trying to create a poll without a question.
 #: actions/editsharings.php:151 actions/newsharings.php:151
 msgid "Tiene que seleccionar Oferta o Demanda."
-msgstr "You have to choose offer of demand"
+msgstr "Vi devas elektare oferto aŭ peto"
 
 #. TRANS: Client exception thrown trying to create a poll without a question.
 #: actions/editsharings.php:164 actions/newsharings.php:164
@@ -81,7 +81,8 @@ msgid ""
 "Tiene que indicar el precio para este producto o bien asinarle precio 0 - "
 "cero - para compartilo gratuitamente."
 msgstr ""
-"You have to set a price for this item or assign 0 - zero - to share it freely"
+"Vi devas asignare prezo al tiu ĉi elemento aŭ asignare 0 por ĝi senpage "
+"kundividare"
 
 #. TRANS: Page title after sending a notice.
 #: actions/editsharings.php:192 actions/newsharings.php:191
@@ -92,11 +93,11 @@ msgstr ""
 #. TRANS: Menu item title in search group navigation panel.
 #: actions/sharingsnotices.php:107 SharingsPlugin.php:677
 msgid "Objetos y servicios compartidos en la red"
-msgstr "Objects and services shared on the network"
+msgstr "Objekti kaj servi kundividita en la reto"
 
 #: actions/sharingsnotices.php:139
 msgid "Aún no se han compartido objetos o servicios"
-msgstr "There are not shared objects of services yet"
+msgstr "Ankoraŭ ne estas kundivita objekti aŭ servi"
 
 #. TRANS: Page title for poll response.
 #: actions/respondsharings.php:62
@@ -111,7 +112,7 @@ msgstr ""
 #. TRANS: Page title after sending a poll response.
 #: actions/respondsharings.php:144
 msgid "Detalle del objeto o servicio"
-msgstr "Object or service detail"
+msgstr "Detali pri la objekto aŭ servo"
 
 #. TRANS: Client exception thrown trying to view a non-existing poll.
 #: actions/showsharings.php:59
@@ -128,11 +129,11 @@ msgstr ""
 #: actions/showsharings.php:84
 #, php-format
 msgid "%2$s compartido por %1$s: "
-msgstr "%2$s shared by %1$s: "
+msgstr "%2$s kundividita de %1$s: "
 
 #: actions/sharingsdirectory.php:121
 msgid "Catálogo"
-msgstr "Catalog"
+msgstr "Katalogo"
 
 #. TRANS: %%site.name%% is the name of the StatusNet site.
 #: actions/sharingsdirectory.php:132
@@ -140,16 +141,16 @@ msgid ""
 "Busca objetos y servicios por categorías, ciudades y una palabra clave. "
 "También puedes indicar si estás buscando una oferta o una demanda."
 msgstr ""
-"Search for objects and services by category, cities and a keyword. You can "
-"also indicate whether you are looking for an offer or demand."
+"Serĉu objekti aŭ servi per indiko de kategori, urbi kaj ŝlosilvorto. Ankaŭ "
+"vi povas indikare se vi serĉas oferto aŭ peto."
 
 #: actions/sharingsdirectory.php:159 actions/sharingsdirectory.php:171
 msgid "Todas"
-msgstr "All"
+msgstr "Ĉiuj"
 
 #: actions/sharingsdirectory.php:179
 msgid "Todos"
-msgstr "All"
+msgstr "Ĉiuj"
 
 #. TRANS: Fieldset legend.
 #: actions/sharingsdirectory.php:260
@@ -159,42 +160,42 @@ msgstr ""
 #. TRANS: Field label for user directory filter.
 #: actions/sharingsdirectory.php:265
 msgid "Palabra clave"
-msgstr "Keyword"
+msgstr "Ŝlosilvorto"
 
 #. TRANS: Button text.
 #: actions/sharingsdirectory.php:268
 msgctxt "BUTTON"
 msgid "Buscar"
-msgstr "Search"
+msgstr "Serĉare"
 
 #: actions/sharingsdirectory.php:273 forms/editsharings.php:138
 #: forms/newsharings.php:155
 msgid "Categoría"
-msgstr "Category"
+msgstr "Kategorio"
 
 #: actions/sharingsdirectory.php:282 forms/editsharings.php:147
 #: forms/newsharings.php:164
 msgid "Tipo"
-msgstr "Type"
+msgstr "Tipo"
 
 #: actions/sharingsdirectory.php:291 forms/editsharings.php:190
 #: forms/newsharings.php:207
 msgid "Ciudad"
-msgstr "City"
+msgstr "Urbo"
 
 #: actions/sharingsdirectory.php:301
 msgid "Mostrar sólo los intercambios de forma gratuita"
-msgstr "Show only items shared "
+msgstr "Montru nur objekti aŭ servi kundivita senpage"
 
 #. TRANS: Empty list message for user directory.
 #: actions/sharingsdirectory.php:373
 msgid "Sin resultados."
-msgstr "No results"
+msgstr "Sen rezulti"
 
 #. TRANS: Standard search suggestions shown when a search does not give any results.
 #: actions/sharingsdirectory.php:375
 msgid "* Vuelve a intentarlo cambiando los criterios de búsqueda."
-msgstr "* Search again with different criterias."
+msgstr "* Provez denove per aliaj kriterioj."
 
 #. TRANS: Page title.
 #: actions/pollsettings.php:42
@@ -209,114 +210,114 @@ msgstr ""
 #. TRANS: Title for poll page.
 #: actions/newsharings.php:67
 msgid "Compartir un objeto o servicio"
-msgstr "Share an object or service"
+msgstr "Kundividare objekto aŭ servo"
 
 #. TRANS: Title for poll page.
 #: actions/deletesharings.php:64
 msgid "Eliminar un objeto o servicio"
-msgstr "Delete object or service"
+msgstr "Forigare objekto aŭ servo"
 
 #: forms/mysharings.php:107
 msgid "He compartido"
-msgstr "I share"
+msgstr "Mi kundividas"
 
 #: forms/mysharings.php:108 forms/sharingsresponse.php:107
 #, php-format
 msgid "Categoría: %s"
-msgstr "Category: %s"
+msgstr "Kategorio: %s"
 
 #: forms/mysharings.php:109 forms/sharingsresponse.php:108
 #, php-format
 msgid "Tipo: %s"
-msgstr "Type: %s"
+msgstr "Tipo: %s"
 
 #: forms/mysharings.php:110 forms/sharingsresponse.php:109
 #: forms/deletesharings.php:107
 #, php-format
 msgid "Nombre: %s"
-msgstr "Name: %s"
+msgstr "Nomo: %s"
 
 #: forms/mysharings.php:111 forms/sharingsresponse.php:110
 #: forms/sharingsdirectory.php:107
 #, php-format
 msgid "Detalle: %s"
-msgstr "Detail: %s"
+msgstr "Detali: %s"
 
 #: forms/mysharings.php:113 forms/sharingsresponse.php:112
 #: forms/sharingsdirectory.php:109
 #, php-format
 msgid "En %s"
-msgstr "In %s"
+msgstr "En %s"
 
 #: forms/mysharings.php:117
 #, php-format
 msgid "Tu objeto / servicio le interesa a %d usuarios"
-msgstr "%d users are interested in your object or service"
+msgstr "%d uzanti seinteresas pri via objekto aŭ servo"
 
 #. TRANS: Link description for link to list of users subscribed to a tag.
 #: forms/mysharings.php:124
 msgid "Editar"
-msgstr "Edit"
+msgstr "Redakti"
 
 #. TRANS: Link description for link to list of users subscribed to a tag.
 #: forms/mysharings.php:129
 msgid "Dar de baja"
-msgstr "Delete"
+msgstr "Forigi"
 
 #: forms/editsharings.php:67 forms/newsharings.php:84
 msgid "Selecciona una categoría"
-msgstr "Choose one category"
+msgstr "Elektez kategorio"
 
 #: forms/editsharings.php:79 forms/newsharings.php:96
 msgid "Selecciona una ciudad"
-msgstr "Choose one city"
+msgstr "Elektez urbo"
 
 #: forms/editsharings.php:87 forms/newsharings.php:104
 msgid "Selecciona Oferta o Demanda"
-msgstr "Choose offer or demand"
+msgstr "Elektez oferto aŭ peto"
 
 #. TRANS: Tooltip for dropdown list label in form for profile settings.
 #: forms/editsharings.php:140 forms/newsharings.php:157
 msgid "Por favor, selecciona la categoría en la que quieres publicar"
-msgstr "The category this item belongs to"
+msgstr "Bonvolez, elektare la kategorio en kiu vi volas publiki"
 
 #. TRANS: Tooltip for dropdown list label in form for profile settings.
 #: forms/editsharings.php:149 forms/newsharings.php:166
 msgid "Por favor, indica si estas publicando una oferta o una demanda"
-msgstr "Please, indicate if you are publishing an offer of a demand"
+msgstr "Bonvolez, indikare se vi publikas oferto aŭ peto"
 
 #. TRANS: Field label on the page to create a poll.
 #: forms/editsharings.php:158 forms/newsharings.php:175
 msgid "Nombre"
-msgstr "Name"
+msgstr "Nomo"
 
 #. TRANS: Field title on the page to create a poll.
 #: forms/editsharings.php:161 forms/newsharings.php:178
 msgid "Nombre del objeto o servicio a compartir"
-msgstr "Name of the object or service that you want to share"
+msgstr "Nomo de la objekto aŭ servo kiu vi volas kundividare"
 
 #. TRANS: Field label for an answer option on the page to create a poll.
 #. TRANS: %d is the option number.
 #: forms/editsharings.php:170 forms/newsharings.php:187
 msgid "Detalle"
-msgstr "Detail"
+msgstr "Detali"
 
 #: forms/editsharings.php:172 forms/newsharings.php:189
 msgid "Detalle del objeto o servicio que se quiere compartir"
-msgstr "Object or service detail"
+msgstr "Detali pri la objekto aŭ servo"
 
 #. TRANS: Field label for an answer option on the page to create a poll.
 #. TRANS: %d is the option number.
 #: forms/editsharings.php:181 forms/newsharings.php:198
 msgid "Precio"
-msgstr "Price"
+msgstr "Prezo"
 
 #: forms/editsharings.php:183 forms/newsharings.php:200
 msgid ""
 "Indica el precio asociado a este producto o servicio. Asignale 0 - cero - en "
 "caso de querer compartirlo de forma gratuita"
 msgstr ""
-"You have to set a price for this item or assign 0 - zero - to share it freely"
+"Vi devas asignare prezo aŭ indikare 0 - nulo - por ĝi senpage kundividare"
 
 #. TRANS: Tooltip for dropdown list label in form for profile settings.
 #: forms/editsharings.php:192 forms/newsharings.php:209
@@ -325,74 +326,74 @@ msgid ""
 "no indicar la ciudad ahora, agregar el objeto o servicio y pedir añadir tu "
 "ciudad en http://git.lasindias.club/manuel/Sharings/issues"
 msgstr ""
-"Please, choose one city. If your city is not in the list, this field can be "
-"empty, you can publish your item now and after you can ask us to add your "
-"city at http://git.lasindias.club/manuel/Sharings/issues"
+"Bonvolez, elektare urbo, se via urbo ne aperas en la listo, ne indikez urbo "
+"nun, kundividez la objekto aŭ servo kaj informez nu pri la manko de via urbo "
+"en  at http://git.lasindias.club/manuel/Sharings/issues"
 
 #. TRANS: Button text for saving a new poll.
 #: forms/editsharings.php:215
 msgctxt "BUTTON"
 msgid "Guardar cambios"
-msgstr "Save"
+msgstr "Konservare"
 
 #: forms/sharingsresponse.php:106
 msgid "Nuevo objeto o servicio compartido en la red"
-msgstr "New object or service shared on the network"
+msgstr "Nova objekto aŭ servo kundividita en la reto"
 
 #. TRANS: Button text for submitting a poll response.
 #: forms/sharingsresponse.php:123 forms/sharingsdirectory.php:120
 msgctxt "BUTTON"
 msgid "Me interesa"
-msgstr "I'm interested in this item"
+msgstr "Respondare"
 
 #: forms/thankssharings.php:101
 msgid "¡Gracias por compartir!"
-msgstr "Thanks for sharing!"
+msgstr "Danki pro kundividare!"
 
 #. TRANS: Link description for link to list of users subscribed to a tag.
 #: forms/thankssharings.php:108
 msgid "Agregar objeto o servicio"
-msgstr "Add new object or service"
+msgstr "Aldonare nova objekto aŭ servo"
 
 #. TRANS: Link description for link to list of users subscribed to a tag.
 #: forms/thankssharings.php:113
 msgid "Ver catálogo"
-msgstr "Explore catalog"
+msgstr "Eksplorare la katalogo"
 
 #: forms/sharingsdirectory.php:108
 #, php-format
 msgid "%s %s en la categoría %s"
-msgstr "%s %s in the category %s"
+msgstr "%s %s en la kategorio %s"
 
 #. TRANS: Button text for saving a new poll.
 #: forms/newsharings.php:232
 msgctxt "BUTTON"
 msgid "Compartir"
-msgstr "Share"
+msgstr "Kundividare"
 
 #: forms/deletesharings.php:106
 msgid "¿Estás seguro que quieres eliminar este objeto/servicio?"
-msgstr "Are you sure you want to delete this item?"
+msgstr "Ĉu vi certas pri la forigo de tiu ĉi elemento?"
 
 #. TRANS: Link description for link to list of users subscribed to a tag.
 #: forms/deletesharings.php:113
 msgid "Cancelar"
-msgstr "Cancel"
+msgstr "Nuligare"
 
 #. TRANS: Button text for saving a new poll.
 #: forms/deletesharings.php:125
 msgctxt "BUTTON"
 msgid "Confirmar"
-msgstr "Confirm"
+msgstr "Konfirmare"
 
 #: forms/sharingsresult.php:106
 msgid "Un nuevo usuario ha indicado que le interesa:"
-msgstr "A new user interested in:"
+msgstr "Nova uzanto seinteresas pri:"
 
 #: forms/sharingsresult.php:110
 #, php-format
 msgid "Este objeto / servicio le interesa a %d usuarios"
-msgstr "%d users are interested in this item"
+msgstr "%d uzanti seinteresas pri tiu ĉi elemento"
 
 #. TRANS: Notice content voting for a poll.
 #. TRANS: %s is the chosen option in the poll.
@@ -401,34 +402,34 @@ msgstr "%d users are interested in this item"
 #: classes/Sharing_response.php:154 classes/Sharing_response.php:159
 #, php-format
 msgid "le interesa \"%s\""
-msgstr "interested in \"%s\""
+msgstr "se interesas pri \"%s\""
 
 #: classes/Sharing_notice.php:161 classes/Sharing_notice.php:163
 #, php-format
 msgid "ha actualizado \"%s\""
-msgstr "updated \"%s\""
+msgstr "ĝisdatigis \"%s\""
 
 #: classes/Sharing_notice.php:167 classes/Sharing_notice.php:169
 #, php-format
 msgid "ha eliminado \"%s\""
-msgstr "deleted \"%s\""
+msgstr "forigis \"%s\""
 
 #: classes/Sharing.php:141
 msgid "de forma gratuita"
-msgstr "freely"
+msgstr "senpage"
 
 #: classes/Sharing.php:143
 #, php-format
 msgid ""
 "por %d unidades consultar moneda con el propietario de este objeto o servicio"
-msgstr "for %d units - ask the proprietary of this item about the currency -"
+msgstr "kontraŭ %d unuoj - demandez al la propiulo pri la valuto -"
 
 #. TRANS: Notice content creating a poll.
 #. TRANS: %1$s is the poll question, %2$s is a link to the poll.
 #: classes/Sharing.php:211
 #, php-format
 msgid "Objeto/Servicio: %1$s %2$s"
-msgstr "Object/Service: %1$s %2$s"
+msgstr "Objekto/Servo: %1$s %2$s"
 
 #. TRANS: Rendered version of the notice content creating a poll.
 #. TRANS: %s is a link to the poll with the question as link description.
@@ -438,11 +439,12 @@ msgid ""
 "He compartido un nuevo objeto/servicio en %s: %s. %s %s dentro de la "
 "categoría %s"
 msgstr ""
-"I shared a new object/service at %s: %s. %s %s it belongs to the category %s"
+"Mi kundividas nova objekto/servo en %s: %s. %s %s tiu ĉi elemento apartenas "
+"al la kategorio %s"
 
 #: classes/Sharing_city.php:79
 msgid "Objeto o servicio sin ciudad"
-msgstr "Object or service without city"
+msgstr "Objekto aŭ servo sen urbo"
 
 #. TRANS: Exception thrown trying to respond to a sharing without a sharing reference.
 #: SharingsPlugin.php:251 SharingsPlugin.php:280 SharingsPlugin.php:302
@@ -478,80 +480,78 @@ msgstr ""
 #: SharingsPlugin.php:675
 msgctxt "MENU"
 msgid "Catálogo"
-msgstr "Catalog"
+msgstr "Katalogo"
 
 #. TRANS: Menu item in sample plugin.
 #: SharingsPlugin.php:685
 msgid "Mi catálogo"
-msgstr "My Catalog"
+msgstr "Mia katalogo"
 
 #. TRANS: Menu item title in sample plugin.
 #: SharingsPlugin.php:687
 msgid "Mi objetos y servicios"
-msgstr "My objects and services"
+msgstr "Mia objekti kaj servi"
 
 #. TRANS: Plugin description.
 #: SharingsPlugin.php:706
 msgid "Sharings transforma GNU social en una platoforma del compartir."
-msgstr "Sharings transforms GNU social into a Sharing Economy platform."
+msgstr "Sharings transfromas GNU social en platformo por kundividare."
 
 # Categorías
-
 msgid "Hospitalidad"
-msgstr "Hospitality"
+msgstr "Gastigado"
 
 msgid "Intercambio de casas"
-msgstr "Home exchange"
+msgstr "Interŝanĝo de domi"
 
 msgid "Transporte y viajar juntos"
-msgstr "Transport and Travel"
+msgstr "Transporto kaj vojaĝoj"
 
 msgid "Experiencias"
-msgstr "Experiences"
+msgstr "Spertoj"
 
 msgid "Libros, Películas y Música"
-msgstr "Books, Movies and Music"
+msgstr "Libri, filmi kaj muziko"
 
 msgid "Tecnología e informática"
-msgstr "Technology and Computing"
+msgstr "Teknologio kaj komputrilata aferi"
 
 msgid "Coches y motos"
-msgstr "Cars and motorbikes"
+msgstr "Aŭti kaj motorcikli"
 
 msgid "Deporte y Ocio"
-msgstr "Sport and Free time"
+msgstr "Sporto kaj libera tempo"
 
 msgid "Muebles, Deco y Jardin"
-msgstr "Furniture, Deco and Garden"
+msgstr "Mebli, ornamado kaj ĝardenado"
 
 msgid "Consolas y Videojuegos"
-msgstr "Consoles and Videogames"
+msgstr "Komputila ludi kaj ludili"
 
 msgid "Moda y accesorios"
-msgstr "Fashion and Accessories"
+msgstr "Modo kaj vestaĵi"
 
 msgid "Juguetes, Niños y Bebés"
-msgstr "Toys, Kids and Babies"
+msgstr "Ludili por infani, infani, bebi"
 
 msgid "Inmobiliaria"
-msgstr "Real estate"
+msgstr "Domo-vendado"
 
 msgid "Electrodomésticos"
-msgstr "Home appliances"
+msgstr "Hejma ilaro"
 
 msgid "Servicios"
-msgstr "Services"
+msgstr "Servi"
 
 msgid "Otros"
-msgstr "Others"
+msgstr "Alii"
 
 # Tipos
-
 msgid "Oferta"
-msgstr "Offer"
+msgstr "Oferto"
 
 msgid "Demanda"
-msgstr "Demand"
+msgstr "Peto"
 
 #~ msgid ""
 #~ "Sharings transforma GNU social en una platoforma del            compartir."
