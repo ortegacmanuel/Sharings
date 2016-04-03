@@ -50,4 +50,4 @@ El idioma por defecto de Sharings es el Español pero puedes activar otros idiom
 msgfmt -o Sharings.mo Sharings.po
 ```
 
-La activación de otros idiomas depende de que las traducciones al idioma que quieres activar estén completadas. Por es momento solo tenemos traducciones de Sharings al Esperanto - dialecto Komunuma - y al Inglés.
+La activación de otros idiomas depende de que las traducciones al idioma que quieres activar estén completadas. Por el momento solo tenemos traducciones de Sharings al Esperanto - dialecto Komunuma - y al Inglés.
