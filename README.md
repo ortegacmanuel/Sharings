@@ -42,4 +42,12 @@ Actualizar las categorías, tipos y cuidades utilizadas en Sharings desde el dir
 php scripts/seedsharings.php
 ```
 
+# Idiomas
 
+El idioma por defecto de Sharings es el Español pero puedes activar otros idiomas compilando las traducción del idioma que quieres activar. Por ejemplo si quieres activar las traducciones al Esperanto tienes que ir a `local/eo/LC_MESSAGES` y compilar las traducciones ejecutando:
+
+```php
+msgfmt -o Sharings.mo Sharings.po
+```
+
+La activación de otros idiomas depende de que las traducciones al idioma que quieres activar estén completadas. Por es momento solo tenemos traducciones de Sharings al Esperanto - dialecto Komunuma - y al Inglés.
