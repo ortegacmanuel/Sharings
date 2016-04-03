@@ -159,7 +159,7 @@ class SharingsdirectoryAction extends ManagedAction
         $this->kategori[0] = _m('Todas');
 
         while ($kategori->fetch()) {
-            $this->kategori[$kategori->id] = $kategori->name;
+            $this->kategori[$kategori->id] = _m(sprintf('%s', $kategori->name));
         }
 
         $urbi = new Sharing_city();
@@ -181,7 +181,7 @@ class SharingsdirectoryAction extends ManagedAction
         $tipi->find();
 
         while ($tipi->fetch()) {
-            $this->tipi[$tipi->id] = $tipi->name;
+            $this->tipi[$tipi->id] = _m(sprintf('%s', $tipi->name));
         }
 
 

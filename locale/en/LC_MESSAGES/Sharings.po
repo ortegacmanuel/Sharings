@@ -184,7 +184,7 @@ msgstr "City"
 
 #: actions/sharingsdirectory.php:301
 msgid "Mostrar sólo los intercambios de forma gratuita"
-msgstr "Show only items shared "
+msgstr "Show only items freely shared "
 
 #. TRANS: Empty list message for user directory.
 #: actions/sharingsdirectory.php:373
