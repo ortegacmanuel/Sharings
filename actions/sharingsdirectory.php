@@ -272,7 +272,7 @@ class SharingsdirectoryAction extends ManagedAction
 
         $this->dropdown('sharing_category_id', _m('Categoría'),
                      // TRANS: Tooltip for dropdown list label in form for profile settings.
-                        $this->kategori, _(''),
+                        $this->kategori, _('Categoría'),
                         true, $this->sharing_category_id);
 
         $this->elementEnd('li');
@@ -281,7 +281,7 @@ class SharingsdirectoryAction extends ManagedAction
 
         $this->dropdown('sharing_type_id', _m('Tipo'),
                      // TRANS: Tooltip for dropdown list label in form for profile settings.
-                        $this->tipi, _(''),
+                        $this->tipi, _('Tipo'),
                         true, $this->sharing_type_id);
 
         $this->elementEnd('li');
@@ -290,7 +290,7 @@ class SharingsdirectoryAction extends ManagedAction
 
         $this->dropdown('sharing_city_id', _m('Ciudad'),
                      // TRANS: Tooltip for dropdown list label in form for profile settings.
-                        $this->urbi, _(''),
+                        $this->urbi, _('Ciudad'),
                         true, $this->sharing_city_id);
 
         $this->elementEnd('li');
