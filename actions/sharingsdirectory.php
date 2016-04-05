@@ -316,7 +316,7 @@ class SharingsdirectoryAction extends ManagedAction
     {
         $sharing = new Sharing();
 
-        $sharing->whereAdd(sprintf('profile_id != %d', common_current_user()->getProfile()->id));
+        //$sharing->whereAdd(sprintf('profile_id != %d', common_current_user()->getProfile()->id));
 
         $sharing->orderBy('created DESC');
 
