@@ -249,6 +249,8 @@ class SharingsPlugin extends MicroAppPlugin
                     $redir = File_redirection::where($image_url);
                     $file = $redir->getFile();
 
+                    $sharing = Sharing::getByNotice($notice);
+
                     if ($file instanceof File || !empty($file->id)) {
                         File_to_sharing::processNew($file, $sharing);
                     }
