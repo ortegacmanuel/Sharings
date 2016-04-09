@@ -408,19 +408,7 @@ class SharingsPlugin extends MicroAppPlugin
             $object->sharingsType_id = $sharing->sharing_type_id;
             $object->sharingsCity_id = $sharing->sharing_city_id;
 
-            $f2s = File_to_sharing::getKV('sharing_id', $sharing->id);
-
-            if($f2s instanceof File_to_sharing){
-                $f = File::getByID($f2s->file_id);
-
-                if($f instanceof File){
-                    $object->sharingsImage = $f->url;
-                } else {
-                    $object->sharingsImage = '';
-                }
-            } else {
-                $object->sharingsImage = '';
-            }
+            $object->sharingsImage = File_to_sharing::getImageUrl($sharing);
 
         }
 
