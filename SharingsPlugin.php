@@ -65,6 +65,9 @@ class SharingsPlugin extends MicroAppPlugin
         // Pendiente para cuando implementemos la configuración del plugin por los admin's
         //$schema->ensureTable('user_sharings_prefs', User_sharings_prefs::schemaDef());
 
+        // Para la imagen asociada a un objeto o servicio
+        $schema->ensureTable('file_to_sharing', File_to_sharing::schemaDef());
+
         return true;
     }
 
@@ -234,9 +237,22 @@ class SharingsPlugin extends MicroAppPlugin
                 foreach ($data->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'city_id') as $node) {
                     $options['sharing_city_id'] = $node->textContent;
                 }
+                foreach ($data->getElementsByTagNameNS(self::SHARINGS_OBJECT, 'image') as $node) {
+                    $image_url = $node->textContent;
+                }
+
                 try {
                     $notice = Sharing::saveNew($profile, $options);
                     common_log(LOG_DEBUG, "Saved sharing from ActivityStream data ok: notice id " . $notice->id);
+
+                    $image_url = File_redirection::_canonUrl($image_url);
+                    $redir = File_redirection::where($image_url);
+                    $file = $redir->getFile();
+
+                    if ($file instanceof File || !empty($file->id)) {
+                        File_to_sharing::processNew($file, $sharing);
+                    }
+
                     return $notice;
                 } catch (Exception $e) {
                     common_log(LOG_DEBUG, "Sharing save from ActivityStream data failed: " . $e->getMessage());
@@ -389,6 +405,21 @@ class SharingsPlugin extends MicroAppPlugin
             $object->sharingsCategory_id = $sharing->sharing_category_id;
             $object->sharingsType_id = $sharing->sharing_type_id;
             $object->sharingsCity_id = $sharing->sharing_city_id;
+
+            $f2s = File_to_sharing::getKV('sharing_id', $sharing->id);
+
+            if($f2s instanceof File_to_sharing){
+                $f = File::getByID($f2s->file_id);
+
+                if($f instanceof File){
+                    $object->sharingsImage = $f->url;
+                } else {
+                    $object->sharingsImage = '';
+                }
+            } else {
+                $object->sharingsImage = '';
+            }
+
         }
 
         return $object;
@@ -462,6 +493,7 @@ class SharingsPlugin extends MicroAppPlugin
               *   <sharings:category_id>2</sharings:category_id>
               *   <sharings:type_id>1</sharings:type_id>
               *   <sharings:city_id>0</sharings:city_id>
+              *   <sharings:image>http://example.com/image.jpg</sharings:city_id>
               *  </sharings:sharings>
              */
             $data = array('xmlns:sharings' => self::SHARINGS_OBJECT);
@@ -472,6 +504,7 @@ class SharingsPlugin extends MicroAppPlugin
             $out->element('sharings:category_id', array(), $obj->sharingsCategory_id);
             $out->element('sharings:type_id', array(), $obj->sharingsType_id);
             $out->element('sharings:city_id', array(), $obj->sharingsCity_id);
+            $out->element('sharings:image', array(), $obj->sharingsImage);
 
             $out->elementEnd('sharings:sharings');           
         }
@@ -548,7 +581,8 @@ class SharingsPlugin extends MicroAppPlugin
                           'price' => $obj->sharingsPrice,
                           'category_id' => $obj->sharingsCategory_id,
                           'type_id' => $obj->sharingsType_id,
-                          'city_id' => $obj->sharingsCity_id); 
+                          'city_id' => $obj->sharingsCity_id,
+                          'image' => $obj->sharingsImage); 
             $out['sharings'] = $data;
         }
         if (isset($obj->sharingsProfile_id)) {

@@ -165,6 +165,14 @@ class NewSharingsAction extends Action
                 }
             }
 
+            $upload = null;
+            try {
+                // throws exception on failure
+                $upload = MediaFile::fromUpload('attach', $this->scoped);
+            } catch (NoUploadedMediaException $e) {
+                // simply no attached media to the new notice
+            }
+
             // Does the heavy-lifting for getting "To:" information
 
             ToSelector::fillOptions($this, $options);
@@ -177,6 +185,14 @@ class NewSharingsAction extends Action
             $options['sharing_city_id'] = $this->sharing_city_id;
 
             $saved = Sharing::saveNew($this->user->getProfile(), $options);
+
+            $sharing = Sharing::getByNotice($saved);
+
+            if ($upload instanceof MediaFile) {
+                File_to_sharing::processNew($upload->fileRecord, $sharing);
+            }
+
+
 
         } catch (ClientException $ce) {
             $this->error = $ce->getMessage();
