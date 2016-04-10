@@ -117,11 +117,16 @@ class File_to_sharing extends Managed_DataObject
         $f2s = File_to_sharing::getKV('sharing_id', $sharing->id);
 
         if($f2s instanceof File_to_sharing){
-            $f = File::getByID($f2s->file_id);
 
-            if($f instanceof File){
-                return $f->url;
-            } else {
+            try {
+                $f = File::getByID($f2s->file_id);
+
+                if($f instanceof File){
+                    return $f->url;
+                } else {
+                    return '';
+                }
+            } catch (Exception $e) {
                 return '';
             }
         } else {
