@@ -211,7 +211,7 @@ class EditSharingsAction extends Action
             $this->elementEnd('body');
             $this->endHTML();
         } else {
-            common_redirect($this->sharing->getUrl(), 303);
+            common_redirect($this->sharing->uri, 303);
         }
     }
 
