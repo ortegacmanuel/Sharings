@@ -165,6 +165,17 @@ class EditSharingsAction extends Action
                 }
             }
 
+            $upload = null;
+            try {
+                // throws exception on failure
+                $upload = MediaFile::fromUpload('attach', $this->scoped);
+
+                File_to_sharing::removeImage($this->sharing);
+
+            } catch (NoUploadedMediaException $e) {
+                // simply no attached media to the new notice
+            }
+
             $options['verb'] = ActivityVerb::UPDATE;
 
             $options['displayName'] = $this->displayName;
@@ -177,6 +188,10 @@ class EditSharingsAction extends Action
             $notice = Sharing_notice::saveNew($this->user->getProfile(),
                                              $this->sharing,
                                              $options);
+
+            if ($upload instanceof MediaFile) {
+                File_to_sharing::processNew($upload->fileRecord, $this->sharing);
+            }
             
 
         } catch (ClientException $ce) {

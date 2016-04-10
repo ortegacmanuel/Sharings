@@ -91,6 +91,10 @@ class EditSharingsForm extends Form
         while ($tipi->fetch()) {
             $this->tipi[$tipi->id] = _m(sprintf('%s', $tipi->name));
         }
+
+        if (common_config('attachments', 'uploads')) {
+            $this->enctype = 'multipart/form-data';
+        }
     }
 
     /**
@@ -192,6 +196,37 @@ class EditSharingsForm extends Form
                         $this->urbi, _m('Por favor, selecciona una ciudad. Si tu ciudad no está en el listado puedes no indicar la ciudad ahora, agregar el objeto o servicio y pedir añadir tu ciudad en http://git.lasindias.club/manuel/Sharings/issues'),
                         true, $this->sharing->sharing_city_id);
 
+        $this->unli();
+
+        $this->li();
+
+        if (common_config('attachments', 'uploads')) {
+            $this->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
+            $this->out->element('label', array('class' => 'notice_data-attach',
+                                               'for'   => $this->id().'-notice_data-attach'),
+                                // TRANS: Input label in notice form for adding an attachment.
+                                _('Attach'));
+            // The actual input element tends to be hidden with CSS.
+            $this->out->element('input', array('class' => 'notice_data-attach',
+                                               'type' => 'file',
+                                               'name' => 'attach',
+                                               'id' => $this->id().'-notice_data-attach',
+                                               // TRANS: Title for input field to attach a file to a notice.
+                                               'title' => _('Attach a file.')));
+        }
+
+        $this->unli();
+
+        $this->li();
+
+        $image_url = File_to_sharing::getImageUrl($this->sharing);
+        if(!$image_url == '') {
+            $this->out->elementStart('p');
+            $this->out->raw('Imagen actual');
+            $this->out->elementEnd('p');
+            
+            $this->out->element('img', array('width' => '80px', 'src' => $image_url, 'alt' => 'Imagen actual'));
+        }
         $this->unli();
 
         $this->out->elementEnd('ul');

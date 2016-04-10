@@ -128,4 +128,19 @@ class File_to_sharing extends Managed_DataObject
             return '';
         }
     }
+
+    static function removeImage($sharing)
+    {
+        $f2s = File_to_sharing::getKV('sharing_id', $sharing->id);
+
+        if($f2s instanceof File_to_sharing){
+            $f = File::getByID($f2s->file_id);
+
+            if($f instanceof File){
+                $f->delete();
+            }
+            
+            $f2s->delete();           
+        }
+    }
 }
