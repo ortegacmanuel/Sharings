@@ -66,10 +66,6 @@ class Sharing_response extends Managed_DataObject
                 'created' => array('type' => 'datetime', 'not null' => true),
             ),
             'primary key' => array('id'),
-            'unique keys' => array(
-                'sharing_uri_key' => array('uri'),
-                'sharing_response_sharing_id_profile_id_key' => array('sharing_id', 'profile_id'),
-            ),
             'indexes' => array(
                 'sharing_response_profile_id_sharing_id_index' => array('profile_id', 'sharing_id'),
             )
