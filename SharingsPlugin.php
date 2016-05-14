@@ -164,9 +164,11 @@ class SharingsPlugin extends MicroAppPlugin
         return array(self::SHARINGS_OBJECT, self::SHARINGS_RESPONSE_OBJECT);
     }
 
-    public function verbs() {
-        return array(ActivityVerb::POST, ActivityVerb::UPDATE, ActivityVerb::DELETE);
-    }
+    /*
+     * public function verbs() {
+     *    return array(ActivityVerb::POST, ActivityVerb::UPDATE, ActivityVerb::DELETE);
+     * }
+     */
 
     /**
      * When a notice is deleted, delete the related Sharing
