@@ -51,3 +51,59 @@ msgfmt -o Sharings.mo Sharings.po
 ```
 
 La activación de otros idiomas depende de que las traducciones al idioma que quieres activar estén completadas. Por el momento solo tenemos traducciones de Sharings al Esperanto - dialecto Komunuma - y al Inglés.
+
+
+
+# Sharings
+
+Sharings adds to GNU Social the ability to add objects and services to share with users on your node, while other nodes are connected to you through the federation.
+
+The result is a catalog of objects and shared services that can vary from node to node depending on the connections of its users.
+
+Sharings is the [first tool distributed for a new Sharing Economy] (https://english.lasindias.com/the-first-distributed-tool-for-a-new-sharing-economy).
+
+# Installation
+
+Clone Sharings within the local / plugins` directory and activate it in config.php:
+
+``` Php
+addPlugin('sharings');
+```
+
+Update schemes database from the root of your installation of GNU social
+
+``` Php
+php scripts/checkschema.php
+```
+
+Load categories, types and care used in sharings from the root directory of the plugin in `local/plugins/Sharings`
+
+``` Php
+php scripts/seedsharings.php
+```
+
+# Update
+
+`Git pull` within the root directory sharings
+
+Update schemes database from the root of your installation of GNU social
+
+``` Php
+php scripts/checkschema.php
+```
+
+Update categories, types and care used in sharings from the root directory of sharings
+
+``` Php
+php scripts/seedsharings.php
+```
+
+# Languages
+
+The sharings default language is Spanish but other languages can activate compiling language translation you want to activate. For example if you want to activate English translations you have to go to `local/en/LC_MESSAGES` and compile translations running:
+
+``` bash
+cd local/en/LC_MESSAGES
+msgfmt -o Sharings.mo Sharings.po
+```
+
